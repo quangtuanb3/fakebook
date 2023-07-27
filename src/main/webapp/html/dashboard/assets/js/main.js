@@ -1,74 +1,75 @@
 (function () {
-  /* ========= Preloader ======== */
-  const preloader = document.querySelectorAll('#preloader')
+    /* ========= Preloader ======== */
+    const preloader = document.querySelectorAll('#preloader')
 
-  window.addEventListener('load', function () {
-    if (preloader.length) {
-      this.document.getElementById('preloader').style.display = 'none'
-    }
-  })
+    window.addEventListener('load', function () {
+        if (preloader.length) {
+            this.document.getElementById('preloader').style.display = 'none'
+        }
+    })
 
-  /* ========= Add Box Shadow in Header on Scroll ======== */
-  window.addEventListener('scroll', function () {
-    const header = document.querySelector('.header')
-    if (window.scrollY > 0) {
-      header.style.boxShadow = '0px 0px 30px 0px rgba(200, 208, 216, 0.30)'
-    } else {
-      header.style.boxShadow = 'none'
-    }
-  })
+    /* ========= Add Box Shadow in Header on Scroll ======== */
+    window.addEventListener('scroll', function () {
+        const header = document.querySelector('.header')
+        if (window.scrollY > 0) {
+            header.style.boxShadow = '0px 0px 30px 0px rgba(200, 208, 216, 0.30)'
+        } else {
+            header.style.boxShadow = 'none'
+        }
+    })
 
-  /* ========= sidebar toggle ======== */
-  const sidebarNavWrapper = document.querySelector(".sidebar-nav-wrapper");
-  const mainWrapper = document.querySelector(".main-wrapper");
-  const menuToggleButton = document.querySelector("#menu-toggle");
-  const menuToggleButtonIcon = document.querySelector("#menu-toggle i");
-  const overlay = document.querySelector(".overlay");
+    /* ========= sidebar toggle ======== */
+    const sidebarNavWrapper = document.querySelector(".sidebar-nav-wrapper");
+    const mainWrapper = document.querySelector(".main-wrapper");
+    const menuToggleButton = document.querySelector("#menu-toggle");
+    const menuToggleButtonIcon = document.querySelector("#menu-toggle i");
+    const overlay = document.querySelector(".overlay");
 
-  menuToggleButton.addEventListener("click", () => {
-    sidebarNavWrapper.classList.toggle("active");
-    overlay.classList.add("active");
-    mainWrapper.classList.toggle("active");
+    menuToggleButton.addEventListener("click", () => {
+        sidebarNavWrapper.classList.toggle("active");
+        overlay.classList.add("active");
+        mainWrapper.classList.toggle("active");
 
-    if (document.body.clientWidth > 1200) {
-      if (menuToggleButtonIcon.classList.contains("lni-chevron-left")) {
-        menuToggleButtonIcon.classList.remove("lni-chevron-left");
-        menuToggleButtonIcon.classList.add("lni-menu");
-      } else {
-        menuToggleButtonIcon.classList.remove("lni-menu");
-        menuToggleButtonIcon.classList.add("lni-chevron-left");
-      }
-    } else {
-      if (menuToggleButtonIcon.classList.contains("lni-chevron-left")) {
-        menuToggleButtonIcon.classList.remove("lni-chevron-left");
-        menuToggleButtonIcon.classList.add("lni-menu");
-      }
-    }
-  });
-  overlay.addEventListener("click", () => {
-    sidebarNavWrapper.classList.remove("active");
-    overlay.classList.remove("active");
-    mainWrapper.classList.remove("active");
-  });
+        if (document.body.clientWidth > 1200) {
+            if (menuToggleButtonIcon.classList.contains("lni-chevron-left")) {
+                menuToggleButtonIcon.classList.remove("lni-chevron-left");
+                menuToggleButtonIcon.classList.add("lni-menu");
+            } else {
+                menuToggleButtonIcon.classList.remove("lni-menu");
+                menuToggleButtonIcon.classList.add("lni-chevron-left");
+            }
+        } else {
+            if (menuToggleButtonIcon.classList.contains("lni-chevron-left")) {
+                menuToggleButtonIcon.classList.remove("lni-chevron-left");
+                menuToggleButtonIcon.classList.add("lni-menu");
+            }
+        }
+    });
+    overlay.addEventListener("click", () => {
+        sidebarNavWrapper.classList.remove("active");
+        overlay.classList.remove("active");
+        mainWrapper.classList.remove("active");
+    });
 })();
 
 // Function to open the popup
-document.getElementById("open-add-new-popup").addEventListener("click", function() {
-  document.getElementById("popupOverlay").style.display = "block";
-  document.getElementById("userManagerForm").setAttribute("action","/users?action=create");
-  document.getElementById("userFormSubmit").setAttribute("value","Create user");
+document.getElementById("open-add-new-popup").addEventListener("click", function () {
+    document.getElementById("popupOverlay").style.display = "block";
+    document.getElementById("userManagerForm").setAttribute("action", "/users?action=create");
+    document.getElementById("userFormSubmit").setAttribute("value", "Create user");
 
 });
 
 // Function to close the popup
-document.getElementById("closePopupBtn").addEventListener("click", function() {
-  document.getElementById("popupOverlay").style.display = "none";
+document.getElementById("closePopupBtn").addEventListener("click", function () {
+    document.getElementById("popupOverlay").style.display = "none";
 });
 
 
-document.getElementById("editUserBtn").addEventListener("click", function() {
-  document.getElementById("popupOverlay").style.display = "block";
-  document.getElementById("userManagerForm").setAttribute("action","/users?action=edit");
-  document.getElementById("userFormSubmit").setAttribute("value","Save change");
-});
+function editUser(id) {
+    document.getElementById("popupOverlay").style.display = "block";
+    document.getElementById("userManagerForm").setAttribute("action", "/users?action=edit");
+    document.getElementById("userFormSubmit").setAttribute("value", "Save change");
+
+}
 

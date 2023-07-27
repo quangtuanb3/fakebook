@@ -390,7 +390,7 @@
                      </a>
 
                 </span>
-                <span class="setting-icon" id="editUserBtn">
+                <span class="setting-icon" id="editUserBtn${user.id}" onclick="editUser(${user.id})">
                   <i class="fa fa-user-edit"></i>
                 </span>
                         </td>
