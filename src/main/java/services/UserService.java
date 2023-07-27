@@ -16,10 +16,10 @@ public class UserService {
     private static UserService userService;
 
     static {
-        userList.add(new User(1, "An", "08754682", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
-        userList.add(new User(2, "Binh", "08754682", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
-        userList.add(new User(3, "Huong", "08754682", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
-        userList.add(new User(4, "Nam", "08754682", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
+        userList.add(new User(1, "An", "08754682777", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
+        userList.add(new User(2, "Binh", "08754688882", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
+        userList.add(new User(3, "Huong", "08754699982", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
+        userList.add(new User(4, "Nam", "08754000682", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
 
     }
 

@@ -16,7 +16,8 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="html/dashboard/assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="html/dashboard/assets/css/lineicons.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="html/dashboard/assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="html/dashboard/assets/css/materialdesignicons.min.css" rel="stylesheet"
+          type="text/css"/>
     <link rel="stylesheet" href="html/dashboard/assets/css/fullcalendar.css"/>
     <link rel="stylesheet" href="html/dashboard/assets/css/fullcalendar.css"/>
     <link rel="stylesheet" href="html/dashboard/assets/css/main.css"/>
@@ -240,7 +241,8 @@
                                 <li>
                                     <div class="author-info flex items-center !p-1">
                                         <div class="image">
-                                            <img src="/html/dashboard/assets/images/profile/profile-image.png" alt="image">
+                                            <img src="/html/dashboard/assets/images/profile/profile-image.png"
+                                                 alt="image">
                                         </div>
                                         <div class="content">
                                             <h4 class="text-sm">Stevens</h4>
@@ -306,7 +308,7 @@
                     <div id="popupContainer" class="popup">
                         <div class="popup-content" id="create-user">
                             <span class="close-btn" id="closePopupBtn">&times;</span>
-                            <form method="post" action="/users?action=create">
+                            <form method="post" action="/users?action=create" id="userManagerForm">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <label for="name">Name:</label>
@@ -342,7 +344,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" value="Create User">
+                                    <input type="submit" value="Create User" id="userFormSubmit">
                                 </div>
                             </form>
 
@@ -388,7 +390,7 @@
                      </a>
 
                 </span>
-                            <span class="setting-icon">
+                <span class="setting-icon" id="editUserBtn">
                   <i class="fa fa-user-edit"></i>
                 </span>
                         </td>

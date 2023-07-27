@@ -55,9 +55,20 @@
 // Function to open the popup
 document.getElementById("open-add-new-popup").addEventListener("click", function() {
   document.getElementById("popupOverlay").style.display = "block";
+  document.getElementById("userManagerForm").setAttribute("action","/users?action=create");
+  document.getElementById("userFormSubmit").setAttribute("value","Create user");
+
 });
 
 // Function to close the popup
 document.getElementById("closePopupBtn").addEventListener("click", function() {
   document.getElementById("popupOverlay").style.display = "none";
 });
+
+
+document.getElementById("editUserBtn").addEventListener("click", function() {
+  document.getElementById("popupOverlay").style.display = "block";
+  document.getElementById("userManagerForm").setAttribute("action","/users?action=edit");
+  document.getElementById("userFormSubmit").setAttribute("value","Save change");
+});
+
