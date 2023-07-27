@@ -54,7 +54,7 @@
 
         <li class="nav-item nav-item-has-children" >
           <div style="text-align: left; margin-left: 10px;" >
-            <a href="/html/dashboard/user.jsp">
+            <a href="/users">
             <span class="icon" style="padding: 10px; font-size: 17px;">
               <i class="fa fa-user"></i>
             </span>

@@ -7,33 +7,33 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/html/dashboard/assets/images/favicon.svg" type="image/x-icon"/>
     <title>PlainAdmin Demo | Bootstrap 5 Admin Template</title>
 
     <!-- ========== All CSS files linkup ========= -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="assets/css/lineicons.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="assets/css/fullcalendar.css"/>
-    <link rel="stylesheet" href="assets/css/fullcalendar.css"/>
-    <link rel="stylesheet" href="assets/css/main.css"/>
+    <link rel="stylesheet" href="html/dashboard/assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="html/dashboard/assets/css/lineicons.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="html/dashboard/assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="html/dashboard/assets/css/fullcalendar.css"/>
+    <link rel="stylesheet" href="html/dashboard/assets/css/fullcalendar.css"/>
+    <link rel="stylesheet" href="html/dashboard/assets/css/main.css"/>
 </head>
 
 <body>
 <!-- ======== Preloader =========== -->
-<div id="preloader">
-    <div class="spinner"></div>
-</div>
+<%--<div id="preloader">--%>
+<%--    <div class="spinner"></div>--%>
+<%--</div>--%>
 <!-- ======== Preloader =========== -->
 
 <!-- ======== sidebar-nav start =========== -->
 <aside class="sidebar-nav-wrapper">
     <div class="navbar-logo">
         <a href="index.jsp">
-            <img src="assets/images/logo/logo.svg" alt="logo"/>
+            <img src="/html/dashboard/assets/images/logo/logo.svg" alt="logo"/>
         </a>
     </div>
 
@@ -125,7 +125,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="assets/images/lead/lead-6.png" alt=""/>
+                                            <img src="/html/dashboard/assets/images/lead/lead-6.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>
@@ -145,7 +145,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="assets/images/lead/lead-1.png" alt=""/>
+                                            <img src="/html/dashboard/assets/images/lead/lead-1.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>
@@ -184,7 +184,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="assets/images/lead/lead-5.png" alt=""/>
+                                            <img src="/html/dashboard/assets/images/lead/lead-5.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>Jacob Jones</h6>
@@ -196,7 +196,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="assets/images/lead/lead-3.png" alt=""/>
+                                            <img src="/html/dashboard/assets/images/lead/lead-3.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>John Doe</h6>
@@ -208,7 +208,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="assets/images/lead/lead-2.png" alt=""/>
+                                            <img src="/html/dashboard/assets/images/lead/lead-2.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>Anee Lee</h6>
@@ -227,7 +227,7 @@
                                 <div class="profile-info">
                                     <div class="info">
                                         <div class="image">
-                                            <img src="assets/images/profile/profile-image.png" alt=""/>
+                                            <img src="/html/dashboard/assets/images/profile/profile-image.png" alt=""/>
                                         </div>
                                         <div>
                                             <h6 class="fw-500">Adam Joe</h6>
@@ -240,7 +240,7 @@
                                 <li>
                                     <div class="author-info flex items-center !p-1">
                                         <div class="image">
-                                            <img src="assets/images/profile/profile-image.png" alt="image">
+                                            <img src="/html/dashboard/assets/images/profile/profile-image.png" alt="image">
                                         </div>
                                         <div class="content">
                                             <h4 class="text-sm">Stevens</h4>
@@ -306,7 +306,7 @@
                     <div id="popupContainer" class="popup">
                         <div class="popup-content" id="create-user">
                             <span class="close-btn" id="closePopupBtn">&times;</span>
-                            <form>
+                            <form method="post" action="/users?action=create">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <label for="name">Name:</label>
@@ -371,23 +371,31 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><img src="././assets/images/clients/client-profile.png" alt="Avatar"></td>
-                    <td>John Doe</td>
-                    <td>Male</td>
-                    <td>1990-01-01</td>
-                    <td>john@example.com</td>
-                    <td>123-456-7890</td>
-                    <td>
-                <span id="setting-icon">
-                  <i class="fa fa-lock"></i>
+                <c:forEach items="${userList}" var="user">
+                    <tr>
+                        <td>${user.id}</td>
+                        <td><img src=${user.avatar} alt="Avatar"></td>
+                        <td>${user.name}</td>
+                        <td>${user.getGender()}</td>
+                        <td>${user.dob}</td>
+                        <td>${user.email}</td>
+                        <td>${user.phone}</td>
+                        <td>
+                <span class="setting-icon">
+                     <a onclick="return confirm('Do you to lock ${user.name}')"
+                        href="/users?action=lock&id=${user.id}">
+                          <i class="fa fa-lock"></i>
+                     </a>
+
                 </span>
-                        <span id="setting-icon">
+                            <span class="setting-icon">
                   <i class="fa fa-user-edit"></i>
                 </span>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                </c:forEach>
+
+
                 </tbody>
             </table>
 
@@ -405,15 +413,15 @@
 <!-- ======== main-wrapper end =========== -->
 
 <!-- ========= All Javascript files linkup ======== -->
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/Chart.min.js"></script>
-<script src="assets/js/dynamic-pie-chart.js"></script>
-<script src="assets/js/moment.min.js"></script>
-<script src="assets/js/fullcalendar.js"></script>
-<script src="assets/js/jvectormap.min.js"></script>
-<script src="assets/js/world-merc.js"></script>
-<script src="assets/js/polyfill.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="html/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+<script src="html/dashboard/assets/js/Chart.min.js"></script>
+<script src="html/dashboard/assets/js/dynamic-pie-chart.js"></script>
+<script src="html/dashboard/assets/js/moment.min.js"></script>
+<script src="html/dashboard/assets/js/fullcalendar.js"></script>
+<script src="html/dashboard/assets/js/jvectormap.min.js"></script>
+<script src="html/dashboard/assets/js/world-merc.js"></script>
+<script src="html/dashboard/assets/js/polyfill.js"></script>
+<script src="html/dashboard/assets/js/main.js"></script>
 
 <script>
     // ======== jvectormap activation

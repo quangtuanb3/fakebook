@@ -6002,10 +6002,10 @@ h6,
 #table-user img:hover {
   transform: scale(1.1);
 }
-#setting-icon{
+.setting-icon{
   padding: 10px;
 }
-#setting-icon:hover{
+.setting-icon:hover{
   color: orange;
 }
 

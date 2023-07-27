@@ -1,7 +1,9 @@
 package modals;
 
 import java.sql.Date;
+
 import Enum.EGender;
+import Enum.EUserStatus;
 import lombok.*;
 
 //@Getter
@@ -18,6 +20,7 @@ public class User {
     private EGender gender;
     private String avatar;
     private String cover;
+    private EUserStatus status;
 
     public User(Integer id, String name, String phone, String email, Date dob, EGender gender, String avatar, String cover) {
         this.id = id;
@@ -95,5 +98,13 @@ public class User {
 
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    public EUserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EUserStatus status) {
+        this.status = status;
     }
 }

@@ -13,4 +13,12 @@ public enum EGender {
     String getGender() {
         return this.gender;
     }
+    public static EGender setGender(String gender) {
+        for (EGender eGender : EGender.values()) {
+            if (eGender.gender.equalsIgnoreCase(gender)) {
+                return eGender;
+            }
+        }
+        return OTHER;
+    }
 }

@@ -28,8 +28,8 @@
         <div class="col-form">
             <div class="form-container">
                 <form method="post" action="/login">
-                <input type="text" name="username" placeholder="Email address or phone number">
-                <input type="password" name="password" placeholder="Password">
+                <input type="text" name="username" placeholder="Email address or phone number" value="admin">
+                <input type="password" name="password" placeholder="Password" value="1">
                 <button class="btn-login" type="submit">Login</button>
                 <a href="#">Forgotten password?</a>
                 <button class="btn-new">Create new Account</button>
