@@ -415,6 +415,11 @@
 <!-- ======== main-wrapper end =========== -->
 
 <!-- ========= All Javascript files linkup ======== -->
+
+<script>
+    var jsonData = ${userList};
+</script>
+
 <script src="html/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 <script src="html/dashboard/assets/js/Chart.min.js"></script>
 <script src="html/dashboard/assets/js/dynamic-pie-chart.js"></script>
@@ -426,6 +431,9 @@
 <script src="html/dashboard/assets/js/main.js"></script>
 
 <script>
+
+
+
     // ======== jvectormap activation
     var markers = [
         {name: "Egypt", coords: [26.8206, 30.8025]},

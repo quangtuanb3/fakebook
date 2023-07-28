@@ -12,6 +12,7 @@ import lombok.*;
 //@AllArgsConstructor
 //@Builder
 public class User {
+    public static Integer currentID = 0;
     private Integer id;
     private String name;
     private String phone;

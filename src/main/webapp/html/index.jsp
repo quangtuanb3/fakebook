@@ -139,12 +139,14 @@
             <div class="post-upload-textarea">
                 <textarea name="" placeholder="What's on your mind, Alex?" id="" cols="30" rows="3"></textarea>
                 <div class="add-post-links">
-                    <a href="#"><img src="images/live-video.png" alt="">Live Video</a>
-                    <a href="#"><img src="images/photo.png" alt="">Photo/Video</a>
-                    <a href="#"><img src="images/feeling.png" alt="">Feeling Activity</a>
+                    <span><img src="images/live-video.png" alt="">Live Video</span>
+                    <span><img src="images/photo.png" alt="">Photo/Video</span>
+                    <span><img src="images/feeling.png" alt="">Feeling Activity</span>
                 </div>
             </div>
         </div>
+
+
 
         <div class="status-field-container write-post-container">
             <div class="user-profile-box">
@@ -340,7 +342,7 @@
 <footer id="footer">
     <p>&copy; Copyright 2021 - Socialbook All Rights Reserved</p>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="function.js"></script>
 </body>
 </html>

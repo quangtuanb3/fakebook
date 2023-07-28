@@ -1,5 +1,7 @@
 package controller;
 
+import Utils.AppUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import modals.User;
 import services.UserService;
 
@@ -15,7 +17,6 @@ import java.util.List;
 import Enum.EGender;
 import Enum.EUserStatus;
 
-import static services.UserService.userList;
 
 @WebServlet(urlPatterns = "/users", name = "UserManagerController")
 public class UserManagerController extends HttpServlet {
@@ -26,9 +27,22 @@ public class UserManagerController extends HttpServlet {
             lock(req, resp);
             return;
         }
+        if ("edit".equals(action)) {
+            return;
+        }
         List<User> userList = UserService.getInstance().findAll();
+        // Convert the List<Object> to JSON using ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonData = objectMapper.writeValueAsString(userList);
+
+        // Set content type to JSON
+//        resp.setContentType("application/json");
+        // Send JSON data as the HTTP response
+//        resp.getWriter().write(jsonData);
+
         req.setAttribute("userList", userList);
         req.getRequestDispatcher("html/dashboard/user.jsp").forward(req, resp);
+
     }
 
 
@@ -37,16 +51,13 @@ public class UserManagerController extends HttpServlet {
             throws ServletException, IOException {
         String action = req.getParameter("action");
         if ("create".equals(action)) {
-            // App Ultils validation lất cho Id Gender.
-            String name = req.getParameter("name");
-            String phone = req.getParameter("phone");
-            String dob = req.getParameter("dob");
-            String email = req.getParameter("email");
-            String gender = req.getParameter("gender");
-
-            UserService.userList.add(new User(5, name, phone, email, Date.valueOf(dob),
-                    EGender.setGender(gender), null, null));
+            User user = (User) AppUtil.getObject(req, User.class);
+            if (user != null) UserService.getInstance().create(user);
             req.setAttribute("message", "Created successfully");
+        }
+        if ("edit".equals(action)) {
+            User user = (User) AppUtil.getObject(req, User.class);
+            UserService.getInstance().update(user);
         }
 
         List<User> userList = UserService.getInstance().findAll();

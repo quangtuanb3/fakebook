@@ -16,15 +16,19 @@ public class UserService {
     private static UserService userService;
 
     static {
-        userList.add(new User(1, "An", "08754682777", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
-        userList.add(new User(2, "Binh", "08754688882", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
-        userList.add(new User(3, "Huong", "08754699982", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
-        userList.add(new User(4, "Nam", "08754000682", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
+        userList.add(new User(++User.currentID, "An", "08754682777", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
+        userList.add(new User(++User.currentID, "Binh", "08754688882", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
+        userList.add(new User(++User.currentID, "Huong", "08754699982", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
+        userList.add(new User(++User.currentID, "Nam", "08754000682", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
 
     }
 
     public List<User> findAll() {
         return userList;
+    }
+
+    public User findById(Integer id) {
+        return userList.stream().filter(e -> Objects.equals(e.getId(), id)).findFirst().orElse(null);
     }
 
     public void delete(Long id) {
@@ -54,5 +58,21 @@ public class UserService {
 
     public User getByID(Integer id) {
         return userList.stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    public void create(User user) {
+        user.setId(getNextId());
+        userList.add(user);
+    }
+
+    private Integer getNextId() {
+        return ++User.currentID;
+
+    }
+
+    public void update(User user) {
+        userList.stream().filter(existUser -> existUser.getEmail().equals(user.getEmail()))
+                .findFirst()
+                .ifPresent(existUser -> userList.set(userList.indexOf(existUser), user));
     }
 }

@@ -52,6 +52,7 @@
     });
 })();
 
+
 // Function to open the popup
 document.getElementById("open-add-new-popup").addEventListener("click", function () {
     document.getElementById("popupOverlay").style.display = "block";
@@ -65,11 +66,43 @@ document.getElementById("closePopupBtn").addEventListener("click", function () {
     document.getElementById("popupOverlay").style.display = "none";
 });
 
-
 function editUser(id) {
     document.getElementById("popupOverlay").style.display = "block";
     document.getElementById("userManagerForm").setAttribute("action", "/users?action=edit");
     document.getElementById("userFormSubmit").setAttribute("value", "Save change");
+    showEditUser(id).then(user => {
+        console.log(user)
+    })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 
+
+async function getUser(id) {
+    try {
+        // Make a GET request to the API endpoint with the specified id as a query parameter
+        const response = await axios.get(`/api/users?id=${id}`);
+        const user = response.data;
+        // Now you have access to the user data
+        console.log(user);
+        return user;
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        throw error;
+    }
+}
+
+
+// Call the function to fetch the user list when needed
+async function showEditUser(id) {
+    try {
+        const user = await getUser(id);
+        document.getElementById('usernameInput').value = user.name;
+        document.getElementById('emailInput').value = user.email;
+        console.log(user); // You can see the userList here as well
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 

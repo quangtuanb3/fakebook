@@ -373,7 +373,7 @@ img.advertisement-image {
     margin-top: 10px;
 }
 
-.add-post-links a {
+.add-post-links span {
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -381,7 +381,7 @@ img.advertisement-image {
     font-size: 13px;
 }
 
-.add-post-links a img {
+.add-post-links span img {
     width: 20px;
     margin-right: 13px;
 }
@@ -713,7 +713,7 @@ img.coverImage {
 
 /*customize*/
 
-.popup-overlay {
+#popupOverlay {
     display: none;
     position: fixed;
     top: 0;
