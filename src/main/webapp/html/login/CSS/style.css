@@ -179,3 +179,11 @@ footer ol li a:hover {
 footer small {
     font-size: 11px;
 }
+
+.error {
+    color: red;
+    display: none;
+}
+.input-custom:invalid[focused="true"]~span {
+    display: block;
+}

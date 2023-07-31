@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 
 import Enum.EGender;
 import Enum.EUserStatus;
+
+import static org.glassfish.json.JsonUtil.toJson;
 
 
 @WebServlet(urlPatterns = "/users", name = "UserManagerController")
@@ -23,27 +26,30 @@ public class UserManagerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        if ("get".equals(action)) {
+            Integer userId = Integer.parseInt(req.getParameter("id"));
+            User user = UserService.getInstance().findById(userId);
+            if (user != null) {
+                resp.setContentType("application/json");
+                resp.getWriter().write(AppUtil.objToJson(user));
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            }
+            return;
+        }
+
         if ("lock".equals(action)) {
             lock(req, resp);
             return;
         }
-        if ("edit".equals(action)) {
-            return;
-        }
+
+
+        // If the action is not "get", "lock", or "edit", return the list of users
         List<User> userList = UserService.getInstance().findAll();
-        // Convert the List<Object> to JSON using ObjectMapper
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonData = objectMapper.writeValueAsString(userList);
-
-        // Set content type to JSON
-//        resp.setContentType("application/json");
-        // Send JSON data as the HTTP response
-//        resp.getWriter().write(jsonData);
-
         req.setAttribute("userList", userList);
         req.getRequestDispatcher("html/dashboard/user.jsp").forward(req, resp);
-
     }
+
 
 
     @Override
@@ -52,7 +58,10 @@ public class UserManagerController extends HttpServlet {
         String action = req.getParameter("action");
         if ("create".equals(action)) {
             User user = (User) AppUtil.getObject(req, User.class);
+
             if (user != null) UserService.getInstance().create(user);
+            assert user != null;
+            System.out.println(user);
             req.setAttribute("message", "Created successfully");
         }
         if ("edit".equals(action)) {

@@ -761,3 +761,10 @@ button[type="button"] {
     background-color: #4CAF50;
 }
 
+.error {
+    color: red;
+    display: none;
+}
+.input-custom:invalid[focused="true"]~span {
+    display: block;
+}

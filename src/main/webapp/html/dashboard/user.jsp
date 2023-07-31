@@ -11,6 +11,11 @@
     <title>PlainAdmin Demo | Bootstrap 5 Admin Template</title>
 
     <!-- ========== All CSS files linkup ========= -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -296,7 +301,7 @@
                     <!-- end col -->
                     <div class="col-md-6">
                         <div class="breadcrumb-wrapper">
-                            <button id="open-add-new-popup">Add new</button>
+                            <button id="open-add-new-popup" onclick="openPopup()">Add new</button>
                         </div>
                     </div>
                     <!-- end col -->
@@ -307,45 +312,19 @@
                 <div id="popupOverlay" class="popup-overlay">
                     <div id="popupContainer" class="popup">
                         <div class="popup-content" id="create-user">
-                            <span class="close-btn" id="closePopupBtn">&times;</span>
-                            <form method="post" action="/users?action=create" id="userManagerForm">
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <label for="name">Name:</label>
-                                        <input type="text" id="name" name="name" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <label for="gender">Gender:</label>
-                                        <select id="gender" name="gender" required>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
+                            <span class="close-btn" id="closePopupBtn" onclick="closePopup()">&times;</span>
+                            <form method="post" id="userManagerForm"
+                                    <c:if test="${user.id == null}"> action="/users?action=create" </c:if>
+                                    <c:if test="${user.id != null}"> action="/users?action=edit" </c:if>
+                            >
+                                <div id="formBody" class="row">
+
                                 </div>
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <label for="dob">Date of Birth:</label>
-                                        <input type="date" id="dob" name="dob" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <label for="phone">Phone:</label>
-                                        <input type="tel" id="phone" name="phone" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <label for="email">Email:</label>
-                                        <input type="email" id="email" name="email" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <label for="password">Password:</label>
-                                        <input type="password" id="password" name="password" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Create User" id="userFormSubmit">
-                                </div>
+                                <button class="btn btn-primary" type="submit" id="userFormSubmit">
+                                    <c:if test="${user.id != null}"> Edit User </c:if>
+                                    <c:if test="${user.id == null}"> Create User </c:if>
+                                </button>
+
                             </form>
 
                         </div>
@@ -376,23 +355,24 @@
                 <c:forEach items="${userList}" var="user">
                     <tr>
                         <td>${user.id}</td>
-                        <td><img src=${user.avatar} alt="Avatar"></td>
+                        <td><img src="" alt="Avatar"></td>
                         <td>${user.name}</td>
-                        <td>${user.getGender()}</td>
+                        <td>${user.gender}</td>
                         <td>${user.dob}</td>
                         <td>${user.email}</td>
                         <td>${user.phone}</td>
                         <td>
-                <span class="setting-icon">
-                     <a onclick="return confirm('Do you to lock ${user.name}')"
-                        href="/users?action=lock&id=${user.id}">
-                          <i class="fa fa-lock"></i>
-                     </a>
+                            <span class="setting-icon">
+                                 <a onclick="return confirm('Do you to lock ${user.name}')"
+                                    href="/users?action=lock&id=${user.id}">
+                                      <i class="fa fa-lock"></i>
+                                 </a>
 
-                </span>
-                <span class="setting-icon" id="editUserBtn${user.id}" onclick="editUser(${user.id})">
-                  <i class="fa fa-user-edit"></i>
-                </span>
+                            </span>
+                            <span class="setting-icon" id="editUserBtn${user.id}"
+                                  onclick="showPopupWithUserData('${user.id}')">
+                              <i class="fa fa-user-edit"></i>
+                            </span>
                         </td>
                     </tr>
                 </c:forEach>
@@ -415,11 +395,21 @@
 <!-- ======== main-wrapper end =========== -->
 
 <!-- ========= All Javascript files linkup ======== -->
+<script src="html/baseForm.js"></script>
 
-<script>
-    var jsonData = ${userList};
-</script>
 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="html/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 <script src="html/dashboard/assets/js/Chart.min.js"></script>
 <script src="html/dashboard/assets/js/dynamic-pie-chart.js"></script>
@@ -430,10 +420,134 @@
 <script src="html/dashboard/assets/js/polyfill.js"></script>
 <script src="html/dashboard/assets/js/main.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+    const inputs = [
+        {
+            label: "Name",
+            name: "name",
+            pattern: "",
+            message: "Name must have minimum 6 characters and maximum 20 characters",
+            required: true,
+            value: '',
+            classDiv: ''
+        },
+        {
+            label: "Gender",
+            name: "gender",
+            type: "select",
+            message: "Please choose gender",
+            options: [
+                {value: "MALE", name: "Male"},
+                {value: "FEMALE", name: "Female"},
+                {value: "OTHER", name: "Other"}
+            ],
+            required: true,
+            value: '',
+            classDiv: ''
+        },
+        {
+            label: "Date of Birth",
+            name: "dob",
+            type: "date",
+            message: "Please enter a valid date",
+            required: true,
+            value: '',
+            classDiv: ''
+        },
+        {
+            label: "Phone",
+            name: "phone",
+            type: "text",
+            message: "Please enter a valid phone number",
+            pattern: "^(\\+?84|0)(3[2-9]|5[2689]|7[06-9]|8[1-9]|9[0-9])[0-9]{7}$",
+            required: true,
+            value: '',
+            classDiv: ''
+        },
+        {
+            label: "Email",
+            name: "email",
+            type: "email",
+            message: "Please enter a valid email address",
+            required: true,
+            value: '',
+            classDiv: ''
+        },
+        {
+            label: "Roll",
+            name: "roll",
+            type: "select",
+            message: "Please choose roll",
+            options: [
+                {value: "USER", name: "user"},
+                {value: "ADMIN", name: "admin"}
+            ],
+            required: true,
+            value: '',
+            classDiv: ''
+        },
+        {
+            label: "",
+            name: "id",
+            type: "number",
+            message: "Disable",
+            value: '',
+            classDiv: 'hidden'
+        }
+
+    ];
+    const formBody = document.getElementById('formBody');
+
+    inputs.forEach((props, index) => {
+        formBody.innerHTML += formInput(props, index);
+    })
 
 
+</script>
+<script>
+    //fetch data
+    // Function to fetch user data using Axios
+    function fetchUserData(userId) {
+        console.log(userId)
+        if (userId == null) {
+            return;
+        }
+        // Make an AJAX request using Axios to fetch user data from the server
+        axios.get('/users?action=get&id=' + userId)
+            .then(response => {
+                const userData = response.data;
+                console.log(userData);
+                populateForm(userData); // Call a function to populate the form with the fetched user data
+            })
+            .catch(error => {
+                // console.error('Error fetching user data:', error);
+                // Handle error
+            });
+    }
 
+    // Function to populate the form with user data
+    function populateForm(userData) {
+        const formInputs = document.querySelectorAll('#userManagerForm input, #userManagerForm select');
+        formInputs.forEach(input => {
+            const fieldName = input.name;
+
+            if (fieldName in userData) {
+                input.value = userData[fieldName];
+            }
+        });
+    }
+
+    // Function to show the popup with user data when the Edit button is clicked
+    function showPopupWithUserData(userId) {
+        fetchUserData(userId); // Fetch user data
+        document.getElementById('popupOverlay').style.display = 'block'; // Show the popup
+    }
+
+
+</script>
+
+<script>
     // ======== jvectormap activation
     var markers = [
         {name: "Egypt", coords: [26.8206, 30.8025]},
@@ -481,7 +595,8 @@
         },
     });
     // ====== calendar activation
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContent" +
+        "ed", function () {
         var calendarMiniEl = document.getElementById("calendar-mini");
         var calendarMini = new FullCalendar.Calendar(calendarMiniEl, {
             initialView: "dayGridMonth",

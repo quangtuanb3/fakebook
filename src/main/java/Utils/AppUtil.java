@@ -1,8 +1,9 @@
 package Utils;
 
-import Utils.AppConstant;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import modals.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
@@ -48,5 +49,13 @@ public class AppUtil {
 
         }
         return object;
+    }
+    public static String objToJson(User obj) {
+        try {
+            return mapper.writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace(); // Handle the exception as per your requirement
+            return ""; // Return an empty string or any error message
+        }
     }
 }

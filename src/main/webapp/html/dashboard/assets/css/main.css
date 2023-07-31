@@ -6101,3 +6101,15 @@ h6,
   font-size: 20px;
   cursor: pointer;
 }
+
+.error {
+  color: red;
+  display: none;
+}
+.input-custom:invalid[focused="true"]~span {
+  display: block;
+}
+
+.hidden{
+  display: none!important;
+}

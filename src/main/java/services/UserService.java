@@ -1,14 +1,19 @@
 package services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import modals.Post;
 import modals.User;
 import Enum.EGender;
+import Enum.ERole;
+import Enum.EUserStatus;
 
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class UserService {
     public static List<User> userList = new ArrayList<>();
@@ -16,10 +21,10 @@ public class UserService {
     private static UserService userService;
 
     static {
-        userList.add(new User(++User.currentID, "An", "08754682777", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
-        userList.add(new User(++User.currentID, "Binh", "08754688882", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
-        userList.add(new User(++User.currentID, "Huong", "08754699982", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
-        userList.add(new User(++User.currentID, "Nam", "08754000682", "email@gmail.com", Date.valueOf("2020-10-01"), EGender.FEMALE, null, null));
+        userList.add(new User(++User.currentID, "An", "08754682777", "email@gmail.com", UUID.randomUUID().toString(), ERole.USER, Date.valueOf("2020-10-01"), EGender.FEMALE, null, null, EUserStatus.ACTIVE));
+        userList.add(new User(++User.currentID, "Binh", "08754688882", "email@gmail.com", UUID.randomUUID().toString(), ERole.USER, Date.valueOf("2020-10-01"), EGender.FEMALE, null, null, EUserStatus.ACTIVE));
+        userList.add(new User(++User.currentID, "Huong", "08754699982", "email@gmail.com", UUID.randomUUID().toString(), ERole.USER, Date.valueOf("2020-10-01"), EGender.FEMALE, null, null, EUserStatus.ACTIVE));
+        userList.add(new User(++User.currentID, "Nam", "08754000682", "email@gmail.com", UUID.randomUUID().toString(), ERole.USER, Date.valueOf("2020-10-01"), EGender.FEMALE, null, null, EUserStatus.ACTIVE));
 
     }
 
@@ -75,4 +80,6 @@ public class UserService {
                 .findFirst()
                 .ifPresent(existUser -> userList.set(userList.indexOf(existUser), user));
     }
+
+
 }

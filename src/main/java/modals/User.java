@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import Enum.EGender;
 import Enum.EUserStatus;
-import lombok.*;
+import Enum.ERole;
 
 //@Getter
 //@Setter
@@ -17,21 +17,26 @@ public class User {
     private String name;
     private String phone;
     private String email;
+    private String password;
+    private ERole roll;
     private Date dob;
     private EGender gender;
     private String avatar;
     private String cover;
     private EUserStatus status;
 
-    public User(Integer id, String name, String phone, String email, Date dob, EGender gender, String avatar, String cover) {
+    public User(Integer id, String name, String phone, String email, String password, ERole roll, Date dob, EGender gender, String avatar, String cover, EUserStatus status) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.password = password;
+        this.roll = roll;
         this.dob = dob;
         this.gender = gender;
         this.avatar = avatar;
         this.cover = cover;
+        this.status = status;
     }
 
     public User() {
