@@ -40,7 +40,7 @@
                 <img src="images/profile-pic.png" alt="">
                 <div>
                     <p> Alex Carry</p>
-                    <a href="/html/profile.jsp">See your profile</a>
+                    <a href="/profiles">See your profile</a>
                 </div>
             </div>
             <div id="dark-button" onclick="darkModeON()">

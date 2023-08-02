@@ -379,11 +379,13 @@ img.advertisement-image {
     align-items: center;
     color: #626262;
     font-size: 13px;
+    cursor: pointer;
 }
 
 .add-post-links span img {
     width: 20px;
     margin-right: 13px;
+
 }
 
 .status-field-container {
@@ -607,7 +609,9 @@ img.coverImage {
     font-size: 13px;
     margin-bottom: 12px;
 }
+.right-dashboard-info{
 
+}
 .right-dashboard-info-top {
     display: flex;
     align-items: center;
@@ -712,59 +716,149 @@ img.coverImage {
 
 
 /*customize*/
-
-#popupOverlay {
+/* Popup styles */
+.popup-overlay {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
+    justify-content: center;
+    align-items: center;
 }
 
 .popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-popup-button {
+    background: none;
+    border: none;
     cursor: pointer;
+    font-size: 16px;
+    color: #555;
 }
 
-textarea, select {
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 10px;
+}
+
+.post-content {
+    position: relative;
+}
+
+#post-text {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    height: 80px;
+    resize: none;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #f2f2f2;
     margin-bottom: 10px;
 }
 
-.button-group {
+.image-preview {
+    max-height: 300px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.upload-media-button {
+    margin-bottom: 0px;
+}
+
+.post-actions {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-button[type="button"] {
-    width: 48%;
-    background-color: #4CAF50;
+.action-button {
+    background-color: #f2f2f2;
+    color: #555;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
-.error {
-    color: red;
-    display: none;
+.action-button i {
+    margin: 0 3px;
 }
-.input-custom:invalid[focused="true"]~span {
-    display: block;
+
+.privacy-settings {
+    display: flex;
+    align-items: center;
+}
+
+.privacy-label {
+    margin-right: 10px;
+}
+
+#privacy-select {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+#post-button {
+    padding: 8px 16px;
+    background-color: #0084ff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+#post-button:hover {
+    background-color: #0072e3;
+}
+
+/* Adjusted styles for username and privacy select */
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.user-details {
+    margin-left: 10px;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.upload-media-button {
+    position: relative;
+    cursor: pointer;
+}
+
+.upload-media-button i {
+    margin-right: 5px;
 }

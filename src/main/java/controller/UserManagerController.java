@@ -31,7 +31,7 @@ public class UserManagerController extends HttpServlet {
             User user = UserService.getInstance().findById(userId);
             if (user != null) {
                 resp.setContentType("application/json");
-                resp.getWriter().write(AppUtil.objToJson(user));
+                resp.getWriter().write(new ObjectMapper().writeValueAsString(user));
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }

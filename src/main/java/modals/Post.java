@@ -1,36 +1,39 @@
 package modals;
 
-import lombok.*;
-
 import java.sql.Timestamp;
+import java.util.List;
 
 import Enum.ELimit;
 
-//@Builder
-//@Getter
-//@Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class Post {
+    public static Integer currentId = 0;
     private Integer id;
     private User user;
-    private String data;
     Timestamp timestamp;
     String location;
     Share share;
     private ELimit eLimit;
+    LikeNumber likeNumber;
+    List<User> tags;
+    List<String> hashTag;
+    Content content;
+    List<Media> media;
+    Long commentNumber;
+    Long shareNumber;
+
 
     public Post() {
     }
 
-    public Post(Integer id, User user, String data, Timestamp timestamp, String location, Share share, ELimit eLimit) {
+    public Post(Integer id, User user, Content content, Timestamp timestamp, String location, Share share, ELimit eLimit, List<String> hashTag) {
         this.id = id;
         this.user = user;
-        this.data = data;
+        this.content = content;
         this.timestamp = timestamp;
         this.location = location;
         this.share = share;
         this.eLimit = eLimit;
+        this.hashTag = hashTag;
     }
 
     public Integer getId() {
@@ -47,14 +50,6 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public Timestamp getTimestamp() {
@@ -88,4 +83,61 @@ public class Post {
     public void seteLimit(ELimit eLimit) {
         this.eLimit = eLimit;
     }
+
+    public LikeNumber getLikeNumber() {
+        return likeNumber;
+    }
+
+    public void setLikeNumber(LikeNumber likeNumber) {
+        this.likeNumber = likeNumber;
+    }
+
+    public List<User> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<User> tags) {
+        this.tags = tags;
+    }
+
+    public List<String> getHashTag() {
+        return hashTag;
+    }
+
+    public void setHashTag(List<String> hashTag) {
+        this.hashTag = hashTag;
+    }
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
+
+    public List<Media> getMedia() {
+        return media;
+    }
+
+    public void setMedia(List<Media> media) {
+        this.media = media;
+    }
+
+    public Long getCommentNumber() {
+        return commentNumber;
+    }
+
+    public void setCommentNumber(Long commentNumber) {
+        this.commentNumber = commentNumber;
+    }
+
+    public Long getShareNumber() {
+        return shareNumber;
+    }
+
+    public void setShareNumber(Long shareNumber) {
+        this.shareNumber = shareNumber;
+    }
 }
+
