@@ -1,4 +1,4 @@
-package services.dto.Enum;
+package Model.Enum;
 
 public enum ERole {
     USER("user"),

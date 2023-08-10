@@ -1,9 +1,7 @@
 package DAO;
 
 import Model.Profile;
-import Model.User;
 import Utils.AppUtil;
-import services.dto.Enum.EGender;
 import services.dto.Enum.ESortType;
 import services.dto.PageableRequest;
 
@@ -14,11 +12,11 @@ import java.util.Optional;
 
 public class ProfileDAO extends DatabaseConnection{
     private final String TABLE_PROFILES = "profiles";
-    private final String SELECT_ALL_PROFILES = "SELECT p.*,u.email user_email, u.password user_password, u.id user_id  FROM `profiles` p LEFT JOIN " +
+    private final String SELECT_ALL_PROFILES = "SELECT p.*,u.email `user.email`,  u.id `user.id`, u.password `user.password`  FROM `profiles` p LEFT JOIN " +
             "`users` u on p.user_id = u.id  WHERE p.`name` like  '%s' OR p.`dob` like '%s' OR p.`cover` like '%s' OR p.`gender` like '%s' OR p.`user_id` like '%s'  Order BY %s %s LIMIT %s OFFSET %s";
     private final String SELECT_TOTAL_RECORDS = "SELECT COUNT(1) as cnt  FROM `profiles` p LEFT JOIN " +
             "`users` u on p.user_id = u.id  WHERE p.`name` like '%s' OR p.`dob` like '%s' OR p.`cover` like '%s' OR p.`gender` like '%s' OR p.`user_id` like '%s'";
-//    private final String INSERT_TEACHERS ="INSERT INTO `teachers` (`name`, `dob`, `hobie`, `gender`, `category_id`) VALUES ( ?, ?, ?, ?, ?)";
+    private final String INSERT_PROFILES ="INSERT INTO `profiles` (`name`,`avatar`, `user_id`, `dob`,`gender`, `phone`, `cover`, ) VALUES ( ?,?,?, ?, ?, ?, ?)";
 //
 //    private final String UPDATE_TEACHERS = "UPDATE `teachers` SET `name` = ?, `dob` = ?, `hobie` = ?, `gender` = ?, `category_id` = ? WHERE (`id` = ?)";
 
@@ -52,7 +50,7 @@ public class ProfileDAO extends DatabaseConnection{
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                teachers.add(getProfileByResultSet(rs));
+                teachers.add(AppUtil.getObjectFromResultSet(rs, Profile.class));
             }
             PreparedStatement statementTotalRecords = connection
                     .prepareStatement(String.format(SELECT_TOTAL_RECORDS, search,  search, search, search, search));
@@ -70,11 +68,16 @@ public class ProfileDAO extends DatabaseConnection{
     public void insertProfile(Profile profile){
         try (Connection connection = getConnection();
 
-             // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
              PreparedStatement preparedStatement = connection
-                     .prepareStatement(AppUtil.buildInsertSql(TABLE_PROFILES, profile))) {
+                     .prepareStatement(INSERT_PROFILES)) {
             System.out.println(preparedStatement);
-
+            preparedStatement.setString(1,profile.getName());
+            preparedStatement.setString(2,profile.getPhone());
+            preparedStatement.setString(3,profile.getAvatar());
+            preparedStatement.setString(4,profile.getDob());
+            preparedStatement.setString(5,profile.getGender().toString());
+            preparedStatement.setString(6,profile.getCover());
+            preparedStatement.setInt(7,profile.getUser().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -104,12 +107,12 @@ public class ProfileDAO extends DatabaseConnection{
 
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                return Optional.of(getProfileByResultSet(rs));
+                return Optional.of(AppUtil.getObjectFromResultSet(rs,Profile.class));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return Optional.empty();
     }
     public Boolean existByID(Integer id) {
         try (Connection connection = getConnection();
@@ -131,34 +134,13 @@ public class ProfileDAO extends DatabaseConnection{
 
     public void deleteById(Integer id) {
         try (Connection connection = getConnection();
-
-             // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
              PreparedStatement preparedStatement = connection
                      .prepareStatement(DELETE_BY_ID)) {
             preparedStatement.setLong(1, id);
             System.out.println(preparedStatement);
-
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private Profile getProfileByResultSet(ResultSet rs) throws SQLException {
-        Long id = rs.getLong("id");
-        String name = rs.getString("name");
-        String phone = rs.getString("phone");
-        String avatar = rs.getString("avatar");
-        String dob = rs.getString("dob");
-        String gender = rs.getString("gender");
-        String cover = rs.getString("cover");
-
-        String userMail = rs.getString("user_mail");
-        String userPassword = rs.getString("user_password");
-        Long userId = rs.getLong("user_id");
-        User user = new User(userId, userMail,userPassword);
-
-        return new Profile(id, name,phone,avatar,Date.valueOf(dob),EGender.valueOf(gender), cover,user);
     }
 }

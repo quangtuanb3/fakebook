@@ -5,12 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private final String JDBC_URL = "jdbc:mysql://localhost:3306/facebook"; // sửa chữ bài tập thành database của mình;
-    private final String JDBC_USERNAME = "root";
+    private final String JDBC_URL = "jdbc:mysql://14.225.205.182:1887/c0423i1_ttd_facebook"; // sửa chữ bài tập thành database của mình;
+    private final String JDBC_USERNAME = "c0423i1_ttd";
     //                            password của mình
-    private final String JDBC_PASSWORD = "123456";
+    private final String JDBC_PASSWORD = "Raisingthebar123!!/";
 
-    protected Connection getConnection() {
+
+    protected  Connection getConnection() {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");

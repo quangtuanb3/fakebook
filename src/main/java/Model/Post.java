@@ -3,7 +3,7 @@ package Model;
 import java.sql.Timestamp;
 import java.util.List;
 
-import services.dto.Enum.ELimit;
+import Model.Enum.ELimit;
 
 public class Post {
     public static Integer currentId = 0;

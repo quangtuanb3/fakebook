@@ -1,5 +1,5 @@
 package Model;
-import services.dto.Enum.ELimit;
+import Model.Enum.ELimit;
 
 //@Getter
 //@Setter

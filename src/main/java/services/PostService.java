@@ -14,7 +14,7 @@
 //import java.util.Objects;
 //import java.util.stream.Collectors;
 //
-//import services.dto.Enum.ELimit;
+//import Model.Enum.ELimit;
 //
 //public class PostService {
 //    private static List<Post> postList = new ArrayList<>();

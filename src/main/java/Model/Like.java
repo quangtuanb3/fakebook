@@ -1,5 +1,5 @@
 package Model;
-import services.dto.Enum.ELike;
+import Model.Enum.ELike;
 
 public class Like {
     public static Integer currentId = 0;

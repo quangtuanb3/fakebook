@@ -1,6 +1,8 @@
 package controller;
 
+import DAO.UserDAO;
 import Model.Profile;
+import Model.User;
 import Utils.AppConstant;
 import Utils.AppUtil;
 import Utils.RunnableCustom;
@@ -8,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import services.ProfileService;
 import services.UserService;
-import services.dto.Enum.EGender;
+import Model.Enum.EGender;
 import services.dto.Enum.ESortType;
 import services.dto.PageableRequest;
 
@@ -21,14 +23,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 @WebServlet(urlPatterns = "/admins/users-management", name = "profileController")
-public class ProfileController extends HttpServlet {
+public class ProfileManagerController extends HttpServlet {
     private final String PAGE = "/admins";
 
     private Map<String, RunnableCustom> validators;
 
     private final Map<String, String> errors = new HashMap<>();
+    UserDAO userDAO=new UserDAO();
 
     @Override
     public void init() {
@@ -39,19 +43,6 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter(AppConstant.ACTION);
-
-//        if (Objects.equals(action, AppConstant.EDIT)) {
-//            showEdit(req, resp);
-//            return;
-//        }
-//        if (Objects.equals(action, AppConstant.CREATE)) {
-//            showCreate(req, resp);
-//            return;
-//        }
-//        if (Objects.equals(action, AppConstant.DELETE)) {
-//            delete(req, resp);
-//            return;
-//        }
         showList(req, resp);
     }
 
@@ -75,19 +66,22 @@ public class ProfileController extends HttpServlet {
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Profile profile = getValidUser(req, resp); // lấy ra user và + xử lý cho việc validation của các field trong class User.
-        if (errors.size() == 0) { //không xảy lỗi (errors size == 0) thì mình mới tạo user.
+        User user = getValidUser(req, resp);
+        Profile profile = getValidProfile(req, resp);
+        if (errors.size() == 0) {
+            UserService.getUserService().create(user);
+            User userDB = userDAO.getUserByEmail(user.getEmail());
+            profile.setUser(userDB);
             ProfileService.getProfileService().create(profile);
-            resp.sendRedirect("/users?message=Created");
+            resp.sendRedirect("/admins/users-management?message=Created");
         }
-
     }
 
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Profile profile = getValidUser(req, resp); // lấy ra user và + xử lý cho việc validation của các field trong class User.
+        Profile profile = getValidProfile(req, resp); // lấy ra user và + xử lý cho việc validation của các field trong class User.
         if (errors.size() == 0) { //không xảy lỗi (errors size == 0) thì mình mới sửa user.
             ProfileService.getProfileService().edit(profile);
-            resp.sendRedirect("/users?message=Edited");
+            resp.sendRedirect("/admins/users-management?message=Edited");
         }
     }
 
@@ -106,30 +100,30 @@ public class ProfileController extends HttpServlet {
         req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
         req.setAttribute("message", req.getParameter("message")); // gửi qua message để toastr show thông báo
         req.setAttribute("gendersJSON", new ObjectMapper().writeValueAsString(EGender.values()));
-        req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers()));
+        req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers(request)));
         String s = PAGE + AppConstant.USERS_MANAGEMENT_PAGE;
         System.out.println("url" + s);
         req.getRequestDispatcher(s).forward(req,resp);
     }
 
-    private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(new Profile())); // gửi qua user rỗng để JS vẻ lên trang web
-        req.setAttribute("gendersJSON", new ObjectMapper().writeValueAsString(EGender.values()));
-        req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers()));
-        req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
-                .forward(req,resp);
-    }
-
-    private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer id = Integer.valueOf(req.getParameter("id"));
-        if(checkIdNotFound(req, resp, id)) return;
-        req.setAttribute("genderJSON", new ObjectMapper().writeValueAsString(EGender.values()));
-        req.setAttribute("profiles",ProfileService.getProfileService().findById(id)); // gửi user để jsp check xem edit hay là create User
-        req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().findById(id))); // gửi qua user được tìm thấy bằng id để JS vẻ lên trang web
-        req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers()));
-        req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
-                .forward(req,resp);
-    }
+//    private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(new Profile())); // gửi qua user rỗng để JS vẻ lên trang web
+//        req.setAttribute("gendersJSON", new ObjectMapper().writeValueAsString(EGender.values()));
+//        req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers()));
+//        req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
+//                .forward(req,resp);
+//    }
+//
+//    private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        Integer id = Integer.valueOf(req.getParameter("id"));
+//        if(checkIdNotFound(req, resp, id)) return;
+//        req.setAttribute("genderJSON", new ObjectMapper().writeValueAsString(EGender.values()));
+//        req.setAttribute("profiles",ProfileService.getProfileService().findById(id)); // gửi user để jsp check xem edit hay là create User
+//        req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().findById(id))); // gửi qua user được tìm thấy bằng id để JS vẻ lên trang web
+//        req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers()));
+//        req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
+//                .forward(req,resp);
+//    }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer id = Integer.valueOf(req.getParameter("id"));
@@ -138,7 +132,7 @@ public class ProfileController extends HttpServlet {
         resp.sendRedirect(PAGE + "?message=Deleted");
     }
 
-    private Profile getValidUser(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    private Profile getValidProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Profile profile = (Profile) AppUtil.getObjectWithValidation(req, Profile.class,  validators); //
         if(errors.size() > 0){
             PageableRequest request = new PageableRequest(
@@ -147,20 +141,37 @@ public class ProfileController extends HttpServlet {
                     ESortType.valueOf(AppUtil.getParameterWithDefaultValue(req,"sortType", ESortType.DESC).toString()),
                     Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "page", "1").toString()),
                     Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "limit", "10").toString())
-            ); //tao doi tuong pageable voi parametter search
-
+            );
             req.setAttribute("pageable", request);
-            req.setAttribute("teachers", ProfileService.getProfileService().getProfileList(request)); // gửi qua list users để jsp vẻ lên trang web
-            req.setAttribute("teachersJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
-//            req.setAttribute("message", req.getParameter("message")); // gửi qua message để toastr show thông báo
+            req.setAttribute("profiles", ProfileService.getProfileService().getProfileList(request)); // gửi qua list users để jsp vẻ lên trang web
+            req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
             req.setAttribute("gendersJSON", new ObjectMapper().writeValueAsString(EGender.values()));
-            req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers()));
+            req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers(request)));
             req.setAttribute("message","Something was wrong");
             req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
                     .forward(req,resp);
         }
 
         return profile;
+    }
+
+    private User getValidUser(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        User user = (User) AppUtil.getObjectWithValidation(req, User.class,  validators);
+        assert user != null;
+        user.setPassword(UUID.randomUUID().toString());
+        if(errors.size() > 0){
+            PageableRequest request = new PageableRequest(
+                    req.getParameter("search"),
+                    req.getParameter("sortField"),
+                    ESortType.valueOf(AppUtil.getParameterWithDefaultValue(req,"sortType", ESortType.DESC).toString()),
+                    Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "page", "1").toString()),
+                    Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "limit", "10").toString())
+            );
+            req.setAttribute("message","Something was wrong");
+            req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
+                    .forward(req,resp);
+        }
+        return user;
     }
 
     private boolean checkIdNotFound(HttpServletRequest req, HttpServletResponse resp, Integer id) throws IOException{

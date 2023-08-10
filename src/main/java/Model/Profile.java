@@ -2,7 +2,7 @@ package Model;
 
 import java.sql.Date;
 
-import services.dto.Enum.EGender;
+import Model.Enum.EGender;
 
 //@Getter
 //@Setter
@@ -11,7 +11,7 @@ import services.dto.Enum.EGender;
 //@Builder
 public class Profile {
 //    public static Long currentID = 0;
-    private Long id;
+    private Integer id;
     private String name;
     private String phone;
     private String avatar;
@@ -20,14 +20,14 @@ public class Profile {
     private String cover;
     private User user;
 
-    public Profile(Long id) {
+    public Profile(Integer id) {
         this.id = id;
     }
 
     public Profile() {
     }
 
-    public Profile(Long id, String name, String phone, String avatar, Date dob, EGender gender, String cover, User user) {
+    public Profile(Integer id, String name, String phone, String avatar, Date dob, EGender gender, String cover, User user) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -38,6 +38,15 @@ public class Profile {
         this.user = user;
     }
 
+    public Profile(Integer id, String name, String phone, String avatar, Date dob, EGender gender, String cover) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.avatar = avatar;
+        this.dob = dob;
+        this.gender = gender;
+        this.cover = cover;
+    }
 //    public static Long getCurrentID() {
 //        return currentID;
 //    }
@@ -46,11 +55,11 @@ public class Profile {
 //        Profile.currentID = currentID;
 //    }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -110,4 +119,6 @@ public class Profile {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

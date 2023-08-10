@@ -1,4 +1,4 @@
-package services.dto.Enum;
+package Model.Enum;
 
 public enum EGender {
     MALE,

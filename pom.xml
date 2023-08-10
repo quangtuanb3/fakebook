@@ -44,32 +44,18 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.taglibs</groupId>-->
-<!--            <artifactId>taglibs-standard-spec</artifactId>-->
-<!--            <version>1.2.5</version>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; taglibs-standard-impl-*.jar &ndash;&gt;-->
-<!--        &lt;!&ndash; http://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.taglibs</groupId>-->
-<!--            <artifactId>taglibs-standard-impl</artifactId>-->
-<!--            <version>1.2.5</version>-->
-<!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.glassfish.web/jstl-impl -->
         <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>jstl-impl</artifactId>
-            <version>1.2</version>
-            <scope>runtime</scope>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-spec</artifactId>
+            <version>1.2.5</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl-api -->
+        <!-- taglibs-standard-impl-*.jar -->
+        <!-- http://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
         <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <version>1.2</version>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>1.2.5</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>

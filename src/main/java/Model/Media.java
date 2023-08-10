@@ -1,5 +1,5 @@
 package Model;
-import services.dto.Enum.EMedia;
+import Model.Enum.EMedia;
 
 public class Media {
     public static Integer currentId = 0;

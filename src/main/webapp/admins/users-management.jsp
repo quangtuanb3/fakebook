@@ -317,7 +317,7 @@
 
         </div>
         <div class="col-6" style="display: flex">
-            <form action="/users" class="row" id="search-input">
+            <form action="/admins/users-management" class="row" id="search-input">
                 <div class="col-8">
                     <input type="search" name="search" value="${pageable.search}" class="form-control">
                 </div>
@@ -359,11 +359,11 @@
             <th>
                 <a
                         <c:if test="${pageable.sortField == 'id' && pageable.sortType == 'DESC'}">
-                            href="/users?search=${pageable.search}&sortType=ASC&sortField=id&page=${pageable.page}"
+                            href="/admins/users-management?search=${pageable.search}&sortType=ASC&sortField=id&page=${pageable.page}"
                         </c:if>
 
                         <c:if test="${!(pageable.sortField == 'id' && pageable.sortType == 'DESC')}">
-                            href="/users?search=${pageable.search}&sortType=DESC&sortField=id&page=${pageable.page}"
+                            href="/admins/users-management?search=${pageable.search}&sortType=DESC&sortField=id&page=${pageable.page}"
                         </c:if>
                 >
                     No.
@@ -372,102 +372,31 @@
             <th>
                 <a
                         <c:if test="${pageable.sortField == 'name' && pageable.sortType == 'DESC'}">
-                            href="/users?search=${pageable.search}&sortType=ASC&sortField=name&page=${pageable.page}"
+                            href="/admins/users-management?search=${pageable.search}&sortType=ASC&sortField=name&page=${pageable.page}"
                         </c:if>
 
                         <c:if test="${!(pageable.sortField == 'name' && pageable.sortType == 'DESC')}">
-                            href="/users?search=${pageable.search}&sortType=DESC&sortField=name&page=${pageable.page}"
+                            href="/admins/users-management?search=${pageable.search}&sortType=DESC&sortField=name&page=${pageable.page}"
                         </c:if>
-                >
-                    Name
+                >Name
                 </a>
-
             </th>
             <th>
-                <a
-                        <c:if test="${pageable.sortField == 'hobie' && pageable.sortType == 'DESC'}">
-                            href="/users?search=${pageable.search}&sortType=ASC&sortField=phone&page=${pageable.page}"
-                        </c:if>
-
-                        <c:if test="${!(pageable.sortField == 'hobie' && pageable.sortType == 'DESC')}">
-                            href="/users?search=${pageable.search}&sortType=DESC&sortField=phone&page=${pageable.page}"
-                        </c:if>
-                >
-                    Phone
-                </a>
-
+                Avatar
             </th>
             <th>
-                <a
-                        <c:if test="${pageable.sortField == 'hobie' && pageable.sortType == 'DESC'}">
-                            href="/users?search=${pageable.search}&sortType=ASC&sortField=avatar&page=${pageable.page}"
-                        </c:if>
-
-                        <c:if test="${!(pageable.sortField == 'hobie' && pageable.sortType == 'DESC')}">
-                            href="/users?search=${pageable.search}&sortType=DESC&sortField=avatar&page=${pageable.page}"
-                        </c:if>
-                >
-                    Avatar
-                </a>
-
+                Email
             </th>
             <th>
-                <a
-                        <c:if test="${pageable.sortField == 'dob' && pageable.sortType == 'DESC'}">
-                            href="/users?search=${pageable.search}&sortType=ASC&sortField=dob&page=${pageable.page}"
-                        </c:if>
-
-                        <c:if test="${!(pageable.sortField == 'dob' && pageable.sortType == 'DESC')}">
-                            href="/users?search=${pageable.search}&sortType=DESC&sortField=dob&page=${pageable.page}"
-                        </c:if>
-                >
-                    Date of Birth
-
-                </a>
-            </th>
-
-            <th>
-                <a
-                        <c:if test="${pageable.sortField == 'gender' && pageable.sortType == 'DESC'}">
-                            href="/users?search=${pageable.search}&sortType=ASC&sortField=gender&page=${pageable.page}"
-                        </c:if>
-
-                        <c:if test="${!(pageable.sortField == 'gender' && pageable.sortType == 'DESC')}">
-                            href="/users?search=${pageable.search}&sortType=DESC&sortField=gender&page=${pageable.page}"
-                        </c:if>
-                >
-                    Gender
-                </a>
-
+                Date of Birth
             </th>
             <th>
-                <a
-                        <c:if test="${pageable.sortField == 'category_id' && pageable.sortType == 'DESC'}">
-                            href="/users?search=${pageable.search}&sortType=ASC&sortField=cover&page=${pageable.page}"
-                        </c:if>
-
-                        <c:if test="${!(pageable.sortField == 'category_id' && pageable.sortType == 'DESC')}">
-                            href="/users?search=${pageable.search}&sortType=DESC&sortField=cover&page=${pageable.page}"
-                        </c:if>
-                >
-                    Cover
-                </a>
-
+                Gender
             </th>
             <th>
-                <a
-                        <c:if test="${pageable.sortField == 'category_id' && pageable.sortType == 'DESC'}">
-                            href="/users?search=${pageable.search}&sortType=ASC&sortField=user_id&page=${pageable.page}"
-                        </c:if>
-
-                        <c:if test="${!(pageable.sortField == 'category_id' && pageable.sortType == 'DESC')}">
-                            href="/users?search=${pageable.search}&sortType=DESC&sortField=user_id&page=${pageable.page}"
-                        </c:if>
-                >
-                    User
-                </a>
-
+                Phone
             </th>
+
             <th>
                 Option
             </th>
@@ -483,10 +412,10 @@
                         ${profile.name}
                 </td>
                 <td>
-                        ${profile.phone}
+                        ${profile.avatar}
                 </td>
                 <td>
-                        ${profile.avatar}
+                        ${profile.user.email}
                 </td>
                 <td>
                         ${profile.dob}
@@ -495,18 +424,13 @@
                         ${profile.gender}
                 </td>
                 <td>
-                        ${profile.cover}
-                </td>
-
-
-                <td>
-                        ${profile.user.name}
+                        ${profile.phone}
                 </td>
                 <td>
                     <button onclick="onShowPopup(${profile.id})" type="button" class="btn btn-primary"
                             data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit
                     </button>
-                    <a class="btn btn-danger" href="/users?action=delete&id=${profile.id}"
+                    <a class="btn btn-danger" href="/admins/users-management?action=delete&id=${profile.id}"
                        onclick="return confirm('Do you wanna delete this ${profile.name}')">Delete</a>
                 </td>
             </tr>
@@ -521,7 +445,7 @@
                 <li class="page-item <c:if test="${pageable.page == 1}">disabled</c:if>">
                     <c:if test="${pageable.page > 1}">
                         <a class="page-link"
-                           href="/users?page=${pageable.page - 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Previous</a>
+                           href="/admins/users-management?page=${pageable.page - 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Previous</a>
                     </c:if>
                 </li>
 
@@ -531,7 +455,7 @@
                         <c:forEach begin="1" end="${pageable.totalPage}" var="num">
                             <li class="page-item <c:if test="${pageable.page == num}">active</c:if>">
                                 <a class="page-link"
-                                   href="/users?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
+                                   href="/admins/users-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
                             </li>
                         </c:forEach>
                     </c:when>
@@ -563,7 +487,7 @@
                         <c:forEach begin="${startPage}" end="${endPage}" var="num">
                             <li class="page-item <c:if test="${pageable.page == num}">active</c:if>">
                                 <a class="page-link"
-                                   href="/users?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
+                                   href="/admins/users-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
                             </li>
                         </c:forEach>
                     </c:otherwise>
@@ -572,7 +496,7 @@
                 <li class="page-item <c:if test="${pageable.page == pageable.totalPage}">disabled</c:if>">
                     <c:if test="${pageable.page < pageable.totalPage}">
                         <a class="page-link"
-                           href="/users?page=${pageable.page + 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Next</a>
+                           href="/admins/users-management?page=${pageable.page + 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Next</a>
                     </c:if>
                 </li>
             </ul>
@@ -627,6 +551,7 @@
     const genders = ${gendersJSON};
     const users = ${usersJSON};
     let profile = {};
+
     let inputs = [];
     const message = document.getElementById('message');
     const btnToast = document.getElementById('liveToastBtn');
@@ -656,8 +581,8 @@
             title = "Edit";
         }
         tileModal.innerHTML = title + " Profile";
-        form.setAttribute('action', '/users?action=' + action);
-        profile = profiles.find(profile => profile.id === id) || {}; /
+        form.setAttribute('action', '/admins/users-management?action=' + action);
+        profile = profiles.find(profile => profile.id === id) || {};
         resetData();
     }
 
@@ -732,25 +657,24 @@
                 value: profile.cover || ''
             },
             {
-                label: "User",
-                name: "user_id",
-                pattern: "^[A-Za-z ]{6,20}",
+                label: "Email",
+                name: "email",
                 message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
                 require: true,
                 classDiv: 'col-6',
-                value: profile.user_id || ''
+                value: profile.user? || ''
             },
         ];
-        const formBody = document.getElementById('formBody'); / DOM formBody theo id
+        const formBody = document.getElementById('formBody'); // DOM formBody theo id
         formBody.innerHTML = '';
-        / loop qua inputs
+        // loop qua inputs
         inputs.forEach((input, index) => {
             if (input.type === 'select') {
                 formBody.innerHTML += formSelect(input, index);
             } else {
-                / For avatar input, set the default value to the image path (props.value) if available
+                // For avatar input, set the default value to the image path (props.value) if available
                 const avatarValue = input.type === 'file' ? '' : input.value;
-                formBody.innerHTML += formInput({...input, value: avatarValue}, index);
+                formBody.innerHTML += formInput({ ...input, value: avatarValue }, index);
             }
         });
 
