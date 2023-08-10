@@ -69,15 +69,9 @@ public class ProfileDAO extends DatabaseConnection{
         try (Connection connection = getConnection();
 
              PreparedStatement preparedStatement = connection
-                     .prepareStatement(INSERT_PROFILES)) {
+                     .prepareStatement(AppUtil.buildInsertSql(TABLE_PROFILES, profile))) {
             System.out.println(preparedStatement);
-            preparedStatement.setString(1,profile.getName());
-            preparedStatement.setString(2,profile.getPhone());
-            preparedStatement.setString(3,profile.getAvatar());
-            preparedStatement.setString(4,profile.getDob());
-            preparedStatement.setString(5,profile.getGender().toString());
-            preparedStatement.setString(6,profile.getCover());
-            preparedStatement.setInt(7,profile.getUser().getId());
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
