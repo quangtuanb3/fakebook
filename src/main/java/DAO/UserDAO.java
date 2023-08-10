@@ -7,8 +7,17 @@ import services.dto.PageableRequest;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDAO extends DatabaseConnection {
+    private static UserDAO userDAO = new UserDAO();
+
+    static {
+        userDAO = new UserDAO();
+    }
+    public static UserDAO getUserDAO() {
+        return userDAO;
+    }
     private final String SELECT_USERS = "SELECT * FROM `users`";
     private final String SELECT_USERS_ID = "SELECT MAX(id) as max_id FROM `users`";
     private final String EXISTED_EMAIL = "SELECT COUNT(1) as cnt  FROM `users` u   WHERE u.`email`= ? group by email limit 1 ";
@@ -21,7 +30,7 @@ public class UserDAO extends DatabaseConnection {
 
     private final String DELETE_BY_ID = "DELETE FROM `users` WHERE (`id` = ?)";
 
-    public User getUserByEmail(String email) {
+    public Optional<User> getUserByEmail(String email) {
  User user = null;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection
@@ -45,7 +54,7 @@ public class UserDAO extends DatabaseConnection {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return user;
+        return Optional.ofNullable(user);
     }
 
 
@@ -140,4 +149,5 @@ public class UserDAO extends DatabaseConnection {
         String password = rs.getString("email");
         return new User(id, email, password);
     }
+
 }

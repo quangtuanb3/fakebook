@@ -21,17 +21,17 @@ public class FaceController extends HttpServlet {
         if (username != null && password != null) {
             if (username.equals(ADMIN_USERNAME) && password.equals(ADMIN_PASSWORD)) {
                 // User is an admin, redirect to the admin dashboard
-                redirectToPage(response, "/html/dashboard/index.jsp");
+                redirectToPage(response, "/html/dashboard/login.jsp");
             } else if (username.equals(NORMAL_USERNAME) && password.equals(NORMAL_PASSWORD)) {
                 // User is a normal user, redirect to the home page
-                redirectToPage(response, "/html/index.jsp");
+                redirectToPage(response, "/html/login.jsp");
             } else {
                 // Invalid credentials, redirect back to the login page
-                redirectToPage(response, "index.jsp");
+                redirectToPage(response, "login.jsp");
             }
         } else {
             // Invalid login request, redirect back to the login page
-            redirectToPage(response, "index.jsp");
+            redirectToPage(response, "login.jsp");
         }
     }
 

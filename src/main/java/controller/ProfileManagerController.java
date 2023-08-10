@@ -20,10 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @WebServlet(urlPatterns = "/admins/users-management", name = "profileController")
 public class ProfileManagerController extends HttpServlet {
@@ -70,7 +67,7 @@ public class ProfileManagerController extends HttpServlet {
         Profile profile = getValidProfile(req, resp);
         if (errors.size() == 0) {
             UserService.getUserService().create(user);
-            User userDB = userDAO.getUserByEmail(user.getEmail());
+           var userDB = userDAO.getUserByEmail(user.getEmail()).orElse(new User());
             profile.setUser(userDB);
             ProfileService.getProfileService().create(profile);
             resp.sendRedirect("/admins/users-management?message=Created");

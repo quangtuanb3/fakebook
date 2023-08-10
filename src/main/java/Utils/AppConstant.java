@@ -1,6 +1,7 @@
 package Utils;
 
 public class AppConstant {
+    public static final String USERS_TBL = "users";
     public static String ACTION= "action";
     public static String EDIT= "edit";
     public static String CREATE= "create";

@@ -1,39 +1,31 @@
 package Model;
 
+
 import Model.Enum.ERole;
-import Model.Enum.EUserStatus;
 
-import javax.management.relation.Role;
+public class Login {
+    private Long id;
 
-public class User {
-    private Integer id;
     private String email;
+
     private String password;
+
     private ERole role;
-    private EUserStatus status;
 
-    public User(Integer id) {
-        this.id = id;
-    }
-
-    public User() {
-    }
-
-    public User(String email) {
-        this.email = email;
-    }
-
-    public User(Integer id, String email, String password) {
+    public Login(Long id, String email, String password) {
         this.id = id;
         this.email = email;
         this.password = password;
     }
 
-    public Integer getId() {
+    public Login() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,13 +51,5 @@ public class User {
 
     public void setRole(ERole role) {
         this.role = role;
-    }
-
-    public EUserStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(EUserStatus status) {
-        this.status = status;
     }
 }

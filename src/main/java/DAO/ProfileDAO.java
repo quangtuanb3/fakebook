@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProfileDAO extends DatabaseConnection{
+public class ProfileDAO extends DatabaseConnection {
     private final String TABLE_PROFILES = "profiles";
     private final String SELECT_ALL_PROFILES = "SELECT p.*,u.email `user.email`,  u.id `user.id`, u.password `user.password`  FROM `profiles` p LEFT JOIN " +
             "`users` u on p.user_id = u.id  WHERE p.`name` like  '%s' OR p.`dob` like '%s' OR p.`cover` like '%s' OR p.`gender` like '%s' OR p.`user_id` like '%s'  Order BY %s %s LIMIT %s OFFSET %s";
     private final String SELECT_TOTAL_RECORDS = "SELECT COUNT(1) as cnt  FROM `profiles` p LEFT JOIN " +
             "`users` u on p.user_id = u.id  WHERE p.`name` like '%s' OR p.`dob` like '%s' OR p.`cover` like '%s' OR p.`gender` like '%s' OR p.`user_id` like '%s'";
-    private final String INSERT_PROFILES ="INSERT INTO `profiles` (`name`,`avatar`, `user_id`, `dob`,`gender`, `phone`, `cover`, ) VALUES ( ?,?,?, ?, ?, ?, ?)";
+    private final String INSERT_PROFILES = "INSERT INTO `profiles` (`name`,`avatar`, `user_id`, `dob`,`gender`, `phone`, `cover`, ) VALUES ( ?,?,?, ?, ?, ?, ?)";
 //
 //    private final String UPDATE_TEACHERS = "UPDATE `teachers` SET `name` = ?, `dob` = ?, `hobie` = ?, `gender` = ?, `category_id` = ? WHERE (`id` = ?)";
 
@@ -24,18 +24,19 @@ public class ProfileDAO extends DatabaseConnection{
             "`profiles` p LEFT JOIN `users` u on p.user_id = u.id WHERE p.`id` = ?";
     private final String EXIST_BY_ID = "SELECT count(*) as `cnt` FROM `profiles` WHERE `id` = ? group by id limit 1";
     private final String DELETE_BY_ID = "DELETE FROM `profiles` WHERE (`id` = ?)";
+
     public List<Profile> findAll(PageableRequest request) {
         List<Profile> teachers = new ArrayList<>();
         String search = request.getSearch();
-        if(request.getSortField() == null){
+        if (request.getSortField() == null) {
             request.setSortField("id");
         }
-        if(request.getSortType() == null){
+        if (request.getSortType() == null) {
             request.setSortType(ESortType.DESC);
         }
-        if(search == null){
+        if (search == null) {
             search = "%%";
-        }else {
+        } else {
             search = "%" + search + "%";
         }
         var offset = (request.getPage() - 1) * request.getLimit();
@@ -53,11 +54,11 @@ public class ProfileDAO extends DatabaseConnection{
                 teachers.add(AppUtil.getObjectFromResultSet(rs, Profile.class));
             }
             PreparedStatement statementTotalRecords = connection
-                    .prepareStatement(String.format(SELECT_TOTAL_RECORDS, search,  search, search, search, search));
+                    .prepareStatement(String.format(SELECT_TOTAL_RECORDS, search, search, search, search, search));
             ResultSet resultSetOfTotalRecords = statementTotalRecords.executeQuery();
-            if(resultSetOfTotalRecords.next()){
+            if (resultSetOfTotalRecords.next()) {
                 int totalPage =
-                        (int) Math.ceil(resultSetOfTotalRecords.getDouble("cnt")/request.getLimit());
+                        (int) Math.ceil(resultSetOfTotalRecords.getDouble("cnt") / request.getLimit());
                 request.setTotalPage(totalPage);
             }
         } catch (SQLException e) {
@@ -65,7 +66,8 @@ public class ProfileDAO extends DatabaseConnection{
         }
         return teachers;
     }
-    public void insertProfile(Profile profile){
+
+    public void insertProfile(Profile profile) {
         try (Connection connection = getConnection();
 
              PreparedStatement preparedStatement = connection
@@ -77,6 +79,7 @@ public class ProfileDAO extends DatabaseConnection{
             throw new RuntimeException(e);
         }
     }
+
     public void updateProfile(Profile profile) {
         try (Connection connection = getConnection();
 
@@ -90,6 +93,7 @@ public class ProfileDAO extends DatabaseConnection{
             throw new RuntimeException(e);
         }
     }
+
     public Optional<Profile> findById(Integer id) {
         try (Connection connection = getConnection();
 
@@ -101,13 +105,14 @@ public class ProfileDAO extends DatabaseConnection{
 
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                return Optional.of(AppUtil.getObjectFromResultSet(rs,Profile.class));
+                return Optional.of(AppUtil.getObjectFromResultSet(rs, Profile.class));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return Optional.empty();
     }
+
     public Boolean existByID(Integer id) {
         try (Connection connection = getConnection();
              // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
