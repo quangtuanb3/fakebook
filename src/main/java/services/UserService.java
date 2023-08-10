@@ -55,7 +55,9 @@ public class UserService {
     public void delete(Integer userId) {
         userDAO.deleteById(userId);
     }
-//    public void MAXID(){
-//        userDAO.setFIND_BY_ID();
-//    }
+    public void lock(Integer id) {
+        userDAO.lock(id);
+
+    }
+
 }

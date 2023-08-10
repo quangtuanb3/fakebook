@@ -1,6 +1,8 @@
 package DAO;
 
+import Model.Enum.EStatus;
 import Model.Profile;
+import Model.User;
 import Utils.AppUtil;
 import services.dto.Enum.ESortType;
 import services.dto.PageableRequest;
@@ -12,7 +14,7 @@ import java.util.Optional;
 
 public class ProfileDAO extends DatabaseConnection{
     private final String TABLE_PROFILES = "profiles";
-    private final String SELECT_ALL_PROFILES = "SELECT p.*,u.email `user.email`,  u.id `user.id`, u.password `user.password`  FROM `profiles` p LEFT JOIN " +
+    private final String SELECT_ALL_PROFILES = "SELECT p.*,u.email `user.email`,  u.id `user.id`, u.password `user.password`, u.status `user.status`  FROM `profiles` p LEFT JOIN " +
             "`users` u on p.user_id = u.id  WHERE p.`name` like  '%s' OR p.`dob` like '%s' OR p.`cover` like '%s' OR p.`gender` like '%s' OR p.`user_id` like '%s'  Order BY %s %s LIMIT %s OFFSET %s";
     private final String SELECT_TOTAL_RECORDS = "SELECT COUNT(1) as cnt  FROM `profiles` p LEFT JOIN " +
             "`users` u on p.user_id = u.id  WHERE p.`name` like '%s' OR p.`dob` like '%s' OR p.`cover` like '%s' OR p.`gender` like '%s' OR p.`user_id` like '%s'";
@@ -25,7 +27,7 @@ public class ProfileDAO extends DatabaseConnection{
     private final String EXIST_BY_ID = "SELECT count(*) as `cnt` FROM `profiles` WHERE `id` = ? group by id limit 1";
     private final String DELETE_BY_ID = "DELETE FROM `profiles` WHERE (`id` = ?)";
     public List<Profile> findAll(PageableRequest request) {
-        List<Profile> teachers = new ArrayList<>();
+        List<Profile> profiles = new ArrayList<>();
         String search = request.getSearch();
         if(request.getSortField() == null){
             request.setSortField("id");
@@ -50,7 +52,7 @@ public class ProfileDAO extends DatabaseConnection{
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                teachers.add(AppUtil.getObjectFromResultSet(rs, Profile.class));
+                profiles.add(AppUtil.getObjectFromResultSet(rs, Profile.class));
             }
             PreparedStatement statementTotalRecords = connection
                     .prepareStatement(String.format(SELECT_TOTAL_RECORDS, search,  search, search, search, search));
@@ -63,7 +65,7 @@ public class ProfileDAO extends DatabaseConnection{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return teachers;
+        return profiles;
     }
     public void insertProfile(Profile profile){
         try (Connection connection = getConnection();
@@ -126,15 +128,5 @@ public class ProfileDAO extends DatabaseConnection{
         return false;
     }
 
-    public void deleteById(Integer id) {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(DELETE_BY_ID)) {
-            preparedStatement.setLong(1, id);
-            System.out.println(preparedStatement);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }

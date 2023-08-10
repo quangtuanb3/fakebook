@@ -2,6 +2,7 @@ package services;
 
 import DAO.ProfileDAO;
 import Model.Profile;
+import Model.User;
 import Utils.AppConstant;
 import services.dto.PageableRequest;
 
@@ -48,8 +49,5 @@ public class ProfileService {
         return profileDAO.existByID(id);
     }
 
-    public void delete(Integer userId) {
-        profileDAO.deleteById(userId);
 
-    }
 }

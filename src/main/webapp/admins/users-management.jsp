@@ -100,7 +100,7 @@
                     <div class="header-left d-flex align-items-center">
                         <div class="menu-toggle-btn mr-15">
                             <button id="menu-toggle" class="main-btn primary-btn btn-hover">
-                                <i class="fa fa-bars"></i>  Menu
+                                <i class="fa fa-bars"></i> Menu
                             </button>
                         </div>
                     </div>
@@ -430,8 +430,18 @@
                     <button onclick="onShowPopup(${profile.id})" type="button" class="btn btn-primary"
                             data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit
                     </button>
-                    <a class="btn btn-danger" href="/admins/users-management?action=delete&id=${profile.id}"
-                       onclick="return confirm('Do you wanna delete this ${profile.name}')">Delete</a>
+                    <a
+                                href="/admins/users-management?action=lock&id=${profile.user.id}"
+                    >
+                        <c:if test="${profile.user.status.toString() == 'ACTIVE'}">
+                            LOCK
+                        </c:if>
+                        <c:if test="${profile.user.status.toString() == 'LOCK'}">
+                            UNLOCK
+                        </c:if>
+                    </a>
+
+
                 </td>
             </tr>
         </c:forEach>
@@ -537,7 +547,7 @@
 <script src="./assets/js/main.js"></script>
 
 <script src="https:/cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="../base.js"></script>
+
 
 <script src="https:/cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -560,10 +570,9 @@
     window.onload = () => {
         if (message.innerHTML.trim() == 'Something was wrong') {
             toastr.error(message.innerHTML);
-        }else if (message.innerHTML.trim() == 'Id not found') {
+        } else if (message.innerHTML.trim() == 'Id not found') {
             toastr.error(message.innerHTML);
-        }
-        else if (message.innerHTML.trim() !== '') {
+        } else if (message.innerHTML.trim() !== '') {
             toastr.success(message.innerHTML);
         }
     }
@@ -660,7 +669,7 @@
                 label: "Email",
                 name: "email",
                 message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                disable: profile.user?.email,
+                disabled: profile.user?.email,
                 require: true,
                 classDiv: 'col-6',
                 value: profile.user?.email || ''
@@ -675,7 +684,7 @@
             } else {
                 // For avatar input, set the default value to the image path (props.value) if available
                 const avatarValue = input.type === 'file' ? '' : input.value;
-                formBody.innerHTML += formInput({ ...input, value: avatarValue }, index);
+                formBody.innerHTML += formInput({...input, value: avatarValue}, index);
             }
         });
 
