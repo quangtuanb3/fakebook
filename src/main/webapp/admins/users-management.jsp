@@ -8,17 +8,22 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="./assets/images/favicon.svg" type="image/x-icon"/>
-    <title>PlainAdmin Demo | Bootstrap 5 Admin Template</title>
+    <link rel="shortcut icon" href="./assets/images/logo/fb-Icon.png" type="image/x-icon"/>
+    <title>Facebook</title>
 
     <!-- ========== All CSS files linkup ========= -->
     <link href="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
-          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="./assets/css/lineicons.css" rel="stylesheet" type="text/css"/>
@@ -27,6 +32,35 @@
     <link rel="stylesheet" href="./assets/css/fullcalendar.css"/>
     <link rel="stylesheet" href="./assets/css/fullcalendar.css"/>
     <link rel="stylesheet" href="./assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/toastmaker/dist/toastmaker.min.css">
+    <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        .status-link {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .status-link:hover {
+            background-color: #e5e5e5;
+            border-color: #adadad;
+        }
+
+        .table-header {
+            border: 1px solid #ddd;
+        }
+
+        /* Căn giữa nội dung các cột trong thead */
+        .table-header th {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,8 +73,8 @@
 <!-- ======== sidebar-nav start =========== -->
 <aside class="sidebar-nav-wrapper">
     <div class="navbar-logo">
-        <a href="index.jsp">
-            <img src="./assets/images/logo/logo.svg" alt="logo"/>
+        <a href="${pageContext.request.contextPath}/admins/users-management">
+            <img src="./assets/images/logo/fb_logo.svg" style="width: 100%; height: 100%" alt="logo"/>
         </a>
     </div>
 
@@ -304,214 +338,232 @@
     </form>
 
     <!-- ========== section start ========== -->
-    <h1>Teacher</h1>
-    <div class="row">
-        <div class="col-2">
-            <button onclick="onShowPopup()" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                Create
-            </button>
-            <%--        <a class="btn btn-primary" href="${pageContext.request.contextPath}/users?action=create"> Create</a>--%>
-        </div>
-        <div class="col-4">
-
-        </div>
-        <div class="col-6" style="display: flex">
-            <form action="/admins/users-management" class="row" id="search-input">
-                <div class="col-8">
-                    <input type="search" name="search" value="${pageable.search}" class="form-control">
-                </div>
+    <section class="">
+        <div style="width: 90%; margin: auto; padding: 20px 0">
+            <h1 style="padding-bottom: 20px">USER MANAGEMENT</h1>
+            <div class="row">
                 <div class="col-2">
-                    <select id="limit" name="limit" class="form-control" onchange="changeLimit(this.value)">
-                        <c:if test="${pageable.limit == 5 }">
-                            <option value="5" selected>5</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                        </c:if>
-                        <c:if test="${pageable.limit == 10 }">
-                            <option value="5">5</option>
-                            <option value="10" selected>10</option>
-                            <option value="20">20</option>
-                        </c:if>
-                        <c:if test="${pageable.limit == 20 }">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="20" selected>20</option>
-                        </c:if>
-
-
-                    </select>
-                </div>
-
-                <div class="col-2">
-                    <button class="btn btn-primary">
-                        Search
+                    <button onclick="onShowPopup()" type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                        Create
                     </button>
+                    <%--        <a class="btn btn-primary" href="${pageContext.request.contextPath}/users?action=create"> Create</a>--%>
                 </div>
-            </form>
+                <div class="col-4">
 
+                </div>
+                <div class="col-6" style="display: flex;justify-content: space-around">
+                    <form action="/admins/users-management" class="row" id="search-input">
+                        <div class="col-8">
+                            <input type="search" name="search" value="${pageable.search}" class="form-control">
+                        </div>
+                        <div class="col-2">
+                            <select id="limit" name="limit" class="form-control" onchange="changeLimit(this.value)">
+                                <c:if test="${pageable.limit == 5 }">
+                                    <option value="5" selected>5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                </c:if>
+                                <c:if test="${pageable.limit == 10 }">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="20">20</option>
+                                </c:if>
+                                <c:if test="${pageable.limit == 20 }">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20" selected>20</option>
+                                </c:if>
+
+
+                            </select>
+                        </div>
+
+                        <div class="col-2">
+                            <button class="btn btn-primary">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
-    </div>
 
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>
-                <a
-                        <c:if test="${pageable.sortField == 'id' && pageable.sortType == 'DESC'}">
-                            href="/admins/users-management?search=${pageable.search}&sortType=ASC&sortField=id&page=${pageable.page}"
-                        </c:if>
 
-                        <c:if test="${!(pageable.sortField == 'id' && pageable.sortType == 'DESC')}">
-                            href="/admins/users-management?search=${pageable.search}&sortType=DESC&sortField=id&page=${pageable.page}"
-                        </c:if>
-                >
-                    No.
-                </a>
-            </th>
-            <th>
-                <a
-                        <c:if test="${pageable.sortField == 'name' && pageable.sortType == 'DESC'}">
-                            href="/admins/users-management?search=${pageable.search}&sortType=ASC&sortField=name&page=${pageable.page}"
-                        </c:if>
-
-                        <c:if test="${!(pageable.sortField == 'name' && pageable.sortType == 'DESC')}">
-                            href="/admins/users-management?search=${pageable.search}&sortType=DESC&sortField=name&page=${pageable.page}"
-                        </c:if>
-                >Name
-                </a>
-            </th>
-            <th>
-                Avatar
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Date of Birth
-            </th>
-            <th>
-                Gender
-            </th>
-            <th>
-                Phone
-            </th>
-
-            <th>
-                Option
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${profiles}" var="profile" varStatus="loop">
+        <table class="table table-striped table-hover" style=" border: 1px solid #ddd;  padding: 30px; /*">
+            <thead class="table-header">
             <tr>
-                <td>
-                        ${profile.id}
-                </td>
-                <td>
-                        ${profile.name}
-                </td>
-                <td>
-                        ${profile.avatar}
-                </td>
-                <td>
-                        ${profile.user.email}
-                </td>
-                <td>
-                        ${profile.dob}
-                </td>
-                <td>
-                        ${profile.gender}
-                </td>
-                <td>
-                        ${profile.phone}
-                </td>
-                <td>
-                    <button onclick="onShowPopup(${profile.id})" type="button" class="btn btn-primary"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit
-                    </button>
+                <th>
                     <a
-                                href="/admins/users-management?action=lock&id=${profile.user.id}"
+                            <c:if test="${pageable.sortField == 'id' && pageable.sortType == 'ASC'}">
+                                href="/admins/users-management?search=${pageable.search}&sortType=DESC&sortField=id&page=${pageable.page}&limit=${pageable.limit}"
+                            </c:if>
+
+                            <c:if test="${!(pageable.sortField == 'id' && pageable.sortType == 'ASC')}">
+                                href="/admins/users-management?search=${pageable.search}&sortType=ASC&sortField=id&page=${pageable.page}&limit=${pageable.limit}"
+                            </c:if>
                     >
-                        <c:if test="${profile.user.status.toString() == 'ACTIVE'}">
-                            LOCK
-                        </c:if>
-                        <c:if test="${profile.user.status.toString() == 'LOCK'}">
-                            UNLOCK
-                        </c:if>
+                        No.
                     </a>
+                </th>
+                <th>
+                    <a
+                            <c:if test="${pageable.sortField == 'name' && pageable.sortType == 'DESC'}">
+                                href="/admins/users-management?search=${pageable.search}&sortType=ASC&sortField=name&page=${pageable.page}&limit=${pageable.limit}"
+                            </c:if>
 
+                            <c:if test="${!(pageable.sortField == 'name' && pageable.sortType == 'DESC')}">
+                                href="/admins/users-management?search=${pageable.search}&sortType=DESC&sortField=name&page=${pageable.page}&limit=${pageable.limit}"
+                            </c:if>
+                    >Name
+                    </a>
+                </th>
+                <th>
+                    Avatar
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Date of Birth
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Phone
+                </th>
 
-                </td>
+                <th>
+                    Option
+                </th>
             </tr>
-        </c:forEach>
-        </tbody>
+            </thead>
+            <tbody>
+            <c:forEach items="${profiles}" var="profile" varStatus="loop">
+                <tr>
+                    <td>
+                            ${profile.id}
+                    </td>
+                    <td>
+                            ${profile.name}
+                    </td>
+                    <td>
+                            ${profile.avatar}
+                    </td>
+                    <td>
+                            ${profile.user.email}
+                    </td>
+                    <td>
+                            ${profile.dob}
+                    </td>
+                    <td>
+                            ${profile.gender}
+                    </td>
+                    <td>
+                            ${profile.phone}
+                    </td>
+                    <td>
+                            <%--                    <button onclick="onShowPopup(${profile.id})" type="button" class="btn btn-primary"--%>
+                            <%--                            data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit--%>
+                            <%--                    </button>--%>
+                        <c:set var="isLocked" value="${profile.user.status.toString() == 'LOCK'}"/>
+                        <button onclick="onShowPopup(${profile.id})" type="button" class="btn btn-info"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                <c:if test="${isLocked}">
+                                    style="display: none;"
+                                </c:if>
+                        >
+                            Edit
+                        </button>
 
-    </table>
-    <div class="d-flex justify-content-end">
+                        <a href="/admins/users-management?action=lock&id=${profile.user.id}&page=${pageable.page}&limit=${pageable.limit} " class="status-link"
+                           onclick="return confirm('Are you sure you want to ${profile.user.status.toString() == 'ACTIVE' ? 'LOCK' : 'UNLOCK'} this user?')">
+                            <c:choose>
+                                <c:when test="${profile.user.status.toString() == 'ACTIVE'}">
+                                    LOCK
+                                </c:when>
+                                <c:when test="${profile.user.status.toString() == 'LOCK'}">
+                                    UNLOCK
+                                </c:when>
+                            </c:choose>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
 
-        <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item <c:if test="${pageable.page == 1}">disabled</c:if>">
-                    <c:if test="${pageable.page > 1}">
-                        <a class="page-link"
-                           href="/admins/users-management?page=${pageable.page - 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Previous</a>
-                    </c:if>
-                </li>
+        </table>
+        <div class="d-flex justify-content-end">
 
-                <c:choose>
-                    <c:when test="${pageable.totalPage <= 5}">
-                        <!-- Trang có ít hơn hoặc bằng 5 trang -->
-                        <c:forEach begin="1" end="${pageable.totalPage}" var="num">
-                            <li class="page-item <c:if test="${pageable.page == num}">active</c:if>">
-                                <a class="page-link"
-                                   href="/admins/users-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
-                            </li>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- Trang có nhiều hơn 5 trang -->
-                        <c:set var="startPage" value="${pageable.page - 2}"/>
-                        <c:set var="endPage" value="${pageable.page + 2}"/>
-
-                        <c:if test="${startPage lt 1}">
-                            <c:set var="startPage" value="1"/>
-                            <c:set var="endPage" value="5"/>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item <c:if test="${pageable.page == 1}">disabled</c:if>">
+                        <c:if test="${pageable.page > 1}">
+                            <a class="page-link"
+                               href="/admins/users-management?page=${pageable.page - 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Previous</a>
                         </c:if>
+                    </li>
 
-                        <c:if test="${endPage gt pageable.totalPage}">
-                            <c:set var="endPage" value="${pageable.totalPage}"/>
-                            <c:set var="startPage" value="${endPage - 4}"/>
+                    <c:choose>
+                        <c:when test="${pageable.totalPage <= 5}">
+                            <!-- Trang có ít hơn hoặc bằng 5 trang -->
+                            <c:forEach begin="1" end="${pageable.totalPage}" var="num">
+                                <li class="page-item <c:if test="${pageable.page == num}">active</c:if>">
+                                    <a class="page-link"
+                                       href="/admins/users-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
+                                </li>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- Trang có nhiều hơn 5 trang -->
+                            <c:set var="startPage" value="${pageable.page - 2}"/>
+                            <c:set var="endPage" value="${pageable.page + 2}"/>
+
+                            <c:if test="${startPage lt 1}">
+                                <c:set var="startPage" value="1"/>
+                                <c:set var="endPage" value="5"/>
+                            </c:if>
+
+                            <c:if test="${endPage gt pageable.totalPage}">
+                                <c:set var="endPage" value="${pageable.totalPage}"/>
+                                <c:set var="startPage" value="${endPage - 4}"/>
+                            </c:if>
+
+                            <!-- Lấy điều kiện -->
+                            <c:if test="${pageable.page gt pageable.totalPage - 2}">
+                                <c:set var="startPage" value="${pageable.totalPage - 4}"/>
+                                <c:set var="endPage" value="${pageable.totalPage}"/>
+                            </c:if>
+                            <c:if test="${pageable.page lt 3}">
+                                <c:set var="startPage" value="1"/>
+                                <c:set var="endPage" value="5"/>
+                            </c:if>
+
+                            <c:forEach begin="${startPage}" end="${endPage}" var="num">
+                                <li class="page-item <c:if test="${pageable.page == num}">active</c:if>">
+                                    <a class="page-link"
+                                       href="/admins/users-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
+                                </li>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <li class="page-item <c:if test="${pageable.page == pageable.totalPage}">disabled</c:if>">
+                        <c:if test="${pageable.page < pageable.totalPage}">
+                            <a class="page-link"
+                               href="/admins/users-management?page=${pageable.page + 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Next</a>
                         </c:if>
-
-                        <!-- Lấy điều kiện -->
-                        <c:if test="${pageable.page gt pageable.totalPage - 2}">
-                            <c:set var="startPage" value="${pageable.totalPage - 4}"/>
-                            <c:set var="endPage" value="${pageable.totalPage}"/>
-                        </c:if>
-                        <c:if test="${pageable.page lt 3}">
-                            <c:set var="startPage" value="1"/>
-                            <c:set var="endPage" value="5"/>
-                        </c:if>
-
-                        <c:forEach begin="${startPage}" end="${endPage}" var="num">
-                            <li class="page-item <c:if test="${pageable.page == num}">active</c:if>">
-                                <a class="page-link"
-                                   href="/admins/users-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
-                            </li>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-
-                <li class="page-item <c:if test="${pageable.page == pageable.totalPage}">disabled</c:if>">
-                    <c:if test="${pageable.page < pageable.totalPage}">
-                        <a class="page-link"
-                           href="/admins/users-management?page=${pageable.page + 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Next</a>
-                    </c:if>
-                </li>
-            </ul>
-        </nav>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+    <div class="toast-body d-none" id="message_toastr">
+        ${message}
     </div>
+
     <!-- ========== section end ========== -->
 
     <!-- ========== footer start =========== -->
@@ -521,9 +573,9 @@
 <!-- ======== main-wrapper end =========== -->
 
 <!-- ========= All Javascript files linkup ======== -->
-<script src="../baseForm.js"></script>
 
 
+<script src="../base.js"></script>
 <script src="https:/cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>
@@ -545,9 +597,10 @@
 <script src="./assets/js/world-merc.js"></script>
 <script src="./assets/js/polyfill.js"></script>
 <script src="./assets/js/main.js"></script>
-
 <script src="https:/cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="https:/cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -556,26 +609,44 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
 
+
+<script>
+    const message = document.getElementById('message_toastr');
+    const btnToast = document.getElementById('liveToastBtn');
+    window.onload = () => {
+        const messageContent = message.innerHTML.trim();
+        if (messageContent === 'Something was wrong') {
+            toastr.error(messageContent);
+        } else if (messageContent === 'Id not found') {
+            toastr.error(messageContent);
+        } else if (messageContent !== '') {
+            // Set toastr options for position
+            toastr.options = {
+                positionClass: 'toast-bottom-right', // Change this to your desired position
+                timeOut: 2000 // Set the duration for the toastr message
+            };
+            toastr.success(messageContent);
+        }
+    };
+</script>
+
 <script>
     const profiles = ${profilesJSON};
     const genders = ${gendersJSON};
     const users = ${usersJSON};
     let profile = {};
-
     let inputs = [];
-    const message = document.getElementById('message');
-    const btnToast = document.getElementById('liveToastBtn');
     const form = document.getElementById('form');
     const tileModal = document.getElementById("exampleModalLabel");
-    window.onload = () => {
-        if (message.innerHTML.trim() == 'Something was wrong') {
-            toastr.error(message.innerHTML);
-        } else if (message.innerHTML.trim() == 'Id not found') {
-            toastr.error(message.innerHTML);
-        } else if (message.innerHTML.trim() !== '') {
-            toastr.success(message.innerHTML);
-        }
-    }
+    // window.onload = () => {
+    //     if (message.innerHTML.trim() == 'Something was wrong') {
+    //         toastr.error(message.innerHTML);
+    //     } else if (message.innerHTML.trim() == 'Id not found') {
+    //         toastr.error(message.innerHTML);
+    //     } else if (message.innerHTML.trim() !== '') {
+    //         toastr.success(message.innerHTML);
+    //     }
+    // }
 
     function changeLimit(limit) {
         pageable.limit = parseInt(limit);
@@ -609,8 +680,8 @@
             {
                 label: "Phone",
                 name: "phone",
-                pattern: "^[0-9]{6,20}",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                pattern: "^0[0-9]{9}",
+                message: "Phone number must start with 0 and have 10 digits.",
                 require: true,
                 classDiv: 'col-6',
                 value: profile.phone || ''
@@ -669,7 +740,7 @@
                 label: "Email",
                 name: "email",
                 message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                disabled: profile.user?.email,
+                disable: profile.user?.email,
                 require: true,
                 classDiv: 'col-6',
                 value: profile.user?.email || ''

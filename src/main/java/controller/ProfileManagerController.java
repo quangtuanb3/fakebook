@@ -7,6 +7,7 @@ import Model.User;
 import Utils.AppConstant;
 import Utils.AppUtil;
 import Utils.RunnableCustom;
+import Utils.RunnableWithRegex;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import services.ProfileService;
@@ -38,7 +39,9 @@ public class ProfileManagerController extends HttpServlet {
     @Override
     public void init() {
         validators = new HashMap<>();
-
+        validators.put("phone", new RunnableWithRegex("0[0-9]{9}", "phone", errors));
+        validators.put("name", new RunnableWithRegex("^[A-Za-z ]{6,20}", "name", errors));
+        validators.put("gender", new RunnableWithRegex("^(MALE|FEMALE|OTHER)$", "gender", errors));
     }
 
     @Override
@@ -67,6 +70,10 @@ public class ProfileManagerController extends HttpServlet {
             //kiểm tra xem action = create thi call edit
             edit(req, resp);
             return;
+        }if (Objects.equals(action, AppConstant.LOCK)) {
+            //kiểm tra xem action = create thi call edit
+            lock(req, resp);
+            return;
         }
 
         showList(req, resp);
@@ -87,7 +94,7 @@ public class ProfileManagerController extends HttpServlet {
         Integer id = Integer.valueOf(req.getParameter("id"));
         if(checkIdUserNotFound(req, resp, id)) return;
         UserService.getUserService().lock(id);
-        resp.sendRedirect( "/admins/users-management?message=Edited");
+        resp.sendRedirect( "/admins/users-management?message=Set status successfully");
     }
 
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -103,18 +110,18 @@ public class ProfileManagerController extends HttpServlet {
         PageableRequest request = new PageableRequest(
                 req.getParameter("search"),
                 req.getParameter("sortField"),
-                ESortType.valueOf(AppUtil.getParameterWithDefaultValue(req,"sortType", ESortType.DESC).toString()),
+                ESortType.valueOf(AppUtil.getParameterWithDefaultValue(req,"sortType", ESortType.ASC).toString()),
                 Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "page", "1").toString()),
                 Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "limit", "10").toString())
         ); //tao doi tuong pageable voi parametter search
 
         req.setAttribute("pageable", request);
         req.setAttribute("profiles", ProfileService.getProfileService().getProfileList(request)); // gửi qua list users để jsp vẻ lên trang web
-        req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
+        req.setAttribute("profilesJSON", AppUtil.mapper.writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
         req.setAttribute("message", req.getParameter("message")); // gửi qua message để toastr show thông báo
-        req.setAttribute("gendersJSON", new ObjectMapper().writeValueAsString(EGender.values()));
-        req.setAttribute("statusJSON", new ObjectMapper().writeValueAsString(EStatus.values()));
-        req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers(request)));
+        req.setAttribute("gendersJSON",AppUtil.mapper.writeValueAsString(EGender.values()));
+        req.setAttribute("statusJSON",AppUtil.mapper.writeValueAsString(EStatus.values()));
+        req.setAttribute("usersJSON", AppUtil.mapper.writeValueAsString(UserService.getUsers(request)));
         String s = PAGE + AppConstant.USERS_MANAGEMENT_PAGE;
         System.out.println("url" + s);
         req.getRequestDispatcher(s).forward(req,resp);
@@ -177,6 +184,9 @@ public class ProfileManagerController extends HttpServlet {
                     Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "page", "1").toString()),
                     Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "limit", "10").toString())
             );
+            req.setAttribute("pageable", request);
+            req.setAttribute("profiles", ProfileService.getProfileService().getProfileList(request));
+            req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers(request)));
             req.setAttribute("message","Something was wrong");
             req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
                     .forward(req,resp);
