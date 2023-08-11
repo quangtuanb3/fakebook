@@ -304,7 +304,7 @@
     </form>
 
     <!-- ========== section start ========== -->
-    <h1>Teacher</h1>
+    <h1>Post</h1>
     <div class="row">
         <div class="col-2">
             <button onclick="onShowPopup()" type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -317,7 +317,7 @@
 
         </div>
         <div class="col-6" style="display: flex">
-            <form action="/admins/users-management" class="row" id="search-input">
+            <form action="/admins/posts-management" class="row" id="search-input">
                 <div class="col-8">
                     <input type="search" name="search" value="${pageable.search}" class="form-control">
                 </div>
@@ -359,79 +359,104 @@
             <th>
                 <a
                         <c:if test="${pageable.sortField == 'id' && pageable.sortType == 'DESC'}">
-                            href="/admins/users-management?search=${pageable.search}&sortType=ASC&sortField=id&page=${pageable.page}"
+                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=id&page=${pageable.page}"
                         </c:if>
 
                         <c:if test="${!(pageable.sortField == 'id' && pageable.sortType == 'DESC')}">
-                            href="/admins/users-management?search=${pageable.search}&sortType=DESC&sortField=id&page=${pageable.page}"
+                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=id&page=${pageable.page}"
                         </c:if>
                 >
                     No.
                 </a>
             </th>
             <th>
+              Username
+            </th>
+            <th>
                 <a
-                        <c:if test="${pageable.sortField == 'name' && pageable.sortType == 'DESC'}">
-                            href="/admins/users-management?search=${pageable.search}&sortType=ASC&sortField=name&page=${pageable.page}"
+                        <c:if test="${pageable.sortField == 'location' && pageable.sortType == 'DESC'}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=location&page=${pageable.page}"
                         </c:if>
 
-                        <c:if test="${!(pageable.sortField == 'name' && pageable.sortType == 'DESC')}">
-                            href="/admins/users-management?search=${pageable.search}&sortType=DESC&sortField=name&page=${pageable.page}"
+                        <c:if test="${!(pageable.sortField == 'location' && pageable.sortType == 'DESC')}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=location&page=${pageable.page}"
                         </c:if>
-                >Name
+                >
+                  Location
                 </a>
             </th>
             <th>
-                Avatar
+                <a
+                        <c:if test="${pageable.sortField == 'limit' && pageable.sortType == 'DESC'}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=limit&page=${pageable.page}"
+                        </c:if>
+
+                        <c:if test="${!(pageable.sortField == 'limit' && pageable.sortType == 'DESC')}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=limit&page=${pageable.page}"
+                        </c:if>
+                >
+                    Limit
+                </a>
             </th>
             <th>
-                Email
+                Content
+<%--                <a--%>
+<%--                        <c:if test="${pageable.sortField == 'content' && pageable.sortType == 'DESC'}">--%>
+<%--                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=content&page=${pageable.page}"--%>
+<%--                        </c:if>--%>
+
+<%--                        <c:if test="${!(pageable.sortField == 'content' && pageable.sortType == 'DESC')}">--%>
+<%--                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=content&page=${pageable.page}"--%>
+<%--                        </c:if>--%>
+<%--                >--%>
+<%--                   Content--%>
+<%--                </a>--%>
             </th>
             <th>
-                Date of Birth
+               Like Number
             </th>
             <th>
-                Gender
-            </th>
-            <th>
-                Phone
+                Comment Number
             </th>
 
             <th>
-                Option
+                Share Number
             </th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${profiles}" var="profile" varStatus="loop">
+        <c:forEach items="${posts}" var="post" varStatus="loop">
             <tr>
                 <td>
-                        ${profile.id}
+                        ${post.id}
                 </td>
                 <td>
-                        ${profile.name}
+                        ${post.profile.name}
                 </td>
                 <td>
-                        ${profile.avatar}
+                        ${post.location}
                 </td>
                 <td>
-                        ${profile.profile.email}
+                        ${post.limit}
                 </td>
                 <td>
-                        ${profile.dob}
+                        ${post.content.data}
                 </td>
                 <td>
-                        ${profile.gender}
+
                 </td>
                 <td>
-                        ${profile.phone}
+
                 </td>
                 <td>
-                    <button onclick="onShowPopup(${profile.id})" type="button" class="btn btn-primary"
+
+                </td>
+                <td>
+                    <button onclick="onShowPopup(${post.id})" type="button" class="btn btn-primary"
                             data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit
                     </button>
-                    <a class="btn btn-danger" href="/admins/users-management?action=delete&id=${profile.id}"
-                       onclick="return confirm('Do you wanna delete this ${profile.name}')">Delete</a>
+                    <a class="btn btn-danger" href="/admins/posts-management?action=delete&id=${post.id}"
+                       onclick="return confirm('Do you wanna delete this ${post.content}')">Delete</a>
                 </td>
             </tr>
         </c:forEach>
@@ -445,7 +470,7 @@
                 <li class="page-item <c:if test="${pageable.page == 1}">disabled</c:if>">
                     <c:if test="${pageable.page > 1}">
                         <a class="page-link"
-                           href="/admins/users-management?page=${pageable.page - 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Previous</a>
+                           href="/admins/posts-management?page=${pageable.page - 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Previous</a>
                     </c:if>
                 </li>
 
@@ -455,7 +480,7 @@
                         <c:forEach begin="1" end="${pageable.totalPage}" var="num">
                             <li class="page-item <c:if test="${pageable.page == num}">active</c:if>">
                                 <a class="page-link"
-                                   href="/admins/users-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
+                                   href="/admins/posts-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
                             </li>
                         </c:forEach>
                     </c:when>
@@ -487,7 +512,7 @@
                         <c:forEach begin="${startPage}" end="${endPage}" var="num">
                             <li class="page-item <c:if test="${pageable.page == num}">active</c:if>">
                                 <a class="page-link"
-                                   href="/admins/users-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
+                                   href="/admins/posts-management?page=${num}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">${num}</a>
                             </li>
                         </c:forEach>
                     </c:otherwise>
@@ -496,7 +521,7 @@
                 <li class="page-item <c:if test="${pageable.page == pageable.totalPage}">disabled</c:if>">
                     <c:if test="${pageable.page < pageable.totalPage}">
                         <a class="page-link"
-                           href="/admins/users-management?page=${pageable.page + 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Next</a>
+                           href="/admins/posts-management?page=${pageable.page + 1}&search=${pageable.search}&sortType=${pageable.sortType}&sortField=${pageable.sortField}&limit=${pageable.limit}">Next</a>
                     </c:if>
                 </li>
             </ul>
@@ -511,7 +536,7 @@
 <!-- ======== main-wrapper end =========== -->
 
 <!-- ========= All Javascript files linkup ======== -->
-<script src="../baseForm.js"></script>
+<script src="../base.js"></script>
 
 
 <script src="https:/cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -547,11 +572,10 @@
         crossorigin="anonymous"></script>
 
 <script>
-    const profiles = ${profilesJSON};
-    const genders = ${gendersJSON};
-    const users = ${usersJSON};
-    let profile = {};
-
+    const posts = ${postsJSON};
+    const limits = ${limitJSON};
+    <%--const users = ${usersJSON};--%>
+    let post = {};
     let inputs = [];
     const message = document.getElementById('message');
     const btnToast = document.getElementById('liveToastBtn');
@@ -580,91 +604,66 @@
             action = "edit";
             title = "Edit";
         }
-        tileModal.innerHTML = title + " Profile";
-        form.setAttribute('action', '/admins/users-management?action=' + action);
-        profile = profiles.find(profile => profile.id === id) || {};
+        tileModal.innerHTML = title + " Post";
+        form.setAttribute('action', '/admins/posts-management?action=' + action);
+        post = posts.find(post => post.id === id) || {};
         resetData();
     }
 
     function resetData() {
         inputs = [
             {
-                label: "Name",
-                name: "name",
-                pattern: "^[A-Za-z ]{6,20}",
+                label: "Email",
+                name: "email",
+                // pattern: "^[A-Za-z ]{6,20}",
+                type:'email',
                 message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                disable: post.profile?.user?.email,
                 require: true,
                 classDiv: 'col-6',
-                value: profile.name || ''
+                value: post.profile?.user?.email|| ''
             },
             {
-                label: "Phone",
-                name: "phone",
-                pattern: "^[0-9]{6,20}",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                label: "Location",
+                name: "location",
+                // pattern: "^[0-9]{1,50}",
+                message: "Location must have minimun is 1 charaters and maximun is 50 charaters",
                 require: true,
                 classDiv: 'col-6',
-                value: profile.phone || ''
-            },
-            {
-                label: "Avatar",
-                name: "avatar",
-                pattern: "^[A-Za-z ]{6,20}",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                require: true,
-                classDiv: 'col-6',
-                value: profile.avatar || ''
+                value: post.location || ''
             },
             {
                 name: 'id',
-                value: profile.id,
+                value: post.id,
                 type: 'hidden',
                 classDiv: 'd-none'
             },
+
             {
-                label: "DOB",
-                name: "dob",
-                type: "date",
-                message: "Date from 1950-01-01 to 2000-01-01",
-                require: true,
-                min: '1950-01-01',
-                max: '2000-01-01',
-                value: profile.dob || '',
-                classDiv: 'col-6'
-            },
-            {
-                label: "Gender",
-                name: "gender",
+                label: "Limit",
+                name: "limit",
                 type: "select",
-                message: "Please choose gender",
-                options: genders?.map(e => {
+                message: "Please choose limit",
+                options: limits?.map(e => {
                     return {
                         name: e,
                         value: e
                     }
                 }),
                 require: true,
-                value: profile.gender || '',
+                value: post.limit || '',
                 classDiv: 'col-6'
             },
             {
-                label: "Cover",
-                name: "cover",
-                pattern: "^[A-Za-z ]{6,20}",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                label: "Content",
+                name: "data",
+                // pattern: "^[A-Za-z ]{6,20}",
+                // message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
                 require: true,
                 classDiv: 'col-6',
-                value: profile.cover || ''
+                value: post.content?.data || ''
             },
-            {
-                label: "Email",
-                name: "email",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                disable: profile.profile?.email,
-                require: true,
-                classDiv: 'col-6',
-                value: profile.profile?.email || ''
-            },
+
         ];
         const formBody = document.getElementById('formBody'); // DOM formBody theo id
         formBody.innerHTML = '';

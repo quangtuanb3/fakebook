@@ -56,7 +56,7 @@
           <div style="text-align: left; margin-left: 10px;" >
             <a href="/users">
             <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-user"></i>
+              <i class="fa fa-profile"></i>
             </span>
            <span class="text" style="line-height: 10px;">USER</span>
             </a>
@@ -262,7 +262,7 @@
                   <li class="divider"></li>
                   <li>
                     <a href="#0">
-                      <i class="lni lni-user"></i> View Profile
+                      <i class="lni lni-profile"></i> View Profile
                     </a>
                   </li>
                   <li>
@@ -364,7 +364,7 @@
           <div class="col-xl-3 col-lg-4 col-sm-6">
             <div class="icon-card mb-30">
               <div class="icon orange">
-                <i class="lni lni-user"></i>
+                <i class="lni lni-profile"></i>
               </div>
               <div class="content">
                 <h6 class="mb-10">New User</h6>

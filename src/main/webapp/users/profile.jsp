@@ -31,9 +31,9 @@
         </div>
 
     </div>
-    <div class="user-settings">
+    <div class="profile-settings">
         <div class="profile-darkButton">
-            <div class="user-profile">
+            <div class="profile-profile">
                 <img src="/html/images/profile-pic.png" alt="">
                 <div>
                     <p> Alex Carry</p>
@@ -45,7 +45,7 @@
             </div>
         </div>
         <hr>
-        <div class="user-profile">
+        <div class="profile-profile">
             <img src="/html/images/feedback.png" alt="">
             <div>
                 <p> Give Feedback</p>
@@ -98,7 +98,7 @@
         <div class="right-dashboard-info">
             <div class="right-dashboard-info-top">
 
-                <button type="button"><i class="fas fa-user-plus"></i> Friends</button>
+                <button type="button"><i class="fas fa-profile-plus"></i> Friends</button>
                 <button type="button"><i class="far fa-envelope"></i> messages</button>
             </div>
             <div class="right-div-single-logo"><a href="#"> <i class="fas fa-ellipsis-h"></i></a></div>
@@ -121,7 +121,7 @@
                     <a href="#"><i class="fas fa-graduation-cap"></i>
                         <p>Studied bsc at Choumuhoni Collage</p>
                     </a>
-                    <a href="#"><i class="fas fa-user-graduate"></i>
+                    <a href="#"><i class="fas fa-profile-graduate"></i>
                         <p>Went to Technical School & Collage</p>
                     </a>
                     <a href="#"><i class="fas fa-home"></i>
@@ -206,7 +206,7 @@
 
         <div class="content-area profile-content-area">
             <div class="write-post-container">
-                <div class="user-profile">
+                <div class="profile-profile">
                     <img src="/html/images/profile-pic.png" alt="">
                     <div>
                         <p> Alex Carry</p>
@@ -233,12 +233,12 @@
                         <h2 style="text-align: center">Create Post</h2>
                         <button class="close-popup-button" onclick="closePostPopup()">Close</button>
                     </div>
-                    <div class="user-info">
+                    <div class="profile-info">
                         <div class="profile-picture">
-                            <!-- Add the user's profile picture here -->
+                            <!-- Add the profile's profile picture here -->
                         </div>
-                        <div class="user-details">
-                            <!-- Add the user's name here -->
+                        <div class="profile-details">
+                            <!-- Add the profile's name here -->
                             <span class="username">John Doe</span>
                             <!-- Privacy settings -->
                             <div class="privacy-settings">
@@ -271,7 +271,7 @@
                                 <i class="icon fas fa-smile"></i>
                             </button>
                             <button class="action-button">
-                                <i class="icon fas fa-user-tag"></i>
+                                <i class="icon fas fa-profile-tag"></i>
                             </button>
                         </div>
                         <button id="post-button" onclick="submitPost()">Post</button>
@@ -280,7 +280,7 @@
             </div>
 
             <%--           >>>>>>>>>>>>>> Render post--%>
-            <%--            private User user;--%>
+            <%--            private User profile;--%>
             <%--            private String data;--%>
             <%--            Timestamp timestamp;--%>
             <%--            String location;--%>
@@ -292,11 +292,11 @@
             <c:forEach items="${postList}" var="post">
 
                 <div class="status-field-container write-post-container">
-                    <div class="user-profile-box">
-                        <div class="user-profile">
-                            <img src=${post.user.avatar} alt="avatar">
+                    <div class="profile-profile-box">
+                        <div class="profile-profile">
+                            <img src=${post.profile.avatar} alt="avatar">
                             <div>
-                                <p>${post.user.name}</p>
+                                <p>${post.profile.name}</p>
                                 <small>${post.timestamp}</small>
                             </div>
                         </div>

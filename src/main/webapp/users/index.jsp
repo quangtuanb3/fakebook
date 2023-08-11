@@ -34,9 +34,9 @@
         </div>
 
     </div>
-    <div class="user-settings">
+    <div class="profile-settings">
         <div class="profile-darkButton">
-            <div class="user-profile">
+            <div class="profile-profile">
                 <img src="../admins/images/profile-pic.png" alt="">
                 <div>
                     <p> Alex Carry</p>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <hr>
-        <div class="user-profile">
+        <div class="profile-profile">
             <img src="../admins/images/feedback.png" alt="">
             <div>
                 <p> Give Feedback</p>
@@ -128,7 +128,7 @@
         </div>
 
         <div class="write-post-container">
-            <div class="user-profile">
+            <div class="profile-profile">
                 <img src="../admins/images/profile-pic.png" alt="">
                 <div>
                     <p> Alex Carry</p>
@@ -149,8 +149,8 @@
 
 
         <div class="status-field-container write-post-container">
-            <div class="user-profile-box">
-                <div class="user-profile">
+            <div class="profile-profile-box">
+                <div class="profile-profile">
                     <img src="../admins/images/profile-pic.png" alt="">
                     <div>
                         <p> Alex Carry</p>
@@ -180,8 +180,8 @@
             </div>
         </div>
         <div class="status-field-container write-post-container">
-            <div class="user-profile-box">
-                <div class="user-profile">
+            <div class="profile-profile-box">
+                <div class="profile-profile">
                     <img src="../admins/images/profile-pic.png" alt="">
                     <div>
                         <p> Alex Carry</p>
@@ -211,8 +211,8 @@
             </div>
         </div>
         <div class="status-field-container write-post-container">
-            <div class="user-profile-box">
-                <div class="user-profile">
+            <div class="profile-profile-box">
+                <div class="profile-profile">
                     <img src="../admins/images/profile-pic.png" alt="">
                     <div>
                         <p> Alex Carry</p>
@@ -242,8 +242,8 @@
             </div>
         </div>
         <div class="status-field-container write-post-container">
-            <div class="user-profile-box">
-                <div class="user-profile">
+            <div class="profile-profile-box">
+                <div class="profile-profile">
                     <img src="../admins/images/profile-pic.png" alt="">
                     <div>
                         <p> Alex Carry</p>

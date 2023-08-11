@@ -1,6 +1,7 @@
 package Utils;
 
 public class AppConstant {
+    public static String POST_MANAGEMENT_PAGE = "/posts-management.jsp" ;
     public static String ACTION= "action";
     public static String EDIT= "edit";
     public static String CREATE= "create";
