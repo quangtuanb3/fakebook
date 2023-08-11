@@ -25,9 +25,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @WebServlet(urlPatterns = "/admins/posts-management", name = "postManagementController")
 public class PostManagementController extends HttpServlet {
@@ -61,31 +63,51 @@ public class PostManagementController extends HttpServlet {
         String action = req.getParameter(AppConstant.ACTION); // lấy action
         if (Objects.equals(action, AppConstant.CREATE)) {
             //kiểm tra xem action = create thi call create
-            create(req, resp);
+            try {
+                create(req, resp);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
         if (Objects.equals(action, AppConstant.EDIT)) {
             //kiểm tra xem action = create thi call edit
-            edit(req, resp);
+            try {
+                edit(req, resp);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
         showList(req, resp);
     }
 
-    private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, SQLException {
         Post post = getValidPost(req, resp); // lấy ra user và + xử lý cho việc validation của các field trong class User.
         if (errors.size() == 0) { //không xảy lỗi (errors size == 0) thì mình mới tạo user.
             PostService.getPostService().create(post);
-            resp.sendRedirect("/posts?message=Created");
+            resp.sendRedirect("/admins/posts-management?message=Created");
         }
 
     }
 
-    private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Post post = getValidPost(req, resp); // lấy ra user và + xử lý cho việc validation của các field trong class User.
-        if (errors.size() == 0) { //không xảy lỗi (errors size == 0) thì mình mới sửa user.
-            PostService.getPostService().edit(post);
-            resp.sendRedirect("/posts?message=Edited");
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, SQLException {
+        Integer id = Integer.valueOf(req.getParameter("id"));
+        String content = req.getParameter("data");
+        String location = req.getParameter("location");
+        ELimit postLimit = ELimit.valueOf(req.getParameter("post_limit"));
+        int content_id = Integer.parseInt(req.getParameter("content.id"));
+        Content contentDB = ContentService.getContentService().findById(content_id);
+        contentDB.setData(content);
+        Post postDB = PostService.getPostService().findById(id);
+        postDB.setLocation(location);
+        postDB.setPostLimit(postLimit);
+        postDB.setContent(contentDB);
+        ContentService.getContentService().update(contentDB);
+        //        Post post = getValidPost(req, resp);
+        if (errors.size() == 0) {
+            PostService.getPostService().edit(postDB);
+            resp.sendRedirect("/admins/posts-management?message=Edited");
         }
     }
 
@@ -105,7 +127,8 @@ public class PostManagementController extends HttpServlet {
 //        req.setAttribute("limitJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
         req.setAttribute("message", req.getParameter("message")); // gửi qua message để toastr show thông báo
         req.setAttribute("postsJSON", new ObjectMapper().writeValueAsString(PostService.getPostService().getPostList(request)));
-        req.setAttribute("limitJSON", AppUtil.mapper.writeValueAsString(ELimit.values()));
+        req.setAttribute("postLimitJSON", AppUtil.mapper.writeValueAsString(ELimit.values()));
+//        req.setAttribute("usersJSON", AppUtil.mapper.writeValueAsString(UserService.getUsers(request)));
         req.setAttribute("contentsJSON", new ObjectMapper().writeValueAsString(ContentService.getContents()));
         String s = PAGE + AppConstant.POST_MANAGEMENT_PAGE;
         req.getRequestDispatcher(s).forward(req, resp);
@@ -138,12 +161,12 @@ public class PostManagementController extends HttpServlet {
         resp.sendRedirect(PAGE + "?message=Deleted");
     }
 
-    private Post getValidPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    private Post getValidPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, SQLException {
         Post post = (Post) AppUtil.getObjectWithValidation(req, Post.class, validators); //
         User user = new User(req.getParameter("email"));
+        boolean existedEmail = UserService.getUserService().existByEmail(user.getEmail());
 
-        Content content = new Content(req.getParameter("data"));
-        if (errors.size() > 0) {
+        if (errors.size() > 0 || !existedEmail) {
             PageableRequest request = new PageableRequest(
                     req.getParameter("search"),
                     req.getParameter("sortField"),
@@ -155,12 +178,20 @@ public class PostManagementController extends HttpServlet {
             req.setAttribute("pageable", request);
             req.setAttribute("posts", PostService.getPostService().getPostList(request)); // gửi qua list users để jsp vẻ lên trang web
             req.setAttribute("postsJSON", new ObjectMapper().writeValueAsString(PostService.getPostService().getPostList(request)));
-            req.setAttribute("limitJSON", new ObjectMapper().writeValueAsString(ELimit.values()));
+            req.setAttribute("postLimitJSON", new ObjectMapper().writeValueAsString(ELimit.values()));
 //            req.setAttribute("categoriesJSON", new ObjectMapper().writeValueAsString(CategoryService.getCategories()));
             req.setAttribute("message", "Something was wrong");
             req.setAttribute("contentsJSON", new ObjectMapper().writeValueAsString(ContentService.getContents()));
             req.getRequestDispatcher(PAGE + AppConstant.POST_MANAGEMENT_PAGE)
                     .forward(req, resp);
+        } else {
+            Content content = new Content(req.getParameter("data"));
+            Integer content_id = ContentService.getContentService().insertAndGetId(content);
+            Integer profile_id = ProfileService.getProfileService().findProfileIdByEmail(user.getEmail());
+            content.setId(content_id);
+            assert post != null;
+            post.setContent(content);
+            post.setProfile(new Profile(Integer.parseInt(String.valueOf(profile_id))));
         }
         return post;
     }

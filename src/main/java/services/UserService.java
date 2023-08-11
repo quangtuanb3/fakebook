@@ -51,11 +51,16 @@ public class UserService {
     public boolean existById(Integer id) {
         return userDAO.existByID(id);
     }
+    public boolean existByEmail(String email) {
+        return userDAO.existByEmail(email);
+    }
 
     public void delete(Integer userId) {
         userDAO.deleteById(userId);
     }
-//    public void MAXID(){
-//        userDAO.setFIND_BY_ID();
-//    }
+    public void lock(Integer id) {
+        userDAO.lock(id);
+
+    }
+
 }

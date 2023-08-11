@@ -100,7 +100,7 @@
                     <div class="header-left d-flex align-items-center">
                         <div class="menu-toggle-btn mr-15">
                             <button id="menu-toggle" class="main-btn primary-btn btn-hover">
-                                <i class="fa fa-bars"></i>  Menu
+                                <i class="fa fa-bars"></i> Menu
                             </button>
                         </div>
                     </div>
@@ -370,7 +370,7 @@
                 </a>
             </th>
             <th>
-              Username
+                Username
             </th>
             <th>
                 <a
@@ -382,7 +382,7 @@
                             href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=location&page=${pageable.page}"
                         </c:if>
                 >
-                  Location
+                    Location
                 </a>
             </th>
             <th>
@@ -400,20 +400,20 @@
             </th>
             <th>
                 Content
-<%--                <a--%>
-<%--                        <c:if test="${pageable.sortField == 'content' && pageable.sortType == 'DESC'}">--%>
-<%--                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=content&page=${pageable.page}"--%>
-<%--                        </c:if>--%>
+                <%--                <a--%>
+                <%--                        <c:if test="${pageable.sortField == 'content' && pageable.sortType == 'DESC'}">--%>
+                <%--                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=content&page=${pageable.page}"--%>
+                <%--                        </c:if>--%>
 
-<%--                        <c:if test="${!(pageable.sortField == 'content' && pageable.sortType == 'DESC')}">--%>
-<%--                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=content&page=${pageable.page}"--%>
-<%--                        </c:if>--%>
-<%--                >--%>
-<%--                   Content--%>
-<%--                </a>--%>
+                <%--                        <c:if test="${!(pageable.sortField == 'content' && pageable.sortType == 'DESC')}">--%>
+                <%--                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=content&page=${pageable.page}"--%>
+                <%--                        </c:if>--%>
+                <%--                >--%>
+                <%--                   Content--%>
+                <%--                </a>--%>
             </th>
             <th>
-               Like Number
+                Like Number
             </th>
             <th>
                 Comment Number
@@ -437,7 +437,7 @@
                         ${post.location}
                 </td>
                 <td>
-                        ${post.limit}
+                        ${post.postLimit}
                 </td>
                 <td>
                         ${post.content.data}
@@ -573,7 +573,8 @@
 
 <script>
     const posts = ${postsJSON};
-    const limits = ${limitJSON};
+    const limits = ${postLimitJSON};
+    <%--const users = ${usersJSON};--%>
     <%--const users = ${usersJSON};--%>
     let post = {};
     let inputs = [];
@@ -584,10 +585,9 @@
     window.onload = () => {
         if (message.innerHTML.trim() == 'Something was wrong') {
             toastr.error(message.innerHTML);
-        }else if (message.innerHTML.trim() == 'Id not found') {
+        } else if (message.innerHTML.trim() == 'Id not found') {
             toastr.error(message.innerHTML);
-        }
-        else if (message.innerHTML.trim() !== '') {
+        } else if (message.innerHTML.trim() !== '') {
             toastr.success(message.innerHTML);
         }
     }
@@ -607,6 +607,7 @@
         tileModal.innerHTML = title + " Post";
         form.setAttribute('action', '/admins/posts-management?action=' + action);
         post = posts.find(post => post.id === id) || {};
+        console.log("post", post);
         resetData();
     }
 
@@ -616,12 +617,13 @@
                 label: "Email",
                 name: "email",
                 // pattern: "^[A-Za-z ]{6,20}",
-                type:'email',
+                type: 'email',
                 message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                disable: post.profile?.user?.email,
+                disable: post.id,
                 require: true,
                 classDiv: 'col-6',
-                value: post.profile?.user?.email|| ''
+                id: "post-email",
+                value: ''
             },
             {
                 label: "Location",
@@ -638,10 +640,16 @@
                 type: 'hidden',
                 classDiv: 'd-none'
             },
+            {
+                name: 'content.id',
+                value: post.content.id,
+                type: 'hidden',
+                classDiv: 'd-none'
+            },
 
             {
                 label: "Limit",
-                name: "limit",
+                name: "post_limit",
                 type: "select",
                 message: "Please choose limit",
                 options: limits?.map(e => {
@@ -651,7 +659,7 @@
                     }
                 }),
                 require: true,
-                value: post.limit || '',
+                value: post.postLimit || '',
                 classDiv: 'col-6'
             },
             {
@@ -674,7 +682,7 @@
             } else {
                 // For avatar input, set the default value to the image path (props.value) if available
                 const avatarValue = input.type === 'file' ? '' : input.value;
-                formBody.innerHTML += formInput({ ...input, value: avatarValue }, index);
+                formBody.innerHTML += formInput({...input, value: avatarValue}, index);
             }
         });
 

@@ -7,7 +7,7 @@ import services.dto.PageableRequest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 public class ProfileService {
     public static List<Profile> profileList = new ArrayList<>();
@@ -48,8 +48,7 @@ public class ProfileService {
         return profileDAO.existByID(id);
     }
 
-    public void delete(Integer userId) {
-        profileDAO.deleteById(userId);
-
+    public Integer findProfileIdByEmail(String email){
+        return profileDAO.findProfileIdByEmail(email);
     }
 }

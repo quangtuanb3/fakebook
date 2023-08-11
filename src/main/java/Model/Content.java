@@ -1,7 +1,6 @@
 package Model;
 
 public class Content {
-    public static Integer currentId = 0;
     private Integer id;
     String data;
     Post post;
@@ -24,7 +23,6 @@ public class Content {
     }
 
     public Content(String data) {
-        this.id = ++currentId;
         this.data = data;
     }
 

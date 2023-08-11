@@ -1,5 +1,5 @@
 function formInput(props, index) {
-
+    // console.log("Props id", props.id)
     if (props.type === 'select') {
         return formSelect(props, index);
     }
@@ -11,6 +11,7 @@ function formInput(props, index) {
                 class="input-custom form-control"
                 type="file"
                 name="${props.name}"
+                // id="${props.id ? props.id : ''}"
                 onchange="onFileChange(event, ${index})"
                 ${props.require ? 'required' : ''}
             />

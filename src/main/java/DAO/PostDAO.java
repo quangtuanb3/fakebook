@@ -18,13 +18,13 @@ import java.util.Optional;
 public class PostDAO extends DatabaseConnection {
     //    private final String SELECT_ALL_POSTS = "SELECT p.*,c.name `category.name`, c.id as `category.id`  FROM `Teachers` t LEFT JOIN " +
 //            "`categories` c on t.category_id = c.id  WHERE t.`name` like '%s' OR t.`hobby` LIKE '%s' OR t.`gender` LIKE '%s' Order BY %s %s LIMIT %s OFFSET %s";
-    private final String SELECT_ALL_POSTS = "SELECT p.*,u.email `user.email`, pr.name `profile.name`,pr.id as `profile.id`,ct.id `content.id`,ct.data `contents.data` FROM `posts` p LEFT JOIN `profiles` pr ON p.profile_id = pr.id left JOIN `contents` ct ON p.content_id = ct.id left join `users` u on pr.user_id = u.id  WHERE p.`location` like '%s' OR p.`limit` LIKE '%s' Order BY %s %s LIMIT %s OFFSET %s";
+    private final String SELECT_ALL_POSTS = "SELECT p.*,u.email `user.email`, pr.name `profile.name`,pr.id as `profile.id`,ct.id `content.id`,ct.data `contents.data` FROM `posts` p LEFT JOIN `profiles` pr ON p.profile_id = pr.id left JOIN `contents` ct ON p.content_id = ct.id left join `users` u on pr.user_id = u.id  WHERE p.`location` like '%s' OR p.`post_limit` LIKE '%s' Order BY %s %s LIMIT %s OFFSET %s";
     //    private final String SELECT_TOTAL_RECORDS = "SELECT COUNT(1) as cnt  FROM `teachers` t LEFT JOIN " +
 //            "`categories` c on t.category_id = c.id  WHERE t.`name` like '%s' OR t.`hobby` LIKE '%s'";
-    private final String SELECT_TOTAL_RECORDS = "SELECT COUNT(1) as cnt  FROM `posts` p  WHERE p.`location` like '%s' OR p.`limit` LIKE '%s'";
-    private final String UPDATE_POSTS = "UPDATE `posts` SET  `location` = ?, `limit` = ?, `content_id` = ? WHERE (`id` = ?);";
+    private final String SELECT_TOTAL_RECORDS = "SELECT COUNT(1) as cnt  FROM `posts` p  WHERE p.`location` like '%s' OR p.`post_limit` LIKE '%s'";
+    private final String UPDATE_POSTS = "UPDATE `posts` SET  `location` = ?, `post_limit` = ?, `content_id` = ? WHERE (`id` = ?);";
 
-    private final String INSERT_POSTS = "INSERT INTO `posts` (`profile_id`, `location`, `limit`,`content_id`) VALUES(?, ?, ?, ?)";
+    private final String INSERT_POSTS = "INSERT INTO `posts` (`profile_id`, `location`, `post_limit`,`content_id`) VALUES(?, ?, ?, ?)";
     //    private final String FIND_BY_ID = "SELECT t.*,c.name category_name  FROM " +
 //            "`teachers` t LEFT JOIN `categories` c on t.category_id = c.id WHERE t.`id` = ?"; // show Edit
     private final String FIND_BY_ID = "SELECT p.*,pr.*  FROM `posts` p LEFT JOIN `profiles` pr ON p.profile_id = pr.id WHERE p.`id` = ?";
@@ -84,7 +84,7 @@ public class PostDAO extends DatabaseConnection {
             System.out.println(preparedStatement);
             preparedStatement.setInt(1, post.getProfile().getId());
             preparedStatement.setString(2, post.getLocation());
-            preparedStatement.setString(3, post.getLimit().toString());
+            preparedStatement.setString(3, post.getPostLimit().toString());
 //            preparedStatement.setString(4,teacher.getGender().toString());
             preparedStatement.setInt(4, post.getContent().getId());
             preparedStatement.executeUpdate();
@@ -100,11 +100,11 @@ public class PostDAO extends DatabaseConnection {
              PreparedStatement preparedStatement = connection
                      .prepareStatement(UPDATE_POSTS)) {
             System.out.println(preparedStatement);
-            preparedStatement.setString(1, post.getProfile().getName());
-            preparedStatement.setString(2, post.getLocation());
-            preparedStatement.setString(3, post.getLimit().toString());
-            preparedStatement.setInt(4, post.getContent().getId());
-            preparedStatement.setLong(5, post.getId());
+//            preparedStatement.setString(1, post.getProfile().getName());
+            preparedStatement.setString(1, post.getLocation());
+            preparedStatement.setString(2, post.getPostLimit().toString());
+            preparedStatement.setInt(3, post.getContent().getId());
+            preparedStatement.setInt(4, post.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -151,11 +151,12 @@ public class PostDAO extends DatabaseConnection {
         Integer id = rs.getInt("id");
         String profileName = rs.getString("profile.name");
         String location = rs.getString("location");
-        String content = rs.getString("contents.data");
-        String limit = rs.getString("limit");
+        String contentData = rs.getString("contents.data");
+        String postLimit = rs.getString("post_limit");
+        Integer content_id = rs.getInt("content_id");
         Profile profile = new Profile(profileName);
-        Content content1 = new Content(content);
-        return new Post(id, profile, location, content1, ELimit.valueOf(limit));
+        Content content1 = new Content(content_id, contentData);
+        return new Post(id, profile, location, content1, ELimit.valueOf(postLimit));
     }
 
 }

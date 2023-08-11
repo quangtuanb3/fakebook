@@ -4,6 +4,7 @@ public class AppConstant {
     public static String POST_MANAGEMENT_PAGE = "/posts-management.jsp" ;
     public static String ACTION= "action";
     public static String EDIT= "edit";
+    public static String LOCK= "lock";
     public static String CREATE= "create";
 
 
@@ -17,4 +18,6 @@ public class AppConstant {
     public static String MESSAGE_EDIT_SUCCESS = "Edited";
 
     public static int[] LIMIT_ROWS = {5,10,20};
+    public static String USERS_TBL = "users";
+    public static String CONTENT_TBL = "contents";
 }

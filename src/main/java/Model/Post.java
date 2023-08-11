@@ -17,7 +17,7 @@ public class Post {
     Share share;
     //shara,
     // number
-    private ELimit limit;
+    private ELimit postLimit;
     LikeNumber likeNumber;
     List<Profile> tags;
     List<String> hashTag;
@@ -27,16 +27,19 @@ public class Post {
     Integer shareNumber;
 
 
+
     public Post() {
     }
 
-    public Post(Integer id, Profile user, Timestamp timestamp, String location, Share share, ELimit limit, LikeNumber likeNumber, List<Profile> tags, List<String> hashTag, Content content, List<Media> media, Integer commentNumber, Integer shareNumber) {
+
+
+    public Post(Integer id, Profile user, Timestamp timestamp, String location, Share share, ELimit postLimit, LikeNumber likeNumber, List<Profile> tags, List<String> hashTag, Content content, List<Media> media, Integer commentNumber, Integer shareNumber) {
         this.id = id;
         this.profile = user;
         this.timestamp = timestamp;
         this.location = location;
         this.share = share;
-        this.limit = limit;
+        this.postLimit = postLimit;
         this.likeNumber = likeNumber;
         this.tags = tags;
         this.hashTag = hashTag;
@@ -46,17 +49,23 @@ public class Post {
         this.shareNumber = shareNumber;
     }
 
-    public Post(Integer id, Profile profile, String location,Content content1, ELimit limit) {
+    public Post(Integer id, Profile profile, String location,Content content1, ELimit postLimit) {
         this.id = id;
         this.profile = profile;
         this.location = location;
         this.content =content1;
-        this.limit = limit;
+        this.postLimit = postLimit;
     }
 
-    public Post(String location, ELimit limit) {
+    public Post(String location, ELimit postLimit) {
         this.location = location;
-        this.limit = limit;
+        this.postLimit = postLimit;
+    }
+
+    public Post(String location, ELimit postLimit, Content content) {
+        this.location = location;
+        this.postLimit = postLimit;
+        this.content = content;
     }
 
     public Integer getId() {
@@ -99,12 +108,12 @@ public class Post {
         this.share = share;
     }
 
-    public ELimit getLimit() {
-        return limit;
+    public ELimit getPostLimit() {
+        return postLimit;
     }
 
-    public void setLimit(ELimit limit) {
-        this.limit = limit;
+    public void setPostLimit(ELimit postLimit) {
+        this.postLimit = postLimit;
     }
 
     public LikeNumber getLikeNumber() {
