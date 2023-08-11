@@ -2,6 +2,8 @@ package controller;
 
 
 import Model.Enum.EGender;
+import Model.Enum.ERole;
+import Model.Enum.EStatus;
 import Model.Login;
 import Model.Profile;
 import Model.User;
@@ -63,7 +65,7 @@ public class AuthController  extends HttpServlet {
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
-            User user = (User) AppUtil.getObjectWithValidation(req, Login.class, new HashMap<>());
+            User user = (User) AppUtil.getObjectWithValidation(req, User.class, new HashMap<>());
             assert user != null;
             authService.login(user, req);
             resp.sendRedirect("/users");

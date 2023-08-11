@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.User;
+import Utils.AppConstant;
 import Utils.AppUtil;
 import services.dto.PageableRequest;
 
@@ -133,10 +134,10 @@ public class UserDAO extends DatabaseConnection {
 
              // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
              PreparedStatement preparedStatement = connection
-                     .prepareStatement(INSERT_USERS)) {
+                     .prepareStatement(AppUtil.buildInsertSql(AppConstant.USERS_TBL, user))) {
             System.out.println(preparedStatement);
-            preparedStatement.setString(1, user.getEmail());
-            preparedStatement.setString(2, user.getPassword());
+//            preparedStatement.setString(1, user.getEmail());
+//            preparedStatement.setString(2, user.getPassword());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

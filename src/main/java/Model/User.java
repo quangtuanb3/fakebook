@@ -1,16 +1,14 @@
 package Model;
 
 import Model.Enum.ERole;
-import Model.Enum.EUserStatus;
-
-import javax.management.relation.Role;
+import Model.Enum.EStatus;
 
 public class User {
     private Integer id;
     private String email;
     private String password;
     private ERole role;
-    private EUserStatus status;
+    private EStatus status;
 
     public User(Integer id) {
         this.id = id;
@@ -61,11 +59,11 @@ public class User {
         this.role = role;
     }
 
-    public EUserStatus getStatus() {
+    public EStatus getStatus() {
         return status;
     }
 
-    public void setStatus(EUserStatus status) {
+    public void setStatus(EStatus status) {
         this.status = status;
     }
 }

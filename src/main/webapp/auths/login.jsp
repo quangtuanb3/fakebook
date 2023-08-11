@@ -11,9 +11,8 @@
     <title>Facebook</title>
     <link href="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
-          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="icon" href="${pageContext.request.contextPath}/auths/login/images/fb_logo.svg">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -24,9 +23,10 @@
 </head>
 
 <body>
-<div class="toast-body d-none" id="message">
+<div class="toast-body d-none" id="message_toastr">
     ${message}
 </div>
+
 <main>
     <div class="row">
         <div class="col-logo">
@@ -36,8 +36,8 @@
         <div class="col-form">
             <div class="form-container">
                 <form method="post" action="${pageContext.request.contextPath}/auths?action=login">
-                    <input type="text" name="username" placeholder="Email address or phone number" value="admin">
-                    <input type="password" name="password" placeholder="Password" value="1">
+                    <input type="text" name="email" placeholder="Email address or phone number" value="renyfugu@mailinator.com">
+                    <input type="password" name="password" placeholder="Password" value="123123">
                     <button class="btn-login" type="submit">Login</button>
                     <a href="#">Forgotten password?</a>
                 </form>
@@ -67,11 +67,15 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex" style="justify-content: center">
-                        <p style="font-size: 13px; text-align: justify">People who use our service may have uploaded your contact information
-                            to Facebook.<span> Learn more.</span> </p>
-                        <p style="font-size: 13px; text-align: justify">By clicking Sign Up, you agree to our <span>Terms</span>, Privacy Policy and
+                        <p style="font-size: 13px; text-align: justify">People who use our service may have uploaded
+                            your contact information
+                            to Facebook.<span> Learn more.</span></p>
+                        <p style="font-size: 13px; text-align: justify">By clicking Sign Up, you agree to our <span>Terms</span>,
+                            Privacy Policy and
                             Cookies Policy. You may receive SMS notifications from us and can opt out at any time.</p>
-                        <button type="submit" class="btn btn-primary" style=" padding: 8px 40px; margin-bottom: 20px">Sign up</button>
+                        <button type="submit" class="btn btn-primary" style=" padding: 8px 40px; margin-bottom: 20px">
+                            Sign up
+                        </button>
                     </div>
                 </div>
             </div>
@@ -158,20 +162,28 @@
 <script src="https:/cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-    const genders = ${gendersJSON};
-    let inputs = [];
-    const message = document.getElementById('message');
+    const message = document.getElementById('message_toastr');
     const btnToast = document.getElementById('liveToastBtn');
     window.onload = () => {
-        if (message.innerHTML.trim() == 'Something was wrong') {
-            toastr.error(message.innerHTML)
-        } else if (message.innerHTML.trim() == 'Id not found') {
-            toastr.warning(message.innerHTML)
-        } else if (message.innerHTML.trim() !== '') {
-            toastr.success(message.innerHTML);
+        const messageContent = message.innerHTML.trim();
+        if (messageContent === 'Something was wrong') {
+            toastr.error(messageContent);
+        } else if (messageContent === 'Id not found') {
+            toastr.error(messageContent);
+        } else if (messageContent !== '') {
+            // Set toastr options for position
+            toastr.options = {
+                positionClass: 'toast-bottom-right', // Change this to your desired position
+                timeOut: 2000 // Set the duration for the toastr message
+            };
+            toastr.success(messageContent);
         }
-    }
+    };
+</script>
 
+<script>
+    const genders = ${gendersJSON};
+    let inputs = [];
     function onShowPopup() {
         const inputs = [
             {
@@ -225,7 +237,7 @@
                 name: "gender",
                 type: "radio-group", // New type for radio button groups
                 message: "Please choose Gender",
-                options:  genders?.map(e => {
+                options: genders?.map(e => {
                     return {
                         name: e,
                         value: e
@@ -235,8 +247,6 @@
                 value: '', // Set the default selected value here
                 classDiv: 'col-12'
             }
-
-
         ];
         const formBody = document.getElementById('formBodyOfRegister');
         formBody.innerHTML = ''; // Clear the existing form content

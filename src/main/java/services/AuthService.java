@@ -1,21 +1,19 @@
 package services;
 
-import DAO.AuthDAO;
 import DAO.UserDAO;
 import Model.Enum.ERole;
-import Model.Enum.EUserStatus;
-import Model.Login;
+import Model.Enum.EStatus;
 import Model.Profile;
 import Model.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 public class AuthService {
     public void register(User user, Profile profile) {
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
         user.setRole(ERole.USER);
-        user.setStatus(EUserStatus.ACTIVE);
+        user.setStatus(EStatus.ACTIVE);
         UserService.getUserService().create(user);
         User userDB = UserDAO.getUserDAO().getUserByEmail(user.getEmail()).orElse(new User());
         profile.setUser(userDB);
@@ -26,7 +24,6 @@ public class AuthService {
         final String message = "Username or password incorrect";
         var userDB = UserDAO.getUserDAO().getUserByEmail(user.getEmail())
                 .orElseThrow(() -> new RuntimeException(message));
-
         if (BCrypt.checkpw(user.getPassword(), userDB.getPassword())) {
             var session = request.getSession();
             session.setAttribute("user", userDB);

@@ -2,7 +2,8 @@ package Filter;
 
 
 import Model.Enum.ERole;
-import Model.Login;
+import Model.User;
+
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +15,11 @@ public class AdminFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         var session = ((HttpServletRequest)servletRequest).getSession();
-        if(session.getAttribute("login") == null){
+        if(session.getAttribute("user") == null){
             ((HttpServletResponse)servletResponse).sendRedirect("/auths");
             return;
         }
-        if(!((Login) session.getAttribute("login")).getRole().equals(ERole.ADMIN)){
+        if(!((User) session.getAttribute("user")).getRole().equals(ERole.ADMIN)){
             ((HttpServletResponse)servletResponse).sendRedirect("/auths?action=403");
             return;
         }
