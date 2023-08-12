@@ -8,36 +8,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../images/fb_icon.png">
     <title>Fakebook</title>
     <script src="https://kit.fontawesome.com/ef7e2b893b.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 <nav class="navbar">
-    <div class="nav-left"><img class="logo" src="../admins/images/logo.png" alt="">
-        <ul class="navlogo">
-            <li><img src="../admins/images/notification.png"></li>
-            <li><img src="../admins/images/inbox.png"></li>
+    <div class="nav-left">
+<%--        <img class="logo" src="../images/logo.png" alt="">--%>
+        <h2 style="color: white;font-size: 1.7rem; padding-right: 30px">Facebook</h2>
+    <div class="search-box">
+        <img src="../images/search.png" alt="">
+        <input type="text" placeholder="Search">
+    </div>
 
-            <li><img src="../admins/images/video.png"></li>
-
-
-        </ul>
     </div>
     <div class="nav-right">
-        <div class="search-box">
-            <img src="../admins/images/search.png" alt="">
-            <input type="text" placeholder="Search">
-        </div>
+
         <div class="profile-image online" onclick="UserSettingToggle()">
-            <img src="../admins/images/profile-pic.png" alt="">
+            <img src="../images/profile-pic.png" alt="">
         </div>
+        <ul class="navlogo" style="list-style: none; display: flex">
+            <li><img src="../images/notification.png"></li>
+            <li><img src="../images/inbox.png"></li>
+            <li><img src="../images/video.png"></li>
+
+        </ul>
 
     </div>
     <div class="user-settings">
         <div class="profile-darkButton">
             <div class="user-profile">
-                <img src="../admins/images/profile-pic.png" alt="">
+                <img src="../images/profile-pic.png" alt="">
                 <div>
                     <p> Alex Carry</p>
                     <a href="/profiles">See your profile</a>
@@ -49,7 +52,7 @@
         </div>
         <hr>
         <div class="user-profile">
-            <img src="../admins/images/feedback.png" alt="">
+            <img src="../images/feedback.png" alt="">
             <div>
                 <p> Give Feedback</p>
                 <a href="#">Help us to improve</a>
@@ -57,23 +60,19 @@
         </div>
         <hr>
         <div class="settings-links">
-            <img src="../admins/images/setting.png" alt="" class="settings-icon">
-            <a href="#">Settings & Privary <img src="../admins/images/arrow.png" alt=""></a>
+            <img src="../images/setting.png" alt="" class="settings-icon">
+            <a href="#">Settings & Privary <img src="../images/arrow.png" alt=""></a>
         </div>
 
         <div class="settings-links">
-            <img src="../admins/images/help.png" alt="" class="settings-icon">
-            <a href="#">Help & Support <img src="../admins/images/arrow.png" alt=""></a>
+            <img src="../images/help.png" alt="" class="settings-icon">
+            <a href="#">Help & Support <img src="../images/arrow.png" alt=""></a>
         </div>
 
-        <div class="settings-links">
-            <img src="images/Display.png" alt="" class="settings-icon">
-            <a href="#">Display & Accessibility <img src="../admins/images/arrow.png" alt=""></a>
-        </div>
 
         <div class="settings-links">
-            <img src="../admins/images/logout.png" alt="" class="settings-icon">
-            <a href="#">Logout <img src="../admins/images/arrow.png" alt=""></a>
+            <img src="../images/logout.png" alt="" class="settings-icon">
+            <a href="#">Logout <img src="../images/arrow.png" alt=""></a>
         </div>
 
     </div>
@@ -84,20 +83,20 @@
 <div class="container">
     <div class="left-sidebar">
         <div class="important-links">
-            <a href="#"><img src="../admins/images/news.png" alt="">Latest News</a>
-            <a href="#"><img src="../admins/images/friends.png" alt="">Friends</a>
-            <a href="#"><img src="../admins/images/group.png" alt="">Groups</a>
-            <a href="#"><img src="../admins/images/marketplace.png" alt="">marketplace</a>
-            <a href="#"><img src="../admins/images/watch.png" alt="">Watch</a>
+            <a href="#"><img src="../images/news.png" alt="">Latest News</a>
+            <a href="#"><img src="../images/friends.png" alt="">Friends</a>
+            <a href="#"><img src="../images/group.png" alt="">Groups</a>
+            <a href="#"><img src="../images/marketplace.png" alt="">marketplace</a>
+            <a href="#"><img src="../images/watch.png" alt="">Watch</a>
             <a href="#">See More</a>
         </div>
 
         <div class="shortcut-links">
             <p>Your Shortcuts</p>
-            <a href="#"> <img src="../admins/images/shortcut-1.png" alt="">Web Developers</a>
-            <a href="#"> <img src="../admins/images/shortcut-2.png" alt="">Web Design Course</a>
-            <a href="#"> <img src="../admins/images/shortcut-3.png" alt="">Full Stack Development</a>
-            <a href="#"> <img src="../admins/images/shortcut-4.png" alt="">Website Experts</a>
+            <a href="#"> <img src="../images/shortcut-1.png" alt="">Web Developers</a>
+            <a href="#"> <img src="../images/shortcut-2.png" alt="">Web Design Course</a>
+            <a href="#"> <img src="../images/shortcut-3.png" alt="">Full Stack Development</a>
+            <a href="#"> <img src="../images/shortcut-4.png" alt="">Website Experts</a>
         </div>
     </div>
 
@@ -106,52 +105,113 @@
     <div class="content-area">
         <div class="story-gallery">
             <div class="story story1">
-                <img src="../admins/images/upload.png" alt="">
+                <img src="../images/upload.png" alt="">
                 <p>Post Story</p>
             </div>
             <div class="story story2">
-                <img src="../admins/images/member-1.png" alt="">
+                <img src="../images/member-1.png" alt="">
                 <p>Alison</p>
             </div>
             <div class="story story3">
-                <img src="../admins/images/member-2.png" alt="">
+                <img src="../images/member-2.png" alt="">
                 <p>Jackson</p>
             </div>
             <div class="story story4">
-                <img src="../admins/images/member-3.png" alt="">
+                <img src="../images/member-3.png" alt="">
                 <p>Samona</p>
             </div>
             <div class="story story5">
-                <img src="../admins/images/member-4.png" alt="">
+                <img src="../images/member-4.png" alt="">
                 <p>John</p>
             </div>
         </div>
 
         <div class="write-post-container">
             <div class="user-profile">
-                <img src="../admins/images/profile-pic.png" alt="">
+                <img src="../images/profile-pic.png" alt="">
                 <div>
                     <p> Alex Carry</p>
                     <small>Public <i class="fas fa-caret-down"></i></small>
                 </div>
             </div>
 
-            <div class="post-upload-textarea">
-                <textarea name="" placeholder="What's on your mind, Alex?" id="" cols="30" rows="3"></textarea>
+<%--            <div class="post-upload-textarea">--%>
+<%--                <textarea name="" placeholder="What's on your mind, Alex?" id="" cols="30" rows="3"></textarea>--%>
+<%--                <div class="add-post-links">--%>
+<%--                    <span><img src="../images/live-video.png" alt="">Live Video</span>--%>
+<%--                    <span><img src="../images/photo.png" alt="">Photo/Video</span>--%>
+<%--                    <span><img src="../images/feeling.png" alt="">Feeling Activity</span>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+            <div class="post-upload-textarea" id="openPopupBtn">
+
+                    <textarea name="postContent" placeholder="What's on your mind, Alex?" id="post-text-area" cols="30"
+                              rows="3" readonly onclick="openPostPopup()"></textarea>
                 <div class="add-post-links">
-                    <span><img src="../admins/images/live-video.png" alt="">Live Video</span>
-                    <span><img src="../admins/images/photo.png" alt="">Photo/Video</span>
-                    <span><img src="../admins/images/feeling.png" alt="">Feeling Activity</span>
+                    <span onclick="openPostPopup()"><img src="../images/live-video.png" alt="">Live Video</span>
+                    <span onclick="openPostPopup()"><img src="../images/photo.png" alt="">Photo/Video</span>
+                    <span onclick="openPostPopup()"><img src="../images/feeling.png" alt="">Feeling Activity</span>
+                </div>
+            </div>
+        </div>
+        <%--        create status here --%>
+        <div class="popup-overlay" id="popup-overlay">
+            <div class="popup">
+                <div class="popup-header">
+                    <h2 style="text-align: center">Create Post</h2>
+                    <button class="close-popup-button" onclick="closePostPopup()">Close</button>
+                </div>
+                <div class="user-info">
+                    <div class="profile-picture">
+                        <!-- Add the user's profile picture here -->
+                    </div>
+                    <div class="user-details">
+                        <!-- Add the user's name here -->
+                        <span class="username">John Doe</span>
+                        <!-- Privacy settings -->
+                        <div class="privacy-settings">
+                            <span class="privacy-label">Privacy:</span>
+                            <select id="privacy-select">
+                                <option value="public">Public</option>
+                                <option value="friends">Friends</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <label for="post-text"></label><textarea id="post-text" placeholder="What's on your mind?"></textarea>
+                    <div class="image-preview" id="image-preview"></div>
+                    <div class="post-actions">
+
+                        <button class="action-button">
+                            <label for="post-media" class="upload-media-button">
+                                <i class="icon fas fa-image"></i>
+                            </label>
+                            <input type="file" id="post-media" accept="image/*,video/*" style="display: none;">
+                        </button>
+
+
+                        <button class="action-button">
+                            <i class="icon fas fa-map-marker-alt"></i>
+                        </button>
+                        <button class="action-button">
+                            <i class="icon fas fa-smile"></i>
+                        </button>
+                        <button class="action-button">
+                            <i class="icon fas fa-user-tag"></i>
+                        </button>
+                    </div>
+                    <button id="post-button" onclick="submitPost()">Post</button>
                 </div>
             </div>
         </div>
 
 
-
         <div class="status-field-container write-post-container">
             <div class="user-profile-box">
                 <div class="user-profile">
-                    <img src="../admins/images/profile-pic.png" alt="">
+                    <img src="../images/profile-pic.png" alt="">
                     <div>
                         <p> Alex Carry</p>
                         <small>August 13 1999, 09.18 pm</small>
@@ -165,111 +225,16 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolores praesentium dicta
                     laborum nihil accusantium odit laboriosam, sed sit autem! <a
                             href="#">#This_Post_is_Better!!!!</a></p>
-                <img src="../admins/images/feed-image-1.png" alt="">
+                <img src="../images/feed-image-1.png" alt="">
 
             </div>
             <div class="post-reaction">
                 <div class="activity-icons">
-                    <div><img src="../admins/images/like-blue.png" alt="">120</div>
-                    <div><img src="../admins/images/comments.png" alt="">52</div>
-                    <div><img src="../admins/images/share.png" alt="">35</div>
+                    <div><img src="../images/like-blue.png" alt="">120</div>
+                    <div><img src="../images/comments.png" alt="">52</div>
+                    <div><img src="../images/share.png" alt="">35</div>
                 </div>
-                <div class="post-profile-picture">
-                    <img src="../admins/images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
-                </div>
-            </div>
-        </div>
-        <div class="status-field-container write-post-container">
-            <div class="user-profile-box">
-                <div class="user-profile">
-                    <img src="../admins/images/profile-pic.png" alt="">
-                    <div>
-                        <p> Alex Carry</p>
-                        <small>August 13 1999, 09.18 pm</small>
-                    </div>
-                </div>
-                <div>
-                    <a href="#"><i class="fas fa-ellipsis-v"></i></a>
-                </div>
-            </div>
-            <div class="status-field">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolores praesentium dicta
-                    laborum nihil accusantium odit laboriosam, sed sit autem! <a
-                            href="#">#This_Post_is_Bigger!!!!</a></p>
-                <img src="../admins/images/feed-image-2.png" alt="">
 
-            </div>
-            <div class="post-reaction">
-                <div class="activity-icons">
-                    <div><img src="../admins/images/like-blue.png" alt="">120</div>
-                    <div><img src="../admins/images/comments.png" alt="">52</div>
-                    <div><img src="../admins/images/share.png" alt="">35</div>
-                </div>
-                <div class="post-profile-picture">
-                    <img src="../admins/images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
-                </div>
-            </div>
-        </div>
-        <div class="status-field-container write-post-container">
-            <div class="user-profile-box">
-                <div class="user-profile">
-                    <img src="../admins/images/profile-pic.png" alt="">
-                    <div>
-                        <p> Alex Carry</p>
-                        <small>August 13 1999, 09.18 pm</small>
-                    </div>
-                </div>
-                <div>
-                    <a href="#"><i class="fas fa-ellipsis-v"></i></a>
-                </div>
-            </div>
-            <div class="status-field">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolores praesentium dicta
-                    laborum nihil accusantium odit laboriosam, sed sit autem! <a
-                            href="#">#This_Post_is_faster!!!!</a></p>
-                <img src="../admins/images/feed-image-3.png" alt="">
-
-            </div>
-            <div class="post-reaction">
-                <div class="activity-icons">
-                    <div><img src="../admins/images/like-blue.png" alt="">120</div>
-                    <div><img src="../admins/images/comments.png" alt="">52</div>
-                    <div><img src="../admins/images/share.png" alt="">35</div>
-                </div>
-                <div class="post-profile-picture">
-                    <img src="../admins/images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
-                </div>
-            </div>
-        </div>
-        <div class="status-field-container write-post-container">
-            <div class="user-profile-box">
-                <div class="user-profile">
-                    <img src="../admins/images/profile-pic.png" alt="">
-                    <div>
-                        <p> Alex Carry</p>
-                        <small>August 13 1999, 09.18 pm</small>
-                    </div>
-                </div>
-                <div>
-                    <a href="#"><i class="fas fa-ellipsis-v"></i></a>
-                </div>
-            </div>
-            <div class="status-field">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolores praesentium dicta
-                    laborum nihil accusantium odit laboriosam, sed sit autem! <a
-                            href="#">#This_Post_is_perfect!!!!</a></p>
-                <img src="../admins/images/feed-image-4.png" alt="">
-
-            </div>
-            <div class="post-reaction">
-                <div class="activity-icons">
-                    <div><img src="../admins/images/like-blue.png" alt="">120</div>
-                    <div><img src="../admins/images/comments.png" alt="">52</div>
-                    <div><img src="../admins/images/share.png" alt="">35</div>
-                </div>
-                <div class="post-profile-picture">
-                    <img src="../admins/images/profile-pic.png " alt=""> <i class=" fas fa-caret-down"></i>
-                </div>
             </div>
         </div>
         <button type="button" class="btn-LoadMore" onclick="LoadMoreToggle()">Load More</button>
@@ -310,7 +275,7 @@
             <a href="">Close</a>
         </div>
         <div class="advertisement">
-            <img src="../admins/images/advertisement.png" class="advertisement-image" alt="">
+            <img src="../images/advertisement.png" class="advertisement-image" alt="">
         </div>
 
         <div class="heading-link">
@@ -320,20 +285,20 @@
 
         <div class="online-list">
             <div class="online">
-                <img src="../admins/images/member-1.png" alt="">
+                <img src="../images/member-1.png" alt="">
             </div>
             <p>Alison Mina</p>
         </div>
 
         <div class="online-list">
             <div class="online">
-                <img src="../admins/images/member-2.png" alt="">
+                <img src="../images/member-2.png" alt="">
             </div>
             <p>Jackson Aston</p>
         </div>
         <div class="online-list">
             <div class="online">
-                <img src="../admins/images/member-3.png" alt="">
+                <img src="../images/member-3.png" alt="">
             </div>
             <p>Samona Rose</p>
         </div>
