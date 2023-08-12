@@ -18,7 +18,8 @@ import java.util.Optional;
 public class PostDAO extends DatabaseConnection {
     //    private final String SELECT_ALL_POSTS = "SELECT p.*,c.name `category.name`, c.id as `category.id`  FROM `Teachers` t LEFT JOIN " +
 //            "`categories` c on t.category_id = c.id  WHERE t.`name` like '%s' OR t.`hobby` LIKE '%s' OR t.`gender` LIKE '%s' Order BY %s %s LIMIT %s OFFSET %s";
-    private final String SELECT_ALL_POSTS = "SELECT p.*,u.email `user.email`, pr.name `profile.name`,pr.id as `profile.id`,ct.id `content.id`,ct.data `contents.data` FROM `posts` p LEFT JOIN `profiles` pr ON p.profile_id = pr.id left JOIN `contents` ct ON p.content_id = ct.id left join `users` u on pr.user_id = u.id  WHERE p.`location` like '%s' OR p.`post_limit` LIKE '%s' Order BY %s %s LIMIT %s OFFSET %s";
+    private final String SELECT_ALL_POSTS = "SELECT p.*,u.email `user.email`, pr.name `profile.name`,pr.id as `profile.id`,ct.id `content.id`,ct.data `contents.data` FROM `posts` p LEFT JOIN `profiles` pr ON p.profile_id = pr.id left JOIN `contents` ct ON p.content_id = ct.id left join `users` u on pr.user_id = u.id " +
+            "WHERE p.`location` like '%s' OR p.`post_limit` LIKE '%s' OR pr.name LIKE '%s' Order BY %s %s LIMIT %s OFFSET %s";
     //    private final String SELECT_TOTAL_RECORDS = "SELECT COUNT(1) as cnt  FROM `teachers` t LEFT JOIN " +
 //            "`categories` c on t.category_id = c.id  WHERE t.`name` like '%s' OR t.`hobby` LIKE '%s'";
     private final String SELECT_TOTAL_RECORDS = "SELECT COUNT(1) as cnt  FROM `posts` p  WHERE p.`location` like '%s' OR p.`post_limit` LIKE '%s'";
@@ -51,7 +52,7 @@ public class PostDAO extends DatabaseConnection {
 
              // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
              PreparedStatement preparedStatement = connection
-                     .prepareStatement(String.format(SELECT_ALL_POSTS, search, search,
+                     .prepareStatement(String.format(SELECT_ALL_POSTS, search, search, search,
                              request.getSortField(), request.getSortType(), request.getLimit(), offset))) {
 
             System.out.println(preparedStatement);
@@ -104,7 +105,7 @@ public class PostDAO extends DatabaseConnection {
             preparedStatement.setString(1, post.getLocation());
             preparedStatement.setString(2, post.getPostLimit().toString());
             preparedStatement.setInt(3, post.getContent().getId());
-            preparedStatement.setInt(4, post.getId());
+            preparedStatement.setLong(4, post.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

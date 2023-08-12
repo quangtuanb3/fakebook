@@ -399,18 +399,18 @@
                 </a>
             </th>
             <th>
-                Content
-                <%--                <a--%>
-                <%--                        <c:if test="${pageable.sortField == 'content' && pageable.sortType == 'DESC'}">--%>
-                <%--                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=content&page=${pageable.page}"--%>
-                <%--                        </c:if>--%>
 
-                <%--                        <c:if test="${!(pageable.sortField == 'content' && pageable.sortType == 'DESC')}">--%>
-                <%--                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=content&page=${pageable.page}"--%>
-                <%--                        </c:if>--%>
-                <%--                >--%>
-                <%--                   Content--%>
-                <%--                </a>--%>
+                                <a
+                                        <c:if test="${pageable.sortField == 'content' && pageable.sortType == 'DESC'}">
+                                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=content&page=${pageable.page}"
+                                        </c:if>
+
+                                        <c:if test="${!(pageable.sortField == 'content' && pageable.sortType == 'DESC')}">
+                                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=content&page=${pageable.page}"
+                                        </c:if>
+                                >
+                                   Content
+                                </a>
             </th>
             <th>
                 Like Number
@@ -597,6 +597,20 @@
         document.getElementById('searchForm').submit();
     }
 
+    // function onShowPopup(id) {
+    //     let action = "created";
+    //     let title = "Created";
+    //     if (id) {
+    //         action = "edit";
+    //         title = "Edit";
+    //     }
+    //     tileModal.innerHTML = title + " Post";
+    //     form.setAttribute('action', '/admins/posts-management?action=' + action);
+    //     post = posts.find(post => post.id === id) || {};
+    //     console.log("post", post);
+    //
+    //     resetData();
+    // }
     function onShowPopup(id) {
         let action = "create";
         let title = "Create";
@@ -608,10 +622,92 @@
         form.setAttribute('action', '/admins/posts-management?action=' + action);
         post = posts.find(post => post.id === id) || {};
         console.log("post", post);
-        resetData();
+
+        if (action === "create") {
+            resetDataCreate();
+        } else if (action === "edit") {
+            resetDataEdit();
+        }
     }
 
-    function resetData() {
+    function resetDataCreate() {
+        inputs = [
+            {
+                label: "Email",
+                name: "email",
+                // pattern: "^[A-Za-z ]{6,20}",
+                type: 'email',
+                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                // disable: post.id,
+                require: true,
+                classDiv: 'col-6',
+                id: "post-email",
+                value: post.profile?.user?.email || ''
+            },
+            {
+                label: "Location",
+                name: "location",
+                // pattern: "^[0-9]{1,50}",
+                message: "Location must have minimun is 1 charaters and maximun is 50 charaters",
+                require: true,
+                classDiv: 'col-6',
+                value: post.location || ''
+            },
+            {
+                name: 'id',
+                value: post.id,
+                type: 'hidden',
+                classDiv: 'd-none'
+            },
+            // {
+            //     name: 'content.id',
+            //     value: post.content.id,
+            //     type: 'hidden',
+            //     classDiv: 'd-none'
+            // },
+
+            {
+                label: "Limit",
+                // name: "post_limit",
+                name: "postLimit",
+                type: "select",
+                message: "Please choose limit",
+                options: limits?.map(e => {
+                    return {
+                        name: e,
+                        value: e
+                    }
+                }),
+                require: true,
+                value: post.postLimit || '',
+                classDiv: 'col-6'
+            },
+            {
+                label: "Content",
+                name: "data",
+                // pattern: "^[A-Za-z ]{6,20}",
+                // message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                require: true,
+                classDiv: 'col-6',
+                value: post.content?.data || ''
+            },
+
+        ];
+        const formBody = document.getElementById('formBody'); // DOM formBody theo id
+        formBody.innerHTML = '';
+        // loop qua inputs
+        inputs.forEach((input, index) => {
+            if (input.type === 'select') {
+                formBody.innerHTML += formSelect(input, index);
+            } else {
+                // For avatar input, set the default value to the image path (props.value) if available
+                const avatarValue = input.type === 'file' ? '' : input.value;
+                formBody.innerHTML += formInput({...input, value: avatarValue}, index);
+            }
+        });
+
+    }
+    function resetDataEdit() {
         inputs = [
             {
                 label: "Email",
@@ -623,7 +719,7 @@
                 require: true,
                 classDiv: 'col-6',
                 id: "post-email",
-                value: ''
+                value:  ''
             },
             {
                 label: "Location",
@@ -650,6 +746,7 @@
             {
                 label: "Limit",
                 name: "post_limit",
+                // name: "postLimit",
                 type: "select",
                 message: "Please choose limit",
                 options: limits?.map(e => {
