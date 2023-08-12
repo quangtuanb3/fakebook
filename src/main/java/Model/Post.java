@@ -1,39 +1,71 @@
+
+
 package Model;
+
+import Model.Enum.ELimit;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-import Model.Enum.ELimit;
+
 
 public class Post {
-    public static Integer currentId = 0;
     private Integer id;
-    private Profile user;
+    private Profile profile;
     Timestamp timestamp;
     String location;
     Share share;
-    private ELimit eLimit;
+    //shara,
+    // number
+    private ELimit postLimit;
     LikeNumber likeNumber;
     List<Profile> tags;
     List<String> hashTag;
     Content content;
     List<Media> media;
-    Long commentNumber;
-    Long shareNumber;
+    Integer commentNumber;
+    Integer shareNumber;
+
 
 
     public Post() {
     }
 
-    public Post(Integer id, Profile user, Content content, Timestamp timestamp, String location, Share share, ELimit eLimit, List<String> hashTag) {
+
+
+    public Post(Integer id, Profile user, Timestamp timestamp, String location, Share share, ELimit postLimit, LikeNumber likeNumber, List<Profile> tags, List<String> hashTag, Content content, List<Media> media, Integer commentNumber, Integer shareNumber) {
         this.id = id;
-        this.user = user;
-        this.content = content;
+        this.profile = user;
         this.timestamp = timestamp;
         this.location = location;
         this.share = share;
-        this.eLimit = eLimit;
+        this.postLimit = postLimit;
+        this.likeNumber = likeNumber;
+        this.tags = tags;
         this.hashTag = hashTag;
+        this.content = content;
+        this.media = media;
+        this.commentNumber = commentNumber;
+        this.shareNumber = shareNumber;
+    }
+
+    public Post(Integer id, Profile profile, String location,Content content1, ELimit postLimit) {
+        this.id = id;
+        this.profile = profile;
+        this.location = location;
+        this.content =content1;
+        this.postLimit = postLimit;
+    }
+
+    public Post(String location, ELimit postLimit) {
+        this.location = location;
+        this.postLimit = postLimit;
+    }
+
+    public Post(String location, ELimit postLimit, Content content) {
+        this.location = location;
+        this.postLimit = postLimit;
+        this.content = content;
     }
 
     public Integer getId() {
@@ -44,12 +76,12 @@ public class Post {
         this.id = id;
     }
 
-    public Profile getUser() {
-        return user;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setUser(Profile user) {
-        this.user = user;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
     public Timestamp getTimestamp() {
@@ -76,12 +108,12 @@ public class Post {
         this.share = share;
     }
 
-    public ELimit geteLimit() {
-        return eLimit;
+    public ELimit getPostLimit() {
+        return postLimit;
     }
 
-    public void seteLimit(ELimit eLimit) {
-        this.eLimit = eLimit;
+    public void setPostLimit(ELimit postLimit) {
+        this.postLimit = postLimit;
     }
 
     public LikeNumber getLikeNumber() {
@@ -124,19 +156,19 @@ public class Post {
         this.media = media;
     }
 
-    public Long getCommentNumber() {
+    public Integer getCommentNumber() {
         return commentNumber;
     }
 
-    public void setCommentNumber(Long commentNumber) {
+    public void setCommentNumber(Integer commentNumber) {
         this.commentNumber = commentNumber;
     }
 
-    public Long getShareNumber() {
+    public Integer getShareNumber() {
         return shareNumber;
     }
 
-    public void setShareNumber(Long shareNumber) {
+    public void setShareNumber(Integer shareNumber) {
         this.shareNumber = shareNumber;
     }
 }

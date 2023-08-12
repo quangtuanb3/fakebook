@@ -37,8 +37,8 @@
 <body>
 <div class="container">
   <h1>403 - Forbidden</h1>
-  <img src="login/images/SM_BLOG_Fixing-403-Forbidden-Errors.png" alt="Forbidden" class="image">
-  <p>Sorry, you don't have permission to access this page.</p>
+  <img src="${pageContext.request.contextPath}/auths/login/images/SM_BLOG_Fixing-403-Forbidden-Errors.png" alt="Forbidden" class="image">
+  <p style="font-size: 24px; color: orangered;font-weight: bold">Sorry, you don't have permission to access this page.</p>
 </div>
 </body>
 </html>

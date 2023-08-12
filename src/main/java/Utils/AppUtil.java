@@ -187,6 +187,7 @@ public class AppUtil {
                 }
                 if (fieldName.equals("serialVersionUID")
                         || fieldName.equals("id")
+                        || fieldName.equals("email")
                         || value == null) {
                     continue;
                 }

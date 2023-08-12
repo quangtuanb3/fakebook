@@ -30,18 +30,19 @@
         overlay.classList.add("active");
         mainWrapper.classList.toggle("active");
 
-        if (document.body.clientWidth > 1200) {
+        if (document.body.clientWidth > 900) {
             if (menuToggleButtonIcon.classList.contains("lni-chevron-left")) {
                 menuToggleButtonIcon.classList.remove("lni-chevron-left");
-                menuToggleButtonIcon.classList.add("lni-menu");
-            } else {
+                // menuToggleButtonIcon.classList.add("lni-menu");
+            } else if (menuToggleButtonIcon.classList.contains("lni-menu")) {
                 menuToggleButtonIcon.classList.remove("lni-menu");
-                menuToggleButtonIcon.classList.add("lni-chevron-left");
-            }
-        } else {
-            if (menuToggleButtonIcon.classList.contains("lni-chevron-left")) {
-                menuToggleButtonIcon.classList.remove("lni-chevron-left");
-                menuToggleButtonIcon.classList.add("lni-menu");
+                // menuToggleButtonIcon.classList.add("lni-chevron-left");
+                //     }
+                // } else {
+                //     if (menuToggleButtonIcon.classList.contains("lni-chevron-left")) {
+                //         menuToggleButtonIcon.classList.remove("lni-chevron-left");
+                //         menuToggleButtonIcon.classList.add("lni-menu");
+                //     }
             }
         }
     });

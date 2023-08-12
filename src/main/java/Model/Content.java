@@ -1,7 +1,6 @@
 package Model;
 
 public class Content {
-    public static Integer currentId = 0;
     private Integer id;
     String data;
     Post post;
@@ -10,16 +9,23 @@ public class Content {
     public Content() {
     }
 
+
     public Content(Integer id, String data, Post post, Comment comment) {
         this.id = id;
         this.data = data;
         this.post = post;
         this.comment = comment;
     }
-    public Content(String data) {
-        this.id = ++currentId;
+
+    public Content(Integer id, String data) {
+        this.id = id;
         this.data = data;
     }
+
+    public Content(String data) {
+        this.data = data;
+    }
+
 
     public Integer getId() {
         return id;

@@ -69,7 +69,7 @@ public class HomeController extends HttpServlet {
         Profile profile = getValidProfile(req, resp);
         if (errors.size() == 0) {
             UserService.getUserService().create(user);
-           var userDB = userDAO.getUserByEmail(user.getEmail()).orElse(new User());
+           var userDB = userDAO.getUserByEmail(user.getEmail());
             profile.setUser(userDB);
             ProfileService.getProfileService().create(profile);
             resp.sendRedirect("/admins/users-management?message=Created");
@@ -124,12 +124,6 @@ public class HomeController extends HttpServlet {
 //                .forward(req,resp);
 //    }
 
-    private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Integer id = Integer.valueOf(req.getParameter("id"));
-        if(checkIdNotFound(req, resp, id)) return;
-        ProfileService.getProfileService().delete(id);
-        resp.sendRedirect(PAGE + "?message=Deleted");
-    }
 
     private Profile getValidProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Profile profile = (Profile) AppUtil.getObjectWithValidation(req, Profile.class,  validators); //

@@ -15,15 +15,17 @@ public class AuthService {
         user.setRole(ERole.USER);
         user.setStatus(EStatus.ACTIVE);
         UserService.getUserService().create(user);
-        User userDB = UserDAO.getUserDAO().getUserByEmail(user.getEmail()).orElse(new User());
+        User userDB = UserDAO.getUserDAO().getUserByEmail(user.getEmail());
         profile.setUser(userDB);
         ProfileService.getProfileService().create(profile);
     }
 
     public void login(User user, HttpServletRequest request) throws RuntimeException {
         final String message = "Username or password incorrect";
-        var userDB = UserDAO.getUserDAO().getUserByEmail(user.getEmail())
-                .orElseThrow(() -> new RuntimeException(message));
+        var userDB = UserDAO.getUserDAO().getUserByEmail(user.getEmail());
+        if(userDB == null){
+            throw new RuntimeException(message);
+        }
         if (BCrypt.checkpw(user.getPassword(), userDB.getPassword())) {
             var session = request.getSession();
             session.setAttribute("user", userDB);

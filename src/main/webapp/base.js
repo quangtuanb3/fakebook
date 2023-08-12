@@ -1,11 +1,25 @@
 function formInput(props, index) {
+
     if (props.type === 'select') {
         return formSelect(props, index);
     }
     if (props.type === 'file') {
-        // ... (same code for file input)
+        return `
+        <div class="${props.classDiv}">
+            <label>${props.label}</label>
+            <input
+                class="input-custom form-control"
+                type="file"
+                name="${props.name}"
+                // id="${props.id ? props.id : ''}"
+                onchange="onFileChange(event, ${index})"
+                ${props.require ? 'required' : ''}
+            />
+            <span class="error">${props.message}</span>
+            <img id="previewImage${index}" src="${props.value}" style="max-width: 150px; max-height: 150px; margin-top: 10px;">
+        </div>
+    `;
     }
-
     let pattern = '';
     if (props.pattern) {
         pattern = 'pattern="' + props.pattern + '"';
