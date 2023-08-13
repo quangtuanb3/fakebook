@@ -370,7 +370,17 @@
                 </a>
             </th>
             <th>
-                Username
+                <a
+                        <c:if test="${pageable.sortField == 'pr.name' && pageable.sortType == 'DESC'}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=pr.name&page=${pageable.page}"
+                        </c:if>
+
+                        <c:if test="${!(pageable.sortField == 'pr.name' && pageable.sortType == 'DESC')}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=pr.name&page=${pageable.page}"
+                        </c:if>
+                >
+                    Username
+                </a>
             </th>
             <th>
                 <a
@@ -387,12 +397,12 @@
             </th>
             <th>
                 <a
-                        <c:if test="${pageable.sortField == 'limit' && pageable.sortType == 'DESC'}">
-                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=limit&page=${pageable.page}"
+                        <c:if test="${pageable.sortField == 'post_limit' && pageable.sortType == 'DESC'}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=post_limit&page=${pageable.page}"
                         </c:if>
 
-                        <c:if test="${!(pageable.sortField == 'limit' && pageable.sortType == 'DESC')}">
-                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=limit&page=${pageable.page}"
+                        <c:if test="${!(pageable.sortField == 'post_limit' && pageable.sortType == 'DESC')}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=post_limit&page=${pageable.page}"
                         </c:if>
                 >
                     Limit
@@ -401,12 +411,12 @@
             <th>
 
                                 <a
-                                        <c:if test="${pageable.sortField == 'content' && pageable.sortType == 'DESC'}">
-                                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=content&page=${pageable.page}"
+                                        <c:if test="${pageable.sortField == 'ct.data' && pageable.sortType == 'DESC'}">
+                                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=ct.data&page=${pageable.page}"
                                         </c:if>
 
-                                        <c:if test="${!(pageable.sortField == 'content' && pageable.sortType == 'DESC')}">
-                                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=content&page=${pageable.page}"
+                                        <c:if test="${!(pageable.sortField == 'ct.data' && pageable.sortType == 'DESC')}">
+                                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=ct.data&page=${pageable.page}"
                                         </c:if>
                                 >
                                    Content
@@ -421,6 +431,9 @@
 
             <th>
                 Share Number
+            </th>
+            <th>
+                Options
             </th>
         </tr>
         </thead>
@@ -456,7 +469,7 @@
                             data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit
                     </button>
                     <a class="btn btn-danger" href="/admins/posts-management?action=delete&id=${post.id}"
-                       onclick="return confirm('Do you wanna delete this ${post.content}')">Delete</a>
+                       onclick="return confirm('Do you wanna delete this ${post.content.data}')">Delete</a>
                 </td>
             </tr>
         </c:forEach>

@@ -125,7 +125,7 @@ public class PostManagementController extends HttpServlet {
         ); //tao doi tuong pageable voi parametter search
 
         req.setAttribute("pageable", request);
-        req.setAttribute("profiles", ProfileService.getProfileService().getProfileList(request)); // gửi qua list users để jsp vẻ lên trang web
+//        req.setAttribute("profiles", ProfileService.getProfileService().getProfileList(request)); // gửi qua list users để jsp vẻ lên trang web
         req.setAttribute("posts", PostService.getPostService().getPostList(request)); // gửi qua list users để jsp vẻ lên trang web
 //        req.setAttribute("limitJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
         req.setAttribute("message", req.getParameter("message")); // gửi qua message để toastr show thông báo
