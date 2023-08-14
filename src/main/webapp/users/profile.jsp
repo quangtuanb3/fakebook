@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -214,16 +215,69 @@
                         </div>
                     </div>
 
-                    <div class="post-upload-textarea">
-                        <textarea name="" placeholder="What's on your mind, Alex?" id="" cols="30" rows="3"></textarea>
+                    <div class="post-upload-textarea" id="openPopupBtn">
+
+                    <textarea name="postContent" placeholder="What's on your mind, Alex?" id="post-text-area" cols="30"
+                              rows="3" readonly onclick="openPostPopup()"></textarea>
                         <div class="add-post-links">
-                            <a href="#"><img src="../images/live-video.png" alt="">Live Video</a>
-                            <a href="#"><img src="../images/photo.png" alt="">Photo/Video</a>
-                            <a href="#"><img src="../images/feeling.png" alt="">Feeling Activity</a>
+                            <span onclick="openPostPopup()"><img src="../images/live-video.png" alt="">Live Video</span>
+                            <span onclick="openPostPopup()"><img src="../images/photo.png" alt="">Photo/Video</span>
+                            <span onclick="openPostPopup()"><img src="../images/feeling.png" alt="">Feeling Activity</span>
                         </div>
                     </div>
                 </div>
+                <div class="popup-overlay" id="popup-overlay">
 
+                    <div class="popup">
+                        <div class="popup-header">
+                            <h2 style="text-align: center">Create Post</h2>
+                            <button class="close-popup-button" onclick="closePostPopup()">Close</button>
+                        </div>
+                        <div class="user-info">
+                            <div class="profile-picture">
+                                <!-- Add the user's profile picture here -->
+                            </div>
+                            <div class="user-details">
+                                <!-- Add the user's name here -->
+                                <span class="username">John Doe</span>
+                                <!-- Privacy settings -->
+                                <div class="privacy-settings">
+                                    <span class="privacy-label">Privacy:</span>
+                                    <select id="privacy-select">
+                                        <option value="public">Public</option>
+                                        <option value="friends">Friends</option>
+                                        <option value="private">Private</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <label for="post-text"></label><textarea id="post-text" placeholder="What's on your mind?"></textarea>
+                            <div class="image-preview" id="image-preview"></div>
+                            <div class="post-actions">
+
+                                <button class="action-button">
+                                    <label for="post-media" class="upload-media-button">
+                                        <i class="icon fas fa-image"></i>
+                                    </label>
+                                    <input type="file" id="post-media" accept="image/*,video/*" style="display: none;">
+                                </button>
+
+
+                                <button class="action-button">
+                                    <i class="icon fas fa-map-marker-alt"></i>
+                                </button>
+                                <button class="action-button">
+                                    <i class="icon fas fa-smile"></i>
+                                </button>
+                                <button class="action-button">
+                                    <i class="icon fas fa-user-tag"></i>
+                                </button>
+                            </div>
+                            <button id="post-button" onclick="submitPost()">Post</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="status-field-container write-post-container">
                     <div class="user-profile-box">
                         <div class="user-profile">
