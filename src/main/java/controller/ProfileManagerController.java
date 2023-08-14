@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.UserDAO;
+import Model.Enum.ERole;
 import Model.Enum.EStatus;
 import Model.Profile;
 import Model.User;
@@ -118,6 +119,7 @@ public class ProfileManagerController extends HttpServlet {
         req.setAttribute("message", req.getParameter("message")); // gửi qua message để toastr show thông báo
         req.setAttribute("gendersJSON",AppUtil.mapper.writeValueAsString(EGender.values()));
         req.setAttribute("statusJSON",AppUtil.mapper.writeValueAsString(EStatus.values()));
+        req.setAttribute("rolesJSON",AppUtil.mapper.writeValueAsString(ERole.values()));
         req.setAttribute("usersJSON", AppUtil.mapper.writeValueAsString(UserService.getUsers(request)));
         String s = PAGE + AppConstant.USERS_MANAGEMENT_PAGE;
         System.out.println("url" + s);
@@ -138,6 +140,8 @@ public class ProfileManagerController extends HttpServlet {
             req.setAttribute("profiles", ProfileService.getProfileService().getProfileList(request)); // gửi qua list users để jsp vẻ lên trang web
             req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
             req.setAttribute("gendersJSON", new ObjectMapper().writeValueAsString(EGender.values()));
+            req.setAttribute("rolesJSON",AppUtil.mapper.writeValueAsString(ERole.values()));
+
             req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers(request)));
             req.setAttribute("message","Something was wrong");
             req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
@@ -150,6 +154,7 @@ public class ProfileManagerController extends HttpServlet {
     private User getValidUser(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         User user = (User) AppUtil.getObjectWithValidation(req, User.class,  validators);
         assert user != null;
+        user.setRole(ERole.USER);
         user.setStatus(EStatus.ACTIVE);
         user.setPassword(UUID.randomUUID().toString());
         if(errors.size() > 0){

@@ -479,7 +479,8 @@
                             Edit
                         </button>
 
-                        <a href="/admins/users-management?action=lock&id=${profile.user.id}&page=${pageable.page}&limit=${pageable.limit} " class="status-link"
+                        <a href="/admins/users-management?action=lock&id=${profile.user.id}&page=${pageable.page}&limit=${pageable.limit} "
+                           class="status-link"
                            onclick="return confirm('Are you sure you want to ${profile.user.status.toString() == 'ACTIVE' ? 'LOCK' : 'UNLOCK'} this user?')">
                             <c:choose>
                                 <c:when test="${profile.user.status.toString() == 'ACTIVE'}">
@@ -612,6 +613,18 @@
 
 
 <script>
+    const onFocusImg = (index) => {
+        const inputsForm = document.querySelectorAll('#formBody .input-custom');
+        inputsForm[index].setAttribute('focused', 'true');
+    };
+
+
+
+    function displayImagePreview(imageUrl, index) {
+        const previewImage = document.getElementById(`previewImage` + index);
+        previewImage.src = imageUrl;
+    }
+
     const message = document.getElementById('message_toastr');
     const btnToast = document.getElementById('liveToastBtn');
     window.onload = () => {
@@ -630,6 +643,7 @@
         }
     };
 </script>
+
 
 <script>
     const profiles = ${profilesJSON};
@@ -687,15 +701,14 @@
                 classDiv: 'col-6',
                 value: profile.phone || ''
             },
-            {
-                label: "Avatar",
-                name: "avatar",
-                pattern: "^[A-Za-z ]{6,20}",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                require: true,
-                classDiv: 'col-6',
-                value: profile.avatar || ''
-            },
+            // {
+            //     label: "Avatar",
+            //     name: "avatar",
+            //     type: "file",
+            //     require: true,
+            //     classDiv: 'col-6',
+            //     value: profile.avatar || ''
+            // },
             {
                 name: 'id',
                 value: profile.id,
@@ -728,15 +741,15 @@
                 value: profile.gender || '',
                 classDiv: 'col-6'
             },
-            {
-                label: "Cover",
-                name: "cover",
-                pattern: "^[A-Za-z ]{6,20}",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                require: true,
-                classDiv: 'col-6',
-                value: profile.cover || ''
-            },
+            // {
+            //     label: "Cover",
+            //     name: "cover",
+            //     pattern: "^[A-Za-z ]{6,20}",
+            //     message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+            //     require: true,
+            //     classDiv: 'col-6',
+            //     value: profile.cover || ''
+            // },
             {
                 label: "Email",
                 name: "email",

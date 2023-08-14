@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Enum.ERole;
 import Model.Enum.EStatus;
 import Model.Profile;
 import Model.User;
@@ -29,8 +30,8 @@ public class UserDAO extends DatabaseConnection {
     private final String EXISTED_ID ="SELECT COUNT(1) as cnt from `users` u WHERE u.`id` =?";
     private final String UPDATE_STATUS = "UPDATE `users` SET `status` = ? WHERE (`id` = ?);";
 
-    private final String INSERT_USERS = "INSERT INTO `users` (`email`, `password`,`status`) \n" +
-            "VALUES (?, ?, ?)";
+    private final String INSERT_USERS = "INSERT INTO `users` (`email`, `password`,`status`, `role`) \n" +
+            "VALUES (?, ?, ?,?)";
     private final String FIND_BY_EMAIL = "SELECT *  FROM `users` u  WHERE u.`email` = ?"; // show Edit
 
     private final String DELETE_BY_ID = "DELETE FROM `users` WHERE (`id` = ?)";
@@ -138,6 +139,7 @@ public class UserDAO extends DatabaseConnection {
 //            preparedStatement.setString(1, user.getEmail());
 //            preparedStatement.setString(2, user.getPassword());
 //            preparedStatement.setString(3, user.getStatus().toString());
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -149,7 +151,8 @@ public class UserDAO extends DatabaseConnection {
         String email = rs.getString("email");
         String password = rs.getString("email");
         String status = rs.getString("status");
-        return new User(id, email, password, EStatus.valueOf(status));
+        String role = rs.getString("role");
+        return new User(id, email, password, EStatus.valueOf(status), ERole.valueOf(role));
     }
 
     public void lock(Integer id) {
@@ -164,6 +167,7 @@ public class UserDAO extends DatabaseConnection {
                 user = AppUtil.getObjectFromResultSet(rs, User.class);
             }
 
+            assert user != null;
             if (user.getStatus() == EStatus.ACTIVE) {
                 user.setStatus(EStatus.LOCK);
             } else {
