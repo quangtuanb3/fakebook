@@ -135,17 +135,12 @@ public class UserDAO extends DatabaseConnection {
              PreparedStatement preparedStatement = connection
                      .prepareStatement(AppUtil.buildInsertSql(AppConstant.USERS_TBL, user))) {
             System.out.println(preparedStatement);
-<<<<<<< HEAD
+
 
 //            preparedStatement.setString(1, user.getEmail());
 //            preparedStatement.setString(2, user.getPassword());
 //            preparedStatement.setString(3, user.getStatus().toString());
-=======
-            preparedStatement.setString(1, user.getEmail());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, user.getStatus().toString());
-            preparedStatement.setString(4, user.getRole().toString());
->>>>>>> 3340364337fb0240b84cb14f053b3168a5f8cec2
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
