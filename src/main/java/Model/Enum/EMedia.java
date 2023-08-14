@@ -5,5 +5,5 @@ public enum EMedia {
     IMAGE,
     FILE,
     AUDIO,
-    OTHER;
+    NONE;
 }

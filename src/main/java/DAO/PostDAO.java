@@ -4,6 +4,8 @@ package DAO;
 
 import Model.Content;
 import Model.Enum.ELimit;
+import Model.Enum.EMedia;
+import Model.Media;
 import Model.Post;
 import Model.Profile;
 import Utils.AppUtil;
@@ -27,7 +29,7 @@ public class PostDAO extends DatabaseConnection {
 //            "`categories` c on t.category_id = c.id  WHERE t.`name` like '%s' OR t.`hobby` LIKE '%s'";
     private final String SELECT_ALL_MATCHES_POSTS =
             """
-                    select temp.*, pro.name as `profile.name`, pro.avatar  as `profile.avatar` from
+                    select temp.*, pro.name as `profile.name`, pro.avatar  as `profile.avatar`, m.type as `media.type`, m.data as `media.data`, m.id as `media.id` from
                     (SELECT
                         p.id,
                         MAX(p.time) AS time,
@@ -46,6 +48,8 @@ public class PostDAO extends DatabaseConnection {
                     ORDER BY p.id) as temp
                     JOIN `profiles` pro\s
                     ON temp.`profile.id` = pro.id
+                    Left JOIN `media` m\s
+                    ON m.post_id = temp.id
                     Where\s
                     temp.`content.data` LIKE "%s"
                     OR pro.`name` LIKE "%s"
@@ -215,7 +219,7 @@ public class PostDAO extends DatabaseConnection {
              // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
              PreparedStatement preparedStatement = connection
                      .prepareStatement(String.format(SELECT_ALL_MATCHES_POSTS, profileId, profileId, profileId, search, search, search
-                             ))) {
+                     ))) {
 
             System.out.println(preparedStatement);
 
@@ -238,10 +242,18 @@ public class PostDAO extends DatabaseConnection {
         String contentData = rs.getString("content.data");
         String postLimit = rs.getString("post_limit");
         Integer content_id = rs.getInt("content.id");
+
+        Integer media_id = rs.getInt("media.id");
+        EMedia media_type = EMedia.valueOf(rs.getString("media.type"));
+        String media_data = rs.getString("media.data");
+
+        Media media = new Media(media_id, media_data, media_type);
+
         Profile profile = ProfileService.getProfileService().findById(profileId);
         Content content1 = new Content(content_id, contentData);
         Post post = new Post(id, profile, location, content1, ELimit.valueOf(postLimit));
         post.setTime(timestamp);
+        post.setMedia(media);
         return post;
     }
 }

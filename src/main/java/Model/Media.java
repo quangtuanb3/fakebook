@@ -23,6 +23,12 @@ public class Media {
     public Media() {
     }
 
+    public Media(Integer mediaId, String mediaData, EMedia mediaType) {
+        this.id = mediaId;
+        this.data = mediaData;
+        this.type = mediaType;
+    }
+
     public static Integer getCurrentId() {
         return currentId;
     }

@@ -16,18 +16,18 @@
 <body>
 <nav class="navbar">
     <div class="nav-left">
-<%--        <img class="logo" src="../images/logo.png" alt="">--%>
+        <%--        <img class="logo" src="../images/logo.png" alt="">--%>
         <h2 style="color: white;font-size: 1.7rem; padding-right: 30px">Facebook</h2>
-    <div class="search-box">
-        <img src="../images/search.png" alt="">
-        <input type="text" placeholder="Search">
-    </div>
+        <div class="search-box">
+            <img src="../images/search.png" alt="">
+            <input type="text" placeholder="Search">
+        </div>
 
     </div>
     <div class="nav-right">
 
         <div class="profile-image online" onclick="UserSettingToggle()">
-            <img src="../images/profile-pic.png" alt="">
+            <img src="${profile.avatar}" alt="">
         </div>
         <ul class="navlogo" style="list-style: none; display: flex">
             <li><img src="../images/notification.png"></li>
@@ -126,9 +126,9 @@
 
         <div class="write-post-container">
             <div class="user-profile">
-                <img src="../images/profile-pic.png" alt="">
+                <img src="${profile.avatar}" alt="">
                 <div>
-                    <p> Alex Carry</p>
+                    <p> ${profile.name}</p>
                     <small>Public <i class="fas fa-caret-down"></i></small>
                 </div>
             </div>
@@ -152,12 +152,13 @@
                     <button class="close-popup-button" onclick="closePostPopup()">Close</button>
                 </div>
                 <div class="user-info">
-                    <div class="profile-picture">
+                    <div class="profile-picture" style="background-color: white;">
+                        <img src="${profile.avatar}" style="background-color: white; width: 45px; border-radius: 50%; margin-right: 10px">
                         <!-- Add the user's profile picture here -->
                     </div>
                     <div class="user-details">
                         <!-- Add the user's name here -->
-                        <span class="username">John Doe</span>
+                        <span class="username">${profile.name}</span>
                         <!-- Privacy settings -->
                         <div class="privacy-settings">
                             <span class="privacy-label">Privacy:</span>
@@ -170,63 +171,67 @@
                     </div>
                 </div>
                 <div class="post-content">
-                    <label for="post-text"></label><textarea id="post-text" placeholder="What's on your mind?"></textarea>
+                    <label for="post-text"></label>
+                    <textarea id="post-text" placeholder="What's on your mind?">
+                    </textarea>
                     <div class="image-preview" id="image-preview"></div>
                     <div class="post-actions">
-
-                        <button class="action-button">
-                            <label for="post-media" class="upload-media-button">
+                        <label for="post-media" class="upload-media-button">
+                            <button class="action-button">
                                 <i class="icon fas fa-image"></i>
-                            </label>
-                            <input type="file" id="post-media" accept="image/*,video/*" style="display: none;">
-                        </button>
-
+                                <input type="file" id="post-media" accept="image/*,video/*" style="display: none;">
+                            </button>
+                        </label>
 
                         <button class="action-button">
                             <i class="icon fas fa-map-marker-alt"></i>
                         </button>
-                        <button class="action-button">
-                            <i class="icon fas fa-smile"></i>
-                        </button>
-                        <button class="action-button">
-                            <i class="icon fas fa-user-tag"></i>
-                        </button>
+<%--                        <button class="action-button">--%>
+<%--                            <i class="icon fas fa-smile"></i>--%>
+<%--                        </button>--%>
+<%--                        <button class="action-button">--%>
+<%--                            <i class="icon fas fa-user-tag"></i>--%>
+<%--                        </button>--%>
                     </div>
                     <button id="post-button" onclick="submitPost()">Post</button>
                 </div>
             </div>
         </div>
 
-
-        <div class="status-field-container write-post-container">
-            <div class="user-profile-box">
-                <div class="user-profile">
-                    <img src="../images/profile-pic.png" alt="">
+        <c:forEach items="${matchesPosts}" var="post" varStatus="loop">
+            <div class="status-field-container write-post-container">
+                <div class="user-profile-box">
+                    <div class="user-profile">
+                        <img src="${post.profile.avatar}" alt="">
+                        <div>
+                            <p> ${post.profile.name}</p>
+                            <small>${post.time}</small>
+                        </div>
+                    </div>
                     <div>
-                        <p> Alex Carry</p>
-                        <small>August 13 1999, 09.18 pm</small>
+                        <a href="#"><i class="fas fa-ellipsis-v"></i></a>
                     </div>
                 </div>
-                <div>
-                    <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                <div class="status-field">
+                    <p>${post.content.data}
+                        <c:forEach items="${post.hashTag}" var="hashtag">
+                            <a href="#">${hashtag} </a>
+                        </c:forEach>
+                    </p>
+                    <img src="${post.media.data}" alt="">
+
+                </div>
+                <div class="post-reaction">
+                    <div class="activity-icons">
+                        <div><img src="../images/like-blue.png" alt="">120</div>
+                        <div><img src="../images/comments.png" alt="">52</div>
+                        <div><img src="../images/share.png" alt="">35</div>
+                    </div>
+
                 </div>
             </div>
-            <div class="status-field">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolores praesentium dicta
-                    laborum nihil accusantium odit laboriosam, sed sit autem! <a
-                            href="#">#This_Post_is_Better!!!!</a></p>
-                <img src="../images/feed-image-1.png" alt="">
+        </c:forEach>
 
-            </div>
-            <div class="post-reaction">
-                <div class="activity-icons">
-                    <div><img src="../images/like-blue.png" alt="">120</div>
-                    <div><img src="../images/comments.png" alt="">52</div>
-                    <div><img src="../images/share.png" alt="">35</div>
-                </div>
-
-            </div>
-        </div>
         <button type="button" class="btn-LoadMore" onclick="LoadMoreToggle()">Load More</button>
     </div>
 
@@ -299,5 +304,88 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="function.js"></script>
+
+<script>
+    const onFocusImg = (index) => {
+        const inputsForm = document.querySelectorAll('#formBody .input-custom');
+        inputsForm[index].setAttribute('focused', 'true');
+    };
+
+    function onFileChange(event, index) {
+        const fileInput = event.target;
+        const file = fileInput.files[0];
+
+        if (file) {
+            // Create a new FormData object and append the selected file
+            const formData = new FormData();
+            formData.append("avatar", file);
+            formData.append("fileType", "image");
+            console.log(formData.getAll('avatar'))
+            console.log(formData.getAll('fileType'))
+            // Use fetch to send the formData to the server
+            fetch("/uploadImage", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // Handle the response from the server (assuming the server returns the image URL)
+                    const imageUrl = data.imageUrl; // Change this based on the actual response format
+                    displayImagePreview(imageUrl, index); // Call a function to display the image preview
+                })
+                .catch((error) => {
+                    // Handle errors (if any)
+                    console.error("Error uploading image:", error);
+                });
+        }
+    }
+
+    function displayImagePreview(imageUrl, index)
+{
+        const previewImage = document.getElementById(`previewImage` + index);
+        previewImage.src = imageUrl;
+    }
+</script>
+
+
+<script>
+    //fetch data
+    // Function to fetch user data using Axios
+    function fetchUserData(userId) {
+        console.log(userId)
+        if (userId == null) {
+            return;
+        }
+        // Make an AJAX request using Axios to fetch user data from the server
+        axios.get('/products?action=lazySearch&id=' + userId)
+            .then(response => {
+                const userData = response.data;
+                console.log(userData);
+                populateForm(userData); // Call a function to populate the form with the fetched user data
+            })
+            .catch(error => {
+                // console.error('Error fetching user data:', error);
+                // Handle error
+            });
+    }
+
+    // Function to populate the form with user data
+    function populateForm(userData) {
+        const formInputs = document.querySelectorAll('#userManagerForm input, #userManagerForm select');
+        formInputs.forEach(input => {
+            const fieldName = input.name;
+
+            if (fieldName in userData) {
+                input.value = userData[fieldName];
+            }
+        });
+    }
+    // Function to show the popup with user data when the Edit button is clicked
+    function showPopupWithUserData(userId) {
+        fetchUserData(userId); // Fetch user data
+        document.getElementById('popupOverlay').style.display = 'block'; // Show the popup
+    }
+
+</script>
 </body>
 </html>
