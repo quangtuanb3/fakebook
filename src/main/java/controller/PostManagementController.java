@@ -31,6 +31,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import static Utils.AppConstant.ADMIN_POST_MANAGEMENT_PAGE;
+import static Utils.AppConstant.POST_MANAGEMENT_PAGE;
+
 @WebServlet(urlPatterns = "/admins/posts-management", name = "postManagementController")
 public class PostManagementController extends HttpServlet {
     private final String PAGE = "/admins";
@@ -122,7 +125,7 @@ public class PostManagementController extends HttpServlet {
         ); //tao doi tuong pageable voi parametter search
 
         req.setAttribute("pageable", request);
-        req.setAttribute("profiles", ProfileService.getProfileService().getProfileList(request)); // gửi qua list users để jsp vẻ lên trang web
+//        req.setAttribute("profiles", ProfileService.getProfileService().getProfileList(request)); // gửi qua list users để jsp vẻ lên trang web
         req.setAttribute("posts", PostService.getPostService().getPostList(request)); // gửi qua list users để jsp vẻ lên trang web
 //        req.setAttribute("limitJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
         req.setAttribute("message", req.getParameter("message")); // gửi qua message để toastr show thông báo
@@ -130,7 +133,7 @@ public class PostManagementController extends HttpServlet {
         req.setAttribute("postLimitJSON", AppUtil.mapper.writeValueAsString(ELimit.values()));
 //        req.setAttribute("usersJSON", AppUtil.mapper.writeValueAsString(UserService.getUsers(request)));
         req.setAttribute("contentsJSON", new ObjectMapper().writeValueAsString(ContentService.getContents()));
-        String s = PAGE + AppConstant.POST_MANAGEMENT_PAGE;
+        String s = PAGE + POST_MANAGEMENT_PAGE;
         req.getRequestDispatcher(s).forward(req, resp);
     }
 
@@ -158,7 +161,8 @@ public class PostManagementController extends HttpServlet {
         Integer id = Integer.valueOf(req.getParameter("id"));
         if (checkIdNotFound(req, resp, id)) return;
         PostService.getPostService().delete(id);
-        resp.sendRedirect(PAGE + "?message=Deleted");
+
+        resp.sendRedirect(ADMIN_POST_MANAGEMENT_PAGE + "?message=Deleted");
     }
 
     private Post getValidPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, SQLException {
@@ -182,7 +186,7 @@ public class PostManagementController extends HttpServlet {
 //            req.setAttribute("categoriesJSON", new ObjectMapper().writeValueAsString(CategoryService.getCategories()));
             req.setAttribute("message", "Something was wrong");
             req.setAttribute("contentsJSON", new ObjectMapper().writeValueAsString(ContentService.getContents()));
-            req.getRequestDispatcher(PAGE + AppConstant.POST_MANAGEMENT_PAGE)
+            req.getRequestDispatcher(PAGE + POST_MANAGEMENT_PAGE)
                     .forward(req, resp);
         } else {
             Content content = new Content(req.getParameter("data"));
@@ -197,8 +201,8 @@ public class PostManagementController extends HttpServlet {
     }
 
     private boolean checkIdNotFound(HttpServletRequest req, HttpServletResponse resp, Integer id) throws IOException {
-        if (!ProfileService.getProfileService().existById(id)) {
-            resp.sendRedirect(PAGE + "?message=Id not found");
+        if (PostService.getPostService().findById(id) == null) {
+            resp.sendRedirect(ADMIN_POST_MANAGEMENT_PAGE + "?message=Id not found");
             return true;
         }
         return false;
