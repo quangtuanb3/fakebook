@@ -3,6 +3,7 @@ package Utils;
 public class AppConstant {
     public static final String USERS_TBL = "users";
     public static String POST_MANAGEMENT_PAGE = "/posts-management.jsp" ;
+    public static String ADMIN_POST_MANAGEMENT_PAGE = "/admins/posts-management";
     public static String ACTION= "action";
     public static String EDIT= "edit";
     public static String LOCK= "lock";

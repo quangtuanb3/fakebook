@@ -313,9 +313,7 @@
             </button>
             <%--        <a class="btn btn-primary" href="${pageContext.request.contextPath}/users?action=create"> Create</a>--%>
         </div>
-        <div class="col-4">
 
-        </div>
         <div class="col-6" style="display: flex">
             <form action="${pageContext.request.contextPath}/admins/posts-management" class="row" id="search-input">
                 <div class="col-8">
@@ -370,7 +368,17 @@
                 </a>
             </th>
             <th>
-                Username
+                <a
+                        <c:if test="${pageable.sortField == 'pr.name' && pageable.sortType == 'DESC'}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=pr.name&page=${pageable.page}"
+                        </c:if>
+
+                        <c:if test="${!(pageable.sortField == 'pr.name' && pageable.sortType == 'DESC')}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=pr.name&page=${pageable.page}"
+                        </c:if>
+                >
+                    Username
+                </a>
             </th>
             <th>
                 <a
@@ -387,30 +395,31 @@
             </th>
             <th>
                 <a
-                        <c:if test="${pageable.sortField == 'limit' && pageable.sortType == 'DESC'}">
-                            href="${pageContext.request.contextPath}/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=limit&page=${pageable.page}"
+                        <c:if test="${pageable.sortField == 'post_limit' && pageable.sortType == 'DESC'}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=post_limit&page=${pageable.page}"
                         </c:if>
 
-                        <c:if test="${!(pageable.sortField == 'limit' && pageable.sortType == 'DESC')}">
-                            href="${pageContext.request.contextPath}/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=limit&page=${pageable.page}"
+                        <c:if test="${!(pageable.sortField == 'post_limit' && pageable.sortType == 'DESC')}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=post_limit&page=${pageable.page}"
+
                         </c:if>
                 >
                     Limit
                 </a>
             </th>
             <th>
-                Content
-                <%--                <a--%>
-                <%--                        <c:if test="${pageable.sortField == 'content' && pageable.sortType == 'DESC'}">--%>
-                <%--                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=content&page=${pageable.page}"--%>
-                <%--                        </c:if>--%>
 
-                <%--                        <c:if test="${!(pageable.sortField == 'content' && pageable.sortType == 'DESC')}">--%>
-                <%--                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=content&page=${pageable.page}"--%>
-                <%--                        </c:if>--%>
-                <%--                >--%>
-                <%--                   Content--%>
-                <%--                </a>--%>
+                                <a
+                                        <c:if test="${pageable.sortField == 'ct.data' && pageable.sortType == 'DESC'}">
+                                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=ct.data&page=${pageable.page}"
+                                        </c:if>
+
+                                        <c:if test="${!(pageable.sortField == 'ct.data' && pageable.sortType == 'DESC')}">
+                                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=ct.data&page=${pageable.page}"
+                                        </c:if>
+                                >
+                                   Content
+                                </a>
             </th>
             <th>
                 Like Number
@@ -421,6 +430,9 @@
 
             <th>
                 Share Number
+            </th>
+            <th>
+                Options
             </th>
         </tr>
         </thead>
@@ -455,8 +467,8 @@
                     <button onclick="onShowPopup(${post.id})" type="button" class="btn btn-primary"
                             data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit
                     </button>
-                    <a class="btn btn-danger" href="${pageContext.request.contextPath}/admins/posts-management?action=delete&id=${post.id}"
-                       onclick="return confirm('Do you wanna delete this ${post.content}')">Delete</a>
+                    <a class="btn btn-danger" href="/admins/posts-management?action=delete&id=${post.id}"
+                       onclick="return confirm('Do you wanna delete this ${post.content.data}')">Delete</a>
                 </td>
             </tr>
         </c:forEach>
@@ -527,6 +539,9 @@
             </ul>
         </nav>
     </div>
+    <div class="toast-body d-none" id="message_toastr">
+        ${message}
+    </div>
     <!-- ========== section end ========== -->
 
     <!-- ========== footer start =========== -->
@@ -578,25 +593,45 @@
     <%--const users = ${usersJSON};--%>
     let post = {};
     let inputs = [];
-    const message = document.getElementById('message');
+    const message = document.getElementById('message_toastr');
     const btnToast = document.getElementById('liveToastBtn');
     const form = document.getElementById('form');
     const tileModal = document.getElementById("exampleModalLabel");
     window.onload = () => {
-        if (message.innerHTML.trim() == 'Something was wrong') {
-            toastr.error(message.innerHTML);
-        } else if (message.innerHTML.trim() == 'Id not found') {
-            toastr.error(message.innerHTML);
-        } else if (message.innerHTML.trim() !== '') {
-            toastr.success(message.innerHTML);
+        const messageContent = message.innerHTML.trim();
+        if (messageContent === 'Something was wrong') {
+            toastr.error(messageContent);
+        } else if (messageContent === 'Id not found') {
+            toastr.error(messageContent);
+        } else if (messageContent !== '') {
+            // Set toastr options for position
+            toastr.options = {
+                positionClass: 'toast-bottom-right', // Change this to your desired position
+                timeOut: 2000 // Set the duration for the toastr message
+            };
+            toastr.success(messageContent);
         }
-    }
+    };
 
     function changeLimit(limit) {
         pageable.limit = parseInt(limit);
         document.getElementById('searchForm').submit();
     }
 
+    // function onShowPopup(id) {
+    //     let action = "created";
+    //     let title = "Created";
+    //     if (id) {
+    //         action = "edit";
+    //         title = "Edit";
+    //     }
+    //     tileModal.innerHTML = title + " Post";
+    //     form.setAttribute('action', '/admins/posts-management?action=' + action);
+    //     post = posts.find(post => post.id === id) || {};
+    //     console.log("post", post);
+    //
+    //     resetData();
+    // }
     function onShowPopup(id) {
         let action = "create";
         let title = "Create";
@@ -608,10 +643,92 @@
         form.setAttribute('action', '/admins/posts-management?action=' + action);
         post = posts.find(post => post.id === id) || {};
         console.log("post", post);
-        resetData();
+
+        if (action === "create") {
+            resetDataCreate();
+        } else if (action === "edit") {
+            resetDataEdit();
+        }
     }
 
-    function resetData() {
+    function resetDataCreate() {
+        inputs = [
+            {
+                label: "Email",
+                name: "email",
+                // pattern: "^[A-Za-z ]{6,20}",
+                type: 'email',
+                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                // disable: post.id,
+                require: true,
+                classDiv: 'col-6',
+                id: "post-email",
+                value: post.profile?.user?.email || ''
+            },
+            {
+                label: "Location",
+                name: "location",
+                // pattern: "^[0-9]{1,50}",
+                message: "Location must have minimun is 1 charaters and maximun is 50 charaters",
+                require: true,
+                classDiv: 'col-6',
+                value: post.location || ''
+            },
+            {
+                name: 'id',
+                value: post.id,
+                type: 'hidden',
+                classDiv: 'd-none'
+            },
+            // {
+            //     name: 'content.id',
+            //     value: post.content.id,
+            //     type: 'hidden',
+            //     classDiv: 'd-none'
+            // },
+
+            {
+                label: "Limit",
+                // name: "post_limit",
+                name: "postLimit",
+                type: "select",
+                message: "Please choose limit",
+                options: limits?.map(e => {
+                    return {
+                        name: e,
+                        value: e
+                    }
+                }),
+                require: true,
+                value: post.postLimit || '',
+                classDiv: 'col-6'
+            },
+            {
+                label: "Content",
+                name: "data",
+                // pattern: "^[A-Za-z ]{6,20}",
+                // message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                require: true,
+                classDiv: 'col-6',
+                value: post.content?.data || ''
+            },
+
+        ];
+        const formBody = document.getElementById('formBody'); // DOM formBody theo id
+        formBody.innerHTML = '';
+        // loop qua inputs
+        inputs.forEach((input, index) => {
+            if (input.type === 'select') {
+                formBody.innerHTML += formSelect(input, index);
+            } else {
+                // For avatar input, set the default value to the image path (props.value) if available
+                const avatarValue = input.type === 'file' ? '' : input.value;
+                formBody.innerHTML += formInput({...input, value: avatarValue}, index);
+            }
+        });
+
+    }
+    function resetDataEdit() {
         inputs = [
             {
                 label: "Email",
@@ -623,7 +740,7 @@
                 require: true,
                 classDiv: 'col-6',
                 id: "post-email",
-                value: ''
+                value:  ''
             },
             {
                 label: "Location",
@@ -650,6 +767,7 @@
             {
                 label: "Limit",
                 name: "post_limit",
+                // name: "postLimit",
                 type: "select",
                 message: "Please choose limit",
                 options: limits?.map(e => {
