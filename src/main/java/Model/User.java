@@ -12,6 +12,7 @@ public class User {
 
     private EStatus status;
 
+
     public User(Integer id) {
         this.id = id;
     }

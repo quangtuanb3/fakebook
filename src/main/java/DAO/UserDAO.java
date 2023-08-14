@@ -136,6 +136,7 @@ public class UserDAO extends DatabaseConnection {
                      .prepareStatement(AppUtil.buildInsertSql(AppConstant.USERS_TBL, user))) {
             System.out.println(preparedStatement);
 
+
 //            preparedStatement.setString(1, user.getEmail());
 //            preparedStatement.setString(2, user.getPassword());
 //            preparedStatement.setString(3, user.getStatus().toString());
