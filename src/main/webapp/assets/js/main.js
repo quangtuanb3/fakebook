@@ -25,7 +25,7 @@
     const menuToggleButtonIcon = document.querySelector("#menu-toggle i");
     const overlay = document.querySelector(".overlay");
 
-    menuToggleButton.addEventListener("click", () => {
+    menuToggleButton?.addEventListener("click", () => {
         sidebarNavWrapper.classList.toggle("active");
         overlay.classList.add("active");
         mainWrapper.classList.toggle("active");

@@ -18,8 +18,8 @@ import java.util.*;
 @WebServlet("/uploadImage")
 @MultipartConfig
 public class UploadImageController extends HttpServlet {
-    private static final String IMAGE_SAVE_DIRECTORY = "D:\\CODEGYM\\CG_Module3\\Execrise\\crud-servlet-c0423i1\\src\\main\\java\\com\\example\\c0423i1module3\\assets\\images".replace("\\","/"); // Change this to your desired image save directory
-    String IMAGE_SAVE_SERVER  = "D:\\CODEGYM\\CG_Module3\\Execrise\\crud-servlet-c0423i1\\src\\main\\webapp\\assets\\images".replace("\\","/");
+    public static final String IMAGE_SAVE_DIRECTORY = "D:\\codegym\\fakebook\\src\\main\\webapp\\assets\\images".replace("\\", "/");
+    public static final String  IMAGE_SAVE_SERVER  = "D:\\codegym\\fakebook\\target\\c0423i1-module-3-1.0-SNAPSHOT\\assets\\images".replace("\\", "/");
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Get the uploaded file from the request
@@ -45,7 +45,7 @@ public class UploadImageController extends HttpServlet {
             tempFile.delete();
 
             // Create a response JSON object with the image URL
-            String imageUrl = "../assets/images/" + fileName; // Change "/images/" to the URL path of your image directory
+            String imageUrl = "/assets/images/" + fileName; // Change "/images/" to the URL path of your image directory
 
             // Create an ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();
@@ -72,7 +72,7 @@ public class UploadImageController extends HttpServlet {
         }
     }
 
-    private File saveToTempFile(Part part) throws IOException {
+    public static File saveToTempFile(Part part) throws IOException {
         String fileName = part.getSubmittedFileName();
         String fileExtension = fileName.substring(fileName.lastIndexOf("."));
         LocalDateTime now = LocalDateTime.now();
