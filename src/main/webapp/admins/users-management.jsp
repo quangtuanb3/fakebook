@@ -445,7 +445,7 @@
             <c:forEach items="${profiles}" var="profile" varStatus="loop">
                 <tr>
                     <td>
-                            ${profile.id}
+                            ${loop.index + 1}
                     </td>
                     <td>
                             ${profile.name}
