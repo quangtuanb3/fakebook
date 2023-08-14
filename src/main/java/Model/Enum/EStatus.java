@@ -2,5 +2,10 @@ package Model.Enum;
 
 public enum EStatus {
     ACTIVE,
-    LOCK;
+    OFFLINE,
+    BUSY,
+    LOCK,
+    OTHER;
+
+
 }

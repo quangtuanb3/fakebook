@@ -51,6 +51,9 @@ public class UserService {
     public boolean existById(Integer id) {
         return userDAO.existByID(id);
     }
+    public boolean existByEmail(String email) {
+        return userDAO.existByEmail(email);
+    }
 
     public void delete(Integer userId) {
         userDAO.deleteById(userId);
@@ -60,4 +63,8 @@ public class UserService {
 
     }
 
+    public User findByEmail(String email) {
+      return userDAO.getUserByEmail(email);
+
+    }
 }

@@ -7,19 +7,20 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon" />
-  <title>PlainAdmin Demo | Bootstrap 5 Admin Template</title>
-
+  <link rel="icon" href="../images/fb_icon.png" type="image/x-icon" />
+  <title>Facebook Management</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lineicons@2.0.0/dist/css/LineIcons.min.css">
+</head>
   <!-- ========== All CSS files linkup ========= -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="assets/css/lineicons.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="assets/css/fullcalendar.css" />
-  <link rel="stylesheet" href="assets/css/fullcalendar.css" />
-  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../assets/css/lineicons.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="../assets/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="../assets/css/fullcalendar.css" />
+  <link rel="stylesheet" href="../assets/css/fullcalendar.css" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
 </head>
 
 <body>
@@ -33,7 +34,7 @@
   <aside class="sidebar-nav-wrapper">
     <div class="navbar-logo">
       <a href="index.jsp">
-        <img src="assets/images/logo/logo.svg" alt="logo" />
+        <img src="../assets/images/logo/logo.svg" alt="logo" />
       </a>
     </div>
 
@@ -42,7 +43,7 @@
       <ul>
         <li class="nav-item nav-item-has-children slidebar-active" >
           <div style="text-align: left; margin-left: 10px;" >
-            <a>
+            <a href="./index.jsp">
                <span class="icon" style="padding: 10px; font-size: 17px;">
               <i class="fa fa-palette"></i>
             </span>
@@ -54,9 +55,9 @@
 
         <li class="nav-item nav-item-has-children" >
           <div style="text-align: left; margin-left: 10px;" >
-            <a href="/users">
+            <a href="/admins/users-management">
             <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-user"></i>
+              <i class="fa fa-profile"></i>
             </span>
            <span class="text" style="line-height: 10px;">USER</span>
             </a>
@@ -66,7 +67,7 @@
 
         <li class="nav-item nav-item-has-children" >
           <div style="text-align: left; margin-left: 10px;" >
-            <a>
+            <a href="/admins/posts-management">
                 <span class="icon" style="padding: 10px; font-size: 17px;">
               <i class="fa fa-paste"></i>
             </span>
@@ -136,7 +137,7 @@
                   <li>
                     <a href="#0">
                       <div class="image">
-                        <img src="assets/images/lead/lead-6.png" alt="" />
+                        <img src="../assets/images/lead/lead-6.png" alt="" />
                       </div>
                       <div class="content">
                         <h6>
@@ -156,7 +157,7 @@
                   <li>
                     <a href="#0">
                       <div class="image">
-                        <img src="assets/images/lead/lead-1.png" alt="" />
+                        <img src="../assets/images/lead/lead-1.png" alt="" />
                       </div>
                       <div class="content">
                         <h6>
@@ -194,7 +195,7 @@
                   <li>
                     <a href="#0">
                       <div class="image">
-                        <img src="assets/images/lead/lead-5.png" alt="" />
+                        <img src="../assets/images/lead/lead-5.png" alt="" />
                       </div>
                       <div class="content">
                         <h6>Jacob Jones</h6>
@@ -206,7 +207,7 @@
                   <li>
                     <a href="#0">
                       <div class="image">
-                        <img src="assets/images/lead/lead-3.png" alt="" />
+                        <img src="../assets/images/lead/lead-3.png" alt="" />
                       </div>
                       <div class="content">
                         <h6>John Doe</h6>
@@ -218,7 +219,7 @@
                   <li>
                     <a href="#0">
                       <div class="image">
-                        <img src="assets/images/lead/lead-2.png" alt="" />
+                        <img src="../assets/images/lead/lead-2.png" alt="" />
                       </div>
                       <div class="content">
                         <h6>Anee Lee</h6>
@@ -237,7 +238,7 @@
                   <div class="profile-info">
                     <div class="info">
                       <div class="image">
-                        <img src="assets/images/profile/profile-image.png" alt="" />
+                        <img src="../assets/images/profile/profile-image.png" alt="" />
                       </div>
                       <div>
                         <h6 class="fw-500">Adam Joe</h6>
@@ -250,7 +251,7 @@
                   <li>
                     <div class="author-info flex items-center !p-1">
                       <div class="image">
-                        <img src="assets/images/profile/profile-image.png" alt="image">
+                        <img src="../assets/images/profile/profile-image.png" alt="image">
                       </div>
                       <div class="content">
                         <h4 class="text-sm">Stevens</h4>
@@ -262,7 +263,7 @@
                   <li class="divider"></li>
                   <li>
                     <a href="#0">
-                      <i class="lni lni-user"></i> View Profile
+                      <i class="lni lni-profile"></i> View Profile
                     </a>
                   </li>
                   <li>
@@ -364,7 +365,7 @@
           <div class="col-xl-3 col-lg-4 col-sm-6">
             <div class="icon-card mb-30">
               <div class="icon orange">
-                <i class="lni lni-user"></i>
+                <i class="lni lni-profile"></i>
               </div>
               <div class="content">
                 <h6 class="mb-10">New User</h6>
@@ -505,7 +506,7 @@
                       <td>
                         <div class="product">
                           <div class="image">
-                            <img src="assets/images/products/product-mini-1.jpg" alt="" />
+                            <img src="../assets/images/products/product-mini-1.jpg" alt="" />
                           </div>
                           <p class="text-sm">Arm Chair</p>
                         </div>
@@ -548,7 +549,7 @@
                       <td>
                         <div class="product">
                           <div class="image">
-                            <img src="assets/images/products/product-mini-2.jpg" alt="" />
+                            <img src="../assets/images/products/product-mini-2.jpg" alt="" />
                           </div>
                           <p class="text-sm">SOfa</p>
                         </div>
@@ -591,7 +592,7 @@
                       <td>
                         <div class="product">
                           <div class="image">
-                            <img src="assets/images/products/product-mini-3.jpg" alt="" />
+                            <img src="../assets/images/products/product-mini-3.jpg" alt="" />
                           </div>
                           <p class="text-sm">Dining Table</p>
                         </div>
@@ -634,7 +635,7 @@
                       <td>
                         <div class="product">
                           <div class="image">
-                            <img src="assets/images/products/product-mini-4.jpg" alt="" />
+                            <img src="../assets/images/products/product-mini-4.jpg" alt="" />
                           </div>
                           <p class="text-sm">Office Chair</p>
                         </div>
@@ -859,7 +860,7 @@
                       <td>
                         <div class="product">
                           <div class="image">
-                            <img src="assets/images/products/product-mini-1.jpg" alt="" />
+                            <img src="../assets/images/products/product-mini-1.jpg" alt="" />
                           </div>
                           <p class="text-sm">Bedroom</p>
                         </div>
@@ -897,7 +898,7 @@
                       <td>
                         <div class="product">
                           <div class="image">
-                            <img src="assets/images/products/product-mini-2.jpg" alt="" />
+                            <img src="../assets/images/products/product-mini-2.jpg" alt="" />
                           </div>
                           <p class="text-sm">Arm Chair</p>
                         </div>
@@ -935,7 +936,7 @@
                       <td>
                         <div class="product">
                           <div class="image">
-                            <img src="assets/images/products/product-mini-3.jpg" alt="" />
+                            <img src="../assets/images/products/product-mini-3.jpg" alt="" />
                           </div>
                           <p class="text-sm">Sofa</p>
                         </div>
@@ -973,7 +974,7 @@
                       <td>
                         <div class="product">
                           <div class="image">
-                            <img src="assets/images/products/product-mini-4.jpg" alt="" />
+                            <img src="../assets/images/products/product-mini-4.jpg" alt="" />
                           </div>
                           <p class="text-sm">Kitchen</p>
                         </div>
@@ -983,9 +984,6 @@
                       </td>
                       <td>
                         <p class="text-sm">$345</p>
-                      </td>
-                      <td>
-                        <span class="status-btn close-btn">Canceled</span>
                       </td>
                       <td>
                         <div class="action justify-content-end">
@@ -1052,15 +1050,15 @@
   <!-- ======== main-wrapper end =========== -->
 
   <!-- ========= All Javascript files linkup ======== -->
-  <script src="assets/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/Chart.min.js"></script>
-  <script src="assets/js/dynamic-pie-chart.js"></script>
-  <script src="assets/js/moment.min.js"></script>
-  <script src="assets/js/fullcalendar.js"></script>
-  <script src="assets/js/jvectormap.min.js"></script>
-  <script src="assets/js/world-merc.js"></script>
-  <script src="assets/js/polyfill.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/Chart.min.js"></script>
+  <script src="../assets/js/dynamic-pie-chart.js"></script>
+  <script src="../assets/js/moment.min.js"></script>
+  <script src="../assets/js/fullcalendar.js"></script>
+  <script src="../assets/js/jvectormap.min.js"></script>
+  <script src="../assets/js/world-merc.js"></script>
+  <script src="../assets/js/polyfill.js"></script>
+  <script src="../assets/js/main.js"></script>
 
   <script>
     // ======== jvectormap activation

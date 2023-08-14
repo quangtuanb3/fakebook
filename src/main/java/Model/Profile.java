@@ -27,6 +27,10 @@ public class Profile {
     public Profile() {
     }
 
+    public Profile(String name) {
+        this.name = name;
+    }
+
     public Profile(Integer id, String name, String phone, String avatar, Date dob, EGender gender, String cover, User user) {
         this.id = id;
         this.name = name;

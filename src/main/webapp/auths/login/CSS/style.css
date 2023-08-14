@@ -184,6 +184,21 @@ footer small {
     color: red;
     display: none;
 }
-.input-custom:invalid[focused="true"]~span {
+
+.input-custom:invalid[focused="true"] ~ span {
     display: block;
+}
+
+.input-custom:invalid[focused="true"] {
+    border-color: red !important;
+}
+
+.row-custom {
+    position:relative;
+    left: 0;
+    top: 0;
+    transform: none;
+}
+.modal-header .btn-close{
+    margin-top: -3.5rem;
 }
