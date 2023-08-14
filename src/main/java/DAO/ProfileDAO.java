@@ -15,13 +15,14 @@ import java.util.Optional;
 
 public class ProfileDAO extends DatabaseConnection {
     private final String TABLE_PROFILES = "profiles";
-    private final String SELECT_ALL_PROFILES = "SELECT p.*,u.email `user.email`,  u.id `user.id`, u.password `user.password`, u.status `user.status`  FROM `profiles` p LEFT JOIN " +
+    private final String SELECT_ALL_PROFILES = "SELECT p.*,u.email `user.email`,u.role `user.role`,  u.id `user.id`, u.password `user.password`, u.status `user.status`  FROM `profiles` p LEFT JOIN " +
             "`users` u on p.user_id = u.id  WHERE p.`name` like  '%s' OR p.`dob` like '%s' OR p.`cover` like '%s' OR p.`gender` like '%s' OR p.`user_id` like '%s'  Order BY %s %s LIMIT %s OFFSET %s";
     private final String SELECT_TOTAL_RECORDS = "SELECT COUNT(1) as cnt  FROM `profiles` p LEFT JOIN " +
             "`users` u on p.user_id = u.id  WHERE p.`name` like '%s' OR p.`dob` like '%s' OR p.`cover` like '%s' OR p.`gender` like '%s' OR p.`user_id` like '%s'";
     private final String INSERT_PROFILES = "INSERT INTO `profiles` (`name`,`avatar`, `user_id`, `dob`,`gender`, `phone`, `cover`, ) VALUES ( ?,?,?, ?, ?, ?, ?)";
 //
 //    private final String UPDATE_TEACHERS = "UPDATE `teachers` SET `name` = ?, `dob` = ?, `hobie` = ?, `gender` = ?, `category_id` = ? WHERE (`id` = ?)";
+
 private final String FIND_PROFILE_ID_BY_EMAIL = "select id from (select p.*, u.email from `profiles` p Left join `users` u\n" +
         "on p.user_id = u.id) as temp \n" +
         "where email = ?;";
@@ -36,6 +37,7 @@ private final String FIND_PROFILE_BY_EMAIL =
                 where temp.email = ?
                 """;
     private final String FIND_BY_ID = "SELECT p.*, u.email `user.email`, u.password `user.password`, u.id as `user.id`, u.role as `user.role`  FROM " +
+
             "`profiles` p LEFT JOIN `users` u on p.user_id = u.id WHERE p.`id` = ?";
     private final String EXIST_BY_ID = "SELECT count(*) as `cnt` FROM `profiles` WHERE `id` = ? group by id limit 1";
     private final String DELETE_BY_ID = "DELETE FROM `profiles` WHERE (`id` = ?)";

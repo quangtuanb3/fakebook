@@ -12,6 +12,7 @@ public class User {
 
     private EStatus status;
 
+
     public User(Integer id) {
         this.id = id;
     }
@@ -29,11 +30,20 @@ public class User {
 //        this.password = password;
 //    }
 
-    public User(Integer id, String email, String password, EStatus status) {
+    public User(Integer id, String email, String password, EStatus status, ERole role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.status = status;
+        this.role =role;
+    }
+
+    public ERole getRole() {
+        return role;
+    }
+
+    public void setRole(ERole role) {
+        this.role = role;
     }
 
     public User(int id, String email) {
@@ -65,13 +75,6 @@ public class User {
         this.password = password;
     }
 
-    public ERole getRole() {
-        return role;
-    }
-
-    public void setRole(ERole role) {
-        this.role = role;
-    }
 
     public EStatus getStatus() {
         return status;
