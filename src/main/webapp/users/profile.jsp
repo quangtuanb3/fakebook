@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Profle - Socialbook</title>
+    <title>Facebook</title>
     <script src="https://kit.fontawesome.com/ef7e2b893b.js" crossorigin="anonymous"></script>
 </head>
 
@@ -28,14 +28,14 @@
                 <input type="text" placeholder="Search">
             </div>
             <div class="profile-image online" onclick="UserSettingToggle()">
-                <img src="../images/profile-pic.png" alt="">
+                <img src="../images/avatarCustom.avif" alt="">
             </div>
 
         </div>
         <div class="user-settings">
             <div class="profile-darkButton">
                 <div class="user-profile">
-                    <img src="../images/profile-pic.png" alt="">
+                    <img src="../images/avatarCustom.avif" alt="">
                     <div>
                         <p> Alex Carry</p>
                         <a href="#">See your profile</a>

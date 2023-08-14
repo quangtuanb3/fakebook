@@ -22,7 +22,7 @@ public class Post {
     List<Profile> tags;
     List<String> hashTag;
     Content content;
-    List<Media> media;
+    Media media;
     Integer commentNumber;
     Integer shareNumber;
 
@@ -33,7 +33,7 @@ public class Post {
 
 
 
-    public Post(Integer id, Profile user, Timestamp timestamp, String location, Share share, ELimit postLimit, LikeNumber likeNumber, List<Profile> tags, List<String> hashTag, Content content, List<Media> media, Integer commentNumber, Integer shareNumber) {
+    public Post(Integer id, Profile user, Timestamp timestamp, String location, Share share, ELimit postLimit, LikeNumber likeNumber, List<Profile> tags, List<String> hashTag, Content content, Media media, Integer commentNumber, Integer shareNumber) {
         this.id = id;
         this.profile = user;
         this.time = timestamp;
@@ -149,11 +149,11 @@ public class Post {
         this.content = content;
     }
 
-    public List<Media> getMedia() {
+    public Media getMedia() {
         return media;
     }
 
-    public void setMedia(List<Media> media) {
+    public void setMedia(Media media) {
         this.media = media;
     }
 
