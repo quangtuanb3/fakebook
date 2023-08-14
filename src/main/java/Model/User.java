@@ -1,12 +1,15 @@
 package Model;
 
+
+import Model.Enum.ERole;
 import Model.Enum.EStatus;
 
 public class User {
-
     private Integer id;
     private String email;
     private String password;
+    private ERole role;
+
     private EStatus status;
 
     public User(Integer id) {
@@ -26,11 +29,25 @@ public class User {
 //        this.password = password;
 //    }
 
-    public User(Integer id, String email, String password, EStatus status) {
+    public User(Integer id, String email, String password, EStatus status, ERole role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.status = status;
+        this.role =role;
+    }
+
+    public ERole getRole() {
+        return role;
+    }
+
+    public void setRole(ERole role) {
+        this.role = role;
+    }
+
+    public User(int id, String email) {
+        this.id = id;
+        this.email = email;
     }
 
     public Integer getId() {
@@ -56,6 +73,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public EStatus getStatus() {
         return status;

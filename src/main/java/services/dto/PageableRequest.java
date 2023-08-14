@@ -1,6 +1,8 @@
 package services.dto;
 
 
+import Model.Profile;
+import Model.User;
 import services.dto.Enum.ESortType;
 
 public class PageableRequest {
@@ -15,6 +17,7 @@ public class PageableRequest {
     private Integer limit;
 
     private Integer totalPage;
+    private Profile profile;
 
     public String getSearch() {
         return search;
@@ -81,5 +84,13 @@ public class PageableRequest {
 
     public void setTotalPage(Integer totalPage) {
         this.totalPage = totalPage;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

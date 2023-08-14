@@ -1,6 +1,7 @@
 package Utils;
 
 public class AppConstant {
+    public static final String USERS_TBL = "users";
     public static String POST_MANAGEMENT_PAGE = "/posts-management.jsp" ;
     public static String ADMIN_POST_MANAGEMENT_PAGE = "/admins/posts-management";
     public static String ACTION= "action";
@@ -11,14 +12,15 @@ public class AppConstant {
 
     public static String DELETE= "delete";
     public static String USERS_MANAGEMENT_PAGE= "/users-management.jsp";
-    public static String EDIT_PAGE= "edit.jsp";
-    public static String CREATE_PAGE= "/create.jsp";
 
     public static String ID_NOT_FOUND = "Id of %s not found";
 
     public static String MESSAGE_EDIT_SUCCESS = "Edited";
 
     public static int[] LIMIT_ROWS = {5,10,20};
-    public static String USERS_TBL = "users";
     public static String CONTENT_TBL = "contents";
+    public static String USERS_PAGE = "/users/home.jsp";
+    public static String USER_PROFILE_PAGE = "/users/profile.jsp";
+    public static String USERS_DIRECT_PAGE = "/users/home";
+    public static String ADMINS_PAGE = "/admins/";
 }

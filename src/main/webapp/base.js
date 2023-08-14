@@ -1,5 +1,5 @@
 function formInput(props, index) {
-    // console.log("Props id", props.id)
+
     if (props.type === 'select') {
         return formSelect(props, index);
     }
@@ -21,35 +21,50 @@ function formInput(props, index) {
     `;
     }
     let pattern = '';
-    if(props.pattern){
+    if (props.pattern) {
         pattern = 'pattern="' + props.pattern + '"';
     }
-    let min = '';
-    if(props.min){
-        min = 'min="' + props.min + '"';
-    } let max = '';
-    if(props.max){
-        max = 'max="' + props.max + '"';
-    }
     let disable = '';
-    if(props.disable){
+    if (props.disable) {
         disable = 'disabled';
     }
-    return `<div class="${props.classDiv}">
-                <label>${props.label}</label>
-                    <input class="input-custom form-control"
-                    type="${props.type || 'text'}"
-                    name="${props.name}"
-                    onblur="onFocus(${index})" 
-                    ${pattern}
-                    ${min} 
-                    ${max} 
-                    ${disable}
-                    value="${props.value}"
-                    ${props.require ? 'required' : ''} /></br>
+
+    if (props.type === 'radio-group') {
+        let radioButtons = '';
+        props.options.forEach(option => {
+            const checked = props.value === option.value ? 'checked' : '';
+            radioButtons += `
+                <input type="radio" class="btn-check" name="${props.name}" id="${props.name}${option.value}" autocomplete="off" ${checked}>
+                <label class="btn btn-outline-primary" style="margin: 0 15px;padding:5px 35px; border-radius: 5px" for="${props.name}${option.value}">${option.name}</label>
+            `;
+        });
+        return `
+            <div class="${props.classDiv}">
+                <label class="d-block">${props.label}</label>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    ${radioButtons}
+                </div>
                 <span class="error">${props.message}</span>
-            </div>`
+            </div>
+        `;
+    }
+
+    return `
+        <div class="${props.classDiv}">
+            <label>${props.label}</label>
+            <input class="input-custom form-control"
+            type="${props.type || 'text'}"
+            name="${props.name}"
+            onblur="onFocus(${index})"
+            ${pattern}
+            ${disable}
+            value="${props.value}"
+            ${props.require ? 'required' : ''} /></br>
+            <span class="error">${props.message}</span>
+        </div>
+    `;
 }
+
 function formSelect(props, index) {
     let optionsStr = "";
     props.options.forEach(e => {
@@ -83,7 +98,6 @@ function formSelect(props, index) {
             </div>`
 }
 const onFocus = (index) => {
-    console.log("index", index)
     const inputsForm = document.querySelectorAll('#formBody .input-custom')
     inputsForm[index].setAttribute("focused", "true");
 }

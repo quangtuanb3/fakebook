@@ -161,6 +161,7 @@ public class PostManagementController extends HttpServlet {
         Integer id = Integer.valueOf(req.getParameter("id"));
         if (checkIdNotFound(req, resp, id)) return;
         PostService.getPostService().delete(id);
+
         resp.sendRedirect(ADMIN_POST_MANAGEMENT_PAGE + "?message=Deleted");
     }
 
@@ -200,8 +201,8 @@ public class PostManagementController extends HttpServlet {
     }
 
     private boolean checkIdNotFound(HttpServletRequest req, HttpServletResponse resp, Integer id) throws IOException {
-        if (!ProfileService.getProfileService().existById(id)) {
-            resp.sendRedirect(PAGE + "?message=Id not found");
+        if (PostService.getPostService().findById(id) == null) {
+            resp.sendRedirect(ADMIN_POST_MANAGEMENT_PAGE + "?message=Id not found");
             return true;
         }
         return false;

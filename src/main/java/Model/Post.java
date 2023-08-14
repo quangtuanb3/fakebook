@@ -12,7 +12,7 @@ import java.util.List;
 public class Post {
     private Integer id;
     private Profile profile;
-    Timestamp timestamp;
+    Timestamp time;
     String location;
     Share share;
     //shara,
@@ -36,7 +36,7 @@ public class Post {
     public Post(Integer id, Profile user, Timestamp timestamp, String location, Share share, ELimit postLimit, LikeNumber likeNumber, List<Profile> tags, List<String> hashTag, Content content, List<Media> media, Integer commentNumber, Integer shareNumber) {
         this.id = id;
         this.profile = user;
-        this.timestamp = timestamp;
+        this.time = timestamp;
         this.location = location;
         this.share = share;
         this.postLimit = postLimit;
@@ -84,12 +84,13 @@ public class Post {
         this.profile = profile;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+
+    public Timestamp getTime() {
+        return time;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
     public String getLocation() {
