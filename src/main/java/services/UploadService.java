@@ -31,22 +31,27 @@ public class UploadService {
         }
 
         String saveFilePathDirect = savePath + File.separator + fileName;
-        FileOutputStream outputStream = new FileOutputStream(saveFilePathDirect);
         String saveFilePathServer = saveServerPath + File.separator + fileName;
-        FileOutputStream outputStreamServer = new FileOutputStream(saveFilePathServer);
 
         byte[] buffer = new byte[1024];
         int bytesRead;
-        try (InputStream inputStream = Files.newInputStream(file.toPath())) {
+        try (InputStream inputStream = Files.newInputStream(file.toPath());
+             FileOutputStream outputStream = new FileOutputStream(saveFilePathServer)) {
             while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStreamServer.write(buffer, 0, bytesRead);
+                outputStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            // Handle the exception if needed
-        } finally {
-            outputStreamServer.close();
-            outputStream.close();
+            System.out.println(e.getMessage());
+        }
+        try (InputStream inputStream = Files.newInputStream(file.toPath());
+             FileOutputStream outputStream = new FileOutputStream(saveFilePathDirect)) {
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
+
 
 }

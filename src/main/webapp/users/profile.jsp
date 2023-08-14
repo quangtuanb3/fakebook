@@ -11,6 +11,55 @@
     <link rel="stylesheet" href="style.css">
     <title>Facebook</title>
     <script src="https://kit.fontawesome.com/ef7e2b893b.js" crossorigin="anonymous"></script>
+    <link href="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../assets/css/lineicons.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../assets/css/materialdesignicons.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link rel="stylesheet" href="../assets/css/fullcalendar.css"/>
+    <link rel="stylesheet" href="../assets/css/fullcalendar.css"/>
+    <link rel="stylesheet" href="../assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/toastmaker/dist/toastmaker.min.css">
+    <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        .status-link {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .status-link:hover {
+            background-color: #e5e5e5;
+            border-color: #adadad;
+        }
+
+        .table-header {
+            border: 1px solid #ddd;
+        }
+
+        /* Căn giữa nội dung các cột trong thead */
+        .table-header th {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -78,15 +127,44 @@
     </nav>
 
     <!-- profile-page-------------------------- -->
-
+    <form method="post" id="form" accept-charset=""  content="multi">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="form1" class="row">
+                        </div>
+                        <div>
+                            <label for="file">
+                                <img src="../images/defaullt-avatar.jpg" alt="default" id="preview-image" style="width: 120px; height: 120px; object-fit: contain"/>
+                                <input id="file" type="file" class="d-none" onchange="previewImage(event)" />
+                                <input name="avatar" type="hidden" id="avatar" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <div class="profile-container">
         <img src="../images/cover.png" class="coverImage" alt="">
         <div class="dashboard">
             <div class="left-dashboard">
-                <img src="../images/profile.png" class="dashboard-img" alt="">
+                <img src="${profile.avatar}" class="dashboard-img" alt="">
                 <div class="left-dashboard-info">
-                    <h3>Jack Nichoson</h3>
+                    <button onclick="onShowProfileUser()" type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                        <h3>${profile.name}</h3>
+                    </button>
                     <p>120 Friends - 20 mutuals</p>
                     <div class="mutual-friend-images">
                         <img src="../images/member-1.png" alt="">
@@ -416,5 +494,188 @@
 
     <script src="function.js"></script>
 </body>
+<script src="../base.js"></script>
+<script src="https:/cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+<script src="https:/cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https:/cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/Chart.min.js"></script>
+<script src="../assets/js/dynamic-pie-chart.js"></script>
+<script src="../assets/js/moment.min.js"></script>
+<script src="../assets/js/fullcalendar.js"></script>
+<script src="../assets/js/jvectormap.min.js"></script>
+<script src="../assets/js/world-merc.js"></script>
+<script src="../assets/js/polyfill.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="https:/cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https:/cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+<script>
+    const profile = ${profileJSON};
+
+    const genders = ${gendersJSON};
+    //console.log(profiles, genders)
+    let inputs = [];
+    const form = document.getElementById('form1');
+    const tileModal = document.getElementById("exampleModalLabel");
+    const imagePreview = document.getElementById("preview-image");
+
+    function onShowProfileUser(id) {
+        let action = "edit";
+        let title = "Edit";
+        tileModal.innerHTML = title + " User";
+        form.setAttribute('action', '/users/profile?action=' + action);
+        if(profile.avatar){
+            imagePreview.src = profile.avatar;
+        }
+        resetData();
+    }
+    function resetData() {
+        inputs = [
+            {
+                label: "Name",
+                name: "name",
+                pattern: "^[A-Za-z ]{6,20}",
+                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                require: true,
+                classDiv: 'col-6',
+                value: profile.name || ''
+            },
+            {
+                label: "Phone",
+                name: "phone",
+                pattern: "^0[0-9]{9}",
+                message: "Phone number must start with 0 and have 10 digits.",
+                require: true,
+                classDiv: 'col-6',
+                value: profile.phone || ''
+            },
+            // {
+            //     label: "Avatar",
+            //     name: "avatar",
+            //     type: "file",
+            //     require: true,
+            //     classDiv: 'col-6',
+            //     value: profile.avatar || ''
+            // },
+            {
+                name: 'id',
+                value: profile.id,
+                type: 'hidden',
+                classDiv: 'd-none'
+            },
+            {
+                label: "DOB",
+                name: "dob",
+                type: "date",
+                message: "Date from 1950-01-01 to 2000-01-01",
+                require: true,
+                min: '1950-01-01',
+                max: '2000-01-01',
+                value: profile.dob || '',
+                classDiv: 'col-6'
+            },
+            {
+                label: "Gender",
+                name: "gender",
+                type: "select",
+                message: "Please choose gender",
+                options: genders?.map(e => {
+                    return {
+                        name: e,
+                        value: e
+                    }
+                }),
+                require: true,
+                value: profile.gender || '',
+                classDiv: 'col-6'
+            },
+            // {
+            //     label: "Cover",
+            //     name: "cover",
+            //     pattern: "^[A-Za-z ]{6,20}",
+            //     message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+            //     require: true,
+            //     classDiv: 'col-6',
+            //     value: profile.cover || ''
+            // },
+            {
+                label: "Cover",
+                name: "cover",
+                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                disable: profile.cover,
+                require: true,
+                classDiv: 'col-6',
+                value: profile.cover || ''
+            },
+        ];
+        const formBody = document.getElementById('form1'); // DOM formBody theo id
+        formBody.innerHTML = '';
+        // loop qua inputs
+        inputs.forEach((input, index) => {
+            if (input.type === 'select') {
+                formBody.innerHTML += formSelect(input, index);
+            } else {
+                // For avatar input, set the default value to the image path (props.value) if available
+                const avatarValue = input.type === 'file' ? '' : input.value;
+                formBody.innerHTML += formInput({...input, value: avatarValue}, index);
+            }
+        });
+
+    }
+    function previewImage(evt){
+        const img =  document.getElementById('preview-image')
+        const reader = new FileReader();
+        reader.onload = function(){
+
+            img.src = reader.result;
+        };
+        reader.readAsDataURL(evt.target.files[0]);
+        const file = evt.target.files[0];
+        if (file) {
+            // Create a new FormData object and append the selected file
+            const formData = new FormData();
+            formData.append("avatar", file);
+            formData.append("fileType", "image");
+            console.log(formData.getAll('avatar'))
+            console.log(formData.getAll('fileType'))
+            // Use fetch to send the formData to the server
+            fetch("/uploadImage", {
+                method: "POST",
+                body: formData,
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // Handle the response from the server (assuming the server returns the image URL)
+                     // Change this based on the actual response format
+                    // Call a function to display the image preview
+                    document.getElementById('avatar').value = data?.imageUrl || '';
+
+                })
+                .catch((error) => {
+                    // Handle errors (if any)
+                    toast
+                    console.error("Error uploading image:", error);
+                });
+        }
+    }
+</script>
 
 </html>
