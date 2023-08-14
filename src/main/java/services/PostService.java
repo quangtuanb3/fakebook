@@ -29,6 +29,9 @@ public class PostService {
     public List<Post> getPostList(PageableRequest request){
         return postDAO.findAll(request);
     }
+    public List<Post> getMatchesPost(PageableRequest request){
+        return postDAO.findMatchesAll(request);
+    }
     public Post findById(Integer id){
         return postDAO.findById(id)
                 .orElseThrow(() ->  new RuntimeException(String.format(AppConstant.ID_NOT_FOUND, "Post")));

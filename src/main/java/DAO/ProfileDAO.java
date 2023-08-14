@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Enum.EGender;
 import Model.Enum.EStatus;
 import Model.Profile;
 import Model.User;
@@ -24,7 +25,17 @@ public class ProfileDAO extends DatabaseConnection {
 private final String FIND_PROFILE_ID_BY_EMAIL = "select id from (select p.*, u.email from `profiles` p Left join `users` u\n" +
         "on p.user_id = u.id) as temp \n" +
         "where email = ?;";
-    private final String FIND_BY_ID = "SELECT p.*, u.email user_email, u.password user_password  FROM " +
+private final String FIND_PROFILE_BY_EMAIL =
+        """
+                select temp.id, temp.name, temp.phone, temp.avatar, temp.dob, temp.gender, temp.cover, temp.user_id as `user.id`, temp.email as `user.email` \s
+                from\s
+                (select  profiles.*, users.email\s
+                from `profiles`\s
+                left join `users`\s
+                on profiles.user_id = users.id ) as temp\s
+                where temp.email = ?
+                """;
+    private final String FIND_BY_ID = "SELECT p.*, u.email `user.email`, u.password `user.password`, u.id as `user.id`, u.role as `user.role`  FROM " +
             "`profiles` p LEFT JOIN `users` u on p.user_id = u.id WHERE p.`id` = ?";
     private final String EXIST_BY_ID = "SELECT count(*) as `cnt` FROM `profiles` WHERE `id` = ? group by id limit 1";
     private final String DELETE_BY_ID = "DELETE FROM `profiles` WHERE (`id` = ?)";
@@ -98,7 +109,8 @@ private final String FIND_PROFILE_ID_BY_EMAIL = "select id from (select p.*, u.e
         }
     }
 
-    public Optional<Profile> findById(Integer id) {
+    public Profile findById(Integer id) {
+        Profile profile = new Profile();
         try (Connection connection = getConnection();
 
              // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
@@ -109,12 +121,12 @@ private final String FIND_PROFILE_ID_BY_EMAIL = "select id from (select p.*, u.e
 
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                return Optional.of(AppUtil.getObjectFromResultSet(rs, Profile.class));
+                return getProfileFromResultSet(rs);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.empty();
+        return profile;
     }
 
     public Boolean existByID(Integer id) {
@@ -152,6 +164,37 @@ private final String FIND_PROFILE_ID_BY_EMAIL = "select id from (select p.*, u.e
             throw new RuntimeException(e);
         }
         return profile_Id;
+    }
+    public Profile findProfileByEmail(String email) {
+     Profile profile = new Profile();
+        try (Connection connection = getConnection();
+
+             // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(FIND_PROFILE_BY_EMAIL)) {
+            preparedStatement.setString(1, email);
+            System.out.println(preparedStatement);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                 profile = getProfileFromResultSet(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return profile;
+    }
+
+    private Profile getProfileFromResultSet(ResultSet rs) throws SQLException {
+        Profile profile = new Profile();
+        profile.setId(rs.getInt("id"));
+        profile.setAvatar(rs.getString("avatar"));
+        profile.setCover(rs.getString("cover"));
+        profile.setName(rs.getString("name"));
+        profile.setDob(rs.getDate("dob"));
+        profile.setGender(EGender.valueOf(rs.getString("gender")));
+        profile.setUser(new User(rs.getInt("user.id"), rs.getString("user.email")));
+        return profile;
     }
 
 

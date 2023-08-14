@@ -9,7 +9,6 @@ import Utils.AppConstant;
 import Utils.AppUtil;
 import Utils.RunnableCustom;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.Session;
 import services.PostService;
 import services.ProfileService;
 import services.UserService;
@@ -27,8 +26,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-@WebServlet(urlPatterns = "/users/home", name = "profileController")
-public class HomeController extends HttpServlet {
+@WebServlet(urlPatterns = "/users/profile", name = "profileController")
+public class ProfileController extends HttpServlet {
     private final String PAGE = "/users";
 
     private Map<String, RunnableCustom> validators;
@@ -95,7 +94,7 @@ public class HomeController extends HttpServlet {
                 ESortType.valueOf(AppUtil.getParameterWithDefaultValue(req, "sortType", ESortType.DESC).toString()),
                 Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "page", "1").toString()),
                 Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "limit", "10").toString())
-        ); //tao doi tuong pageable voi parametter search
+        );
         var session =  req.getSession();
         User user = (User) session.getAttribute("user");
         Profile profile = ProfileService.getProfileService().findProfileByEmail(user.getEmail());
@@ -103,12 +102,8 @@ public class HomeController extends HttpServlet {
         req.setAttribute("pageable", request);
         req.setAttribute("profile",profile);
         req.setAttribute("matchesPosts", PostService.getPostService().getMatchesPost(request)); // gửi qua list users để jsp vẻ lên trang web
-//        req.setAttribute("message", req.getParameter("message")); // gửi qua message để toastr show thông báo
         req.setAttribute("postLimitJSON", AppUtil.mapper.writeValueAsString(ELimit.values()));
-        req.getRequestDispatcher(AppConstant.USERS_PAGE).forward(req, resp);
-
-        // Handle or log the exception
-
+        req.getRequestDispatcher(AppConstant.USER_PROFILE_PAGE).forward(req, resp);
 
     }
 

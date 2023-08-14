@@ -8,7 +8,7 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="./assets/images/logo/fb-Icon.png" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../images/fb_icon.png" type="image/x-icon"/>
     <title>Facebook</title>
 
     <!-- ========== All CSS files linkup ========= -->
@@ -25,13 +25,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
           integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./assets/css/lineicons.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="./assets/css/materialdesignicons.min.css" rel="stylesheet"
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../assets/css/lineicons.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../assets/css/materialdesignicons.min.css" rel="stylesheet"
           type="text/css"/>
-    <link rel="stylesheet" href="./assets/css/fullcalendar.css"/>
-    <link rel="stylesheet" href="./assets/css/fullcalendar.css"/>
-    <link rel="stylesheet" href="./assets/css/main.css"/>
+    <link rel="stylesheet" href="../assets/css/fullcalendar.css"/>
+    <link rel="stylesheet" href="../assets/css/fullcalendar.css"/>
+    <link rel="stylesheet" href="../assets/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/toastmaker/dist/toastmaker.min.css">
     <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
           integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
@@ -74,7 +74,7 @@
 <aside class="sidebar-nav-wrapper">
     <div class="navbar-logo">
         <a href="${pageContext.request.contextPath}/admins/users-management">
-            <img src="./assets/images/logo/fb_logo.svg" style="width: 100%; height: 100%" alt="logo"/>
+            <img src="../assets/images/logo/fb_logo.svg" style="width: 100%; height: 100%" alt="logo"/>
         </a>
     </div>
 
@@ -160,7 +160,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="./assets/images/lead/lead-6.png" alt=""/>
+                                            <img src="../assets/images/lead/lead-6.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>
@@ -180,7 +180,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="./assets/images/lead/lead-1.png" alt=""/>
+                                            <img src="../assets/images/lead/lead-1.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>
@@ -219,7 +219,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="./assets/images/lead/lead-5.png" alt=""/>
+                                            <img src="../assets/images/lead/lead-5.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>Jacob Jones</h6>
@@ -231,7 +231,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="./assets/images/lead/lead-3.png" alt=""/>
+                                            <img src="../assets/images/lead/lead-3.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>John Doe</h6>
@@ -243,7 +243,7 @@
                                 <li>
                                     <a href="#0">
                                         <div class="image">
-                                            <img src="./assets/images/lead/lead-2.png" alt=""/>
+                                            <img src="../assets/images/lead/lead-2.png" alt=""/>
                                         </div>
                                         <div class="content">
                                             <h6>Anee Lee</h6>
@@ -262,7 +262,7 @@
                                 <div class="profile-info">
                                     <div class="info">
                                         <div class="image">
-                                            <img src="./assets/images/profile/profile-image.png" alt=""/>
+                                            <img src="../assets/images/profile/profile-image.png" alt=""/>
                                         </div>
                                         <div>
                                             <h6 class="fw-500">Adam Joe</h6>
@@ -275,7 +275,7 @@
                                 <li>
                                     <div class="author-info flex items-center !p-1">
                                         <div class="image">
-                                            <img src="./assets/images/profile/profile-image.png"
+                                            <img src="../assets/images/profile/profile-image.png"
                                                  alt="image">
                                         </div>
                                         <div class="content">
@@ -589,15 +589,15 @@
 <script src="https:/cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="./assets/js/bootstrap.bundle.min.js"></script>
-<script src="./assets/js/Chart.min.js"></script>
-<script src="./assets/js/dynamic-pie-chart.js"></script>
-<script src="./assets/js/moment.min.js"></script>
-<script src="./assets/js/fullcalendar.js"></script>
-<script src="./assets/js/jvectormap.min.js"></script>
-<script src="./assets/js/world-merc.js"></script>
-<script src="./assets/js/polyfill.js"></script>
-<script src="./assets/js/main.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/Chart.min.js"></script>
+<script src="../assets/js/dynamic-pie-chart.js"></script>
+<script src="../assets/js/moment.min.js"></script>
+<script src="../assets/js/fullcalendar.js"></script>
+<script src="../assets/js/jvectormap.min.js"></script>
+<script src="../assets/js/world-merc.js"></script>
+<script src="../assets/js/polyfill.js"></script>
+<script src="../assets/js/main.js"></script>
 <script src="https:/cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="

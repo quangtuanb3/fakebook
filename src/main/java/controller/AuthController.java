@@ -2,15 +2,10 @@ package controller;
 
 
 import Model.Enum.EGender;
-import Model.Enum.ERole;
-import Model.Enum.EStatus;
-import Model.Login;
 import Model.Profile;
 import Model.User;
 import Utils.AppUtil;
 import services.AuthService;
-
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,16 +16,17 @@ import java.util.HashMap;
 import java.util.Objects;
 
 @WebServlet(urlPatterns = "/auths", name = "authController")
-public class AuthController  extends HttpServlet {
+public class AuthController extends HttpServlet {
     private final AuthService authService = new AuthService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         String page = "auths/login.jsp";
-        if(Objects.equals(action, "403")){
+        if (Objects.equals(action, "403")) {
             page = "auths/page-403.jsp";
         }
-        if(Objects.equals(action, "logout")){
+        if (Objects.equals(action, "logout")) {
             req.getSession().removeAttribute("login");
         }
         req.setAttribute("message", req.getParameter("message"));
@@ -42,12 +38,12 @@ public class AuthController  extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        if(Objects.equals(action, "login")){
-            login(req,resp);
+        if (Objects.equals(action, "login")) {
+            login(req, resp);
             return;
         }
-        if(Objects.equals(action, "register")){
-            register(req,resp);
+        if (Objects.equals(action, "register")) {
+            register(req, resp);
             return;
         }
         req.getRequestDispatcher("auths/login.jsp").forward(req, resp);
@@ -55,7 +51,7 @@ public class AuthController  extends HttpServlet {
 
     private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) AppUtil.getObjectWithValidation(req, User.class, new HashMap<>());
-        Profile profile = (Profile)  AppUtil.getObjectWithValidation(req, Profile.class, new HashMap<>());
+        Profile profile = (Profile) AppUtil.getObjectWithValidation(req, Profile.class, new HashMap<>());
         assert user != null;
         assert profile != null;
         authService.register(user, profile);
@@ -67,10 +63,11 @@ public class AuthController  extends HttpServlet {
         try {
             User user = (User) AppUtil.getObjectWithValidation(req, User.class, new HashMap<>());
             assert user != null;
-            authService.login(user, req);
-            resp.sendRedirect("/users");
-        }catch (RuntimeException exception){
+            String destinationPage = authService.login(user, req);
+            resp.sendRedirect(destinationPage);
+        } catch (RuntimeException exception) {
             req.setAttribute("message", exception.getMessage());
+            req.setAttribute("gendersJSON", AppUtil.mapper.writeValueAsString(EGender.values()));
             req.getRequestDispatcher("auths/login.jsp").forward(req, resp);
         }
     }

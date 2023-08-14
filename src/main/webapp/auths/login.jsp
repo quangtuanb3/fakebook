@@ -13,7 +13,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <link rel="icon" href="${pageContext.request.contextPath}/auths/login/images/fb_logo.svg">
+    <link rel="icon" href="${pageContext.request.contextPath}/images/fb_icon.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -166,11 +166,9 @@
     const btnToast = document.getElementById('liveToastBtn');
     window.onload = () => {
         const messageContent = message.innerHTML.trim();
-        if (messageContent === 'Something was wrong') {
+        if (!messageContent.includes("successfully") && messageContent.trim()!=="") {
             toastr.error(messageContent);
-        } else if (messageContent === 'Id not found') {
-            toastr.error(messageContent);
-        } else if (messageContent !== '') {
+        } else if(messageContent.includes("successfully")) {
             // Set toastr options for position
             toastr.options = {
                 positionClass: 'toast-bottom-right', // Change this to your desired position

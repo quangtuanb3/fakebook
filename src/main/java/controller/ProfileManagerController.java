@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-@WebServlet(urlPatterns = "/admins/users-management", name = "profileController")
+@WebServlet(urlPatterns = "/admins/users-management", name = "profileManagerController")
 public class ProfileManagerController extends HttpServlet {
     private final String PAGE = "/admins";
 
@@ -123,27 +123,6 @@ public class ProfileManagerController extends HttpServlet {
         System.out.println("url" + s);
         req.getRequestDispatcher(s).forward(req,resp);
     }
-
-//    private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(new Profile())); // gửi qua user rỗng để JS vẻ lên trang web
-//        req.setAttribute("gendersJSON", new ObjectMapper().writeValueAsString(EGender.values()));
-//        req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers()));
-//        req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
-//                .forward(req,resp);
-//    }
-//
-//    private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        Integer id = Integer.valueOf(req.getParameter("id"));
-//        if(checkIdNotFound(req, resp, id)) return;
-//        req.setAttribute("genderJSON", new ObjectMapper().writeValueAsString(EGender.values()));
-//        req.setAttribute("profiles",ProfileService.getProfileService().findById(id)); // gửi user để jsp check xem edit hay là create User
-//        req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().findById(id))); // gửi qua user được tìm thấy bằng id để JS vẻ lên trang web
-//        req.setAttribute("usersJSON", new ObjectMapper().writeValueAsString(UserService.getUsers()));
-//        req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
-//                .forward(req,resp);
-//    }
-
-
 
     private Profile getValidProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Profile profile = (Profile) AppUtil.getObjectWithValidation(req, Profile.class,  validators); //

@@ -36,6 +36,11 @@ public class User {
         this.status = status;
     }
 
+    public User(int id, String email) {
+        this.id = id;
+        this.email = email;
+    }
+
     public Integer getId() {
         return id;
     }
