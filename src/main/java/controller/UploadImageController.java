@@ -45,7 +45,7 @@ public class UploadImageController extends HttpServlet {
             tempFile.delete();
 
             // Create a response JSON object with the image URL
-            String imageUrl = "../assets/images/" + fileName; // Change "/images/" to the URL path of your image directory
+            String imageUrl = "/assets/images/" + fileName; // Change "/images/" to the URL path of your image directory
 
             // Create an ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();

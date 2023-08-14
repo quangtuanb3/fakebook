@@ -3,6 +3,7 @@ package controller;
 import DAO.UserDAO;
 import Model.Enum.EGender;
 import Model.Enum.ELimit;
+import Model.Post;
 import Model.Profile;
 import Model.User;
 import Utils.AppConstant;
@@ -22,10 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @WebServlet(urlPatterns = "/users/home", name = "profileController")
 public class HomeController extends HttpServlet {
@@ -100,11 +98,13 @@ public class HomeController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         Profile profile = ProfileService.getProfileService().findProfileByEmail(user.getEmail());
         request.setProfile(profile);
+        List<Post> matchesPost = PostService.getPostService().getMatchesPost(request);
         req.setAttribute("pageable", request);
         req.setAttribute("profile",profile);
-        req.setAttribute("matchesPosts", PostService.getPostService().getMatchesPost(request)); // gửi qua list users để jsp vẻ lên trang web
-//        req.setAttribute("message", req.getParameter("message")); // gửi qua message để toastr show thông báo
+        req.setAttribute("matchesPosts", matchesPost); // gửi qua list users để jsp vẻ lên trang web
+        req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("postLimitJSON", AppUtil.mapper.writeValueAsString(ELimit.values()));
+        req.setAttribute("postsJSON", AppUtil.mapper.writeValueAsString(matchesPost));
         req.getRequestDispatcher(AppConstant.USERS_PAGE).forward(req, resp);
 
         // Handle or log the exception

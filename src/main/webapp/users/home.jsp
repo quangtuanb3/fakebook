@@ -134,7 +134,6 @@
             </div>
 
             <div class="post-upload-textarea" id="openPopupBtn">
-
                     <textarea name="postContent" placeholder="What's on your mind, Alex?" id="post-text-area" cols="30"
                               rows="3" readonly onclick="openPostPopup()"></textarea>
                 <div class="add-post-links">
@@ -145,10 +144,11 @@
             </div>
         </div>
         <%--        create status here --%>
+
         <div class="popup-overlay" id="popup-overlay">
             <div class="popup">
                 <div class="popup-header">
-                    <h2 style="text-align: center">Create Post</h2>
+                    <h2 style="text-align: center" id="modalTitle">Create Post</h2>
                     <button class="close-popup-button" onclick="closePostPopup()">Close</button>
                 </div>
                 <div class="user-info">
@@ -170,7 +170,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="post-content">
+                <div class="post-content" style="display: block">
                     <label for="post-text"></label>
                     <textarea id="post-text" placeholder="What's on your mind?">
                     </textarea>
@@ -304,88 +304,7 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="function.js"></script>
-
 <script>
-    const onFocusImg = (index) => {
-        const inputsForm = document.querySelectorAll('#formBody .input-custom');
-        inputsForm[index].setAttribute('focused', 'true');
-    };
-
-    function onFileChange(event, index) {
-        const fileInput = event.target;
-        const file = fileInput.files[0];
-
-        if (file) {
-            // Create a new FormData object and append the selected file
-            const formData = new FormData();
-            formData.append("avatar", file);
-            formData.append("fileType", "image");
-            console.log(formData.getAll('avatar'))
-            console.log(formData.getAll('fileType'))
-            // Use fetch to send the formData to the server
-            fetch("/uploadImage", {
-                method: "POST",
-                body: formData,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    // Handle the response from the server (assuming the server returns the image URL)
-                    const imageUrl = data.imageUrl; // Change this based on the actual response format
-                    displayImagePreview(imageUrl, index); // Call a function to display the image preview
-                })
-                .catch((error) => {
-                    // Handle errors (if any)
-                    console.error("Error uploading image:", error);
-                });
-        }
-    }
-
-    function displayImagePreview(imageUrl, index)
-{
-        const previewImage = document.getElementById(`previewImage` + index);
-        previewImage.src = imageUrl;
-    }
-</script>
-
-
-<script>
-    //fetch data
-    // Function to fetch user data using Axios
-    function fetchUserData(userId) {
-        console.log(userId)
-        if (userId == null) {
-            return;
-        }
-        // Make an AJAX request using Axios to fetch user data from the server
-        axios.get('/products?action=lazySearch&id=' + userId)
-            .then(response => {
-                const userData = response.data;
-                console.log(userData);
-                populateForm(userData); // Call a function to populate the form with the fetched user data
-            })
-            .catch(error => {
-                // console.error('Error fetching user data:', error);
-                // Handle error
-            });
-    }
-
-    // Function to populate the form with user data
-    function populateForm(userData) {
-        const formInputs = document.querySelectorAll('#userManagerForm input, #userManagerForm select');
-        formInputs.forEach(input => {
-            const fieldName = input.name;
-
-            if (fieldName in userData) {
-                input.value = userData[fieldName];
-            }
-        });
-    }
-    // Function to show the popup with user data when the Edit button is clicked
-    function showPopupWithUserData(userId) {
-        fetchUserData(userId); // Fetch user data
-        document.getElementById('popupOverlay').style.display = 'block'; // Show the popup
-    }
-
 </script>
 </body>
 </html>

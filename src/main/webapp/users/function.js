@@ -20,7 +20,6 @@ function LoadMoreToggle(){
 
 // Customize here
 
-
 function openPostPopup() {
     centerPopup();
     document.getElementById("popup-overlay").style.display = "flex";
