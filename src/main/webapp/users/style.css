@@ -879,3 +879,6 @@ img.coverImage {
 #uploadFileToggle{
     display: none;
 }
+.status-field p {
+    text-transform: none;
+}

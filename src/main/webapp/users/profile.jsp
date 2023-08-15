@@ -156,7 +156,7 @@
 
 
     <div class="profile-container">
-        <img src="../images/cover.png" class="coverImage" alt="">
+        <img src="${searchProfile.cover}" class="coverImage" alt="" style="max-height: 400px">
         <div class="dashboard">
             <div class="left-dashboard">
                 <img src="${searchProfile.avatar}" class="dashboard-img" alt="">

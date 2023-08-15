@@ -293,7 +293,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#0"> <i class="lni lni-exit"></i> Sign Out </a>
+                                    <a href="/auths?action=logout"> <i class="lni lni-exit"></i> Sign Out </a>
                                 </li>
                             </ul>
                         </div>
@@ -562,8 +562,6 @@
 <!-- ======== main-wrapper end =========== -->
 
 <!-- ========= All Javascript files linkup ======== -->
-<script src="../base.js"></script>
-
 
 <script src="https:/cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -611,6 +609,12 @@
     window.onload = () => {
         const messageContent = message.innerHTML.trim();
         if (messageContent === 'Something was wrong') {
+            toastr.error(messageContent)
+        } else if (messageContent === 'Email not found') {
+            toastr.options = {
+                positionClass: 'toast-bottom-right', // Change this to your desired position
+                timeOut: 2000 // Set the duration for the toastr message
+            };
             toastr.error(messageContent);
         } else if (messageContent === 'Id not found') {
             toastr.error(messageContent);
@@ -622,7 +626,8 @@
             };
             toastr.success(messageContent);
         }
-    };
+    }
+    ;
 
     function changeLimit(limit) {
         pageable.limit = parseInt(limit);
@@ -669,7 +674,7 @@
                 name: "email",
                 // pattern: "^[A-Za-z ]{6,20}",
                 type: 'email',
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                message: "Email must have minimun is 6 charaters and maximun is 20 charaters",
                 // disable: post.id,
                 require: true,
                 classDiv: 'col-6',
@@ -718,7 +723,7 @@
                 label: "Content",
                 name: "data",
                 // pattern: "^[A-Za-z ]{6,20}",
-                // message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                message: "Content required",
                 require: true,
                 classDiv: 'col-6',
                 value: post.content?.data || ''

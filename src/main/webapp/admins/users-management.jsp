@@ -293,7 +293,7 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#0"> <i class="lni lni-exit"></i> Sign Out </a>
+                                    <a href="/auths?action=logout"> <i class="lni lni-exit"></i> Sign Out </a>
                                 </li>
                             </ul>
                         </div>
@@ -440,7 +440,8 @@
                             ${profile.name}
                     </td>
                     <td>
-                            ${profile.avatar}
+                        <img src=" ${profile.avatar}" style="max-width: 45px; max-height: 45px; border-radius: 5px">
+
                     </td>
                     <td>
                             ${profile.user.email}
@@ -707,10 +708,10 @@
                 label: "DOB",
                 name: "dob",
                 type: "date",
-                message: "Date from 1950-01-01 to 2000-01-01",
+                message: "Date from 1950-01-01 to 2023-08-15",
                 require: true,
                 min: '1950-01-01',
-                max: '2000-01-01',
+                max: '2023-08-15',
                 value: profile.dob || '',
                 classDiv: 'col-6'
             },
