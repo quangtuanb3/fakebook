@@ -18,8 +18,8 @@ import java.util.*;
 @WebServlet("/uploadImage")
 @MultipartConfig
 public class UploadImageController extends HttpServlet {
-    public static final String IMAGE_SAVE_DIRECTORY = "D:\\codegym\\fakebook\\src\\main\\webapp\\assets\\images".replace("\\", "/");
-    public static final String  IMAGE_SAVE_SERVER  = "D:\\codegym\\fakebook\\target\\c0423i1-module-3-1.0-SNAPSHOT\\assets\\images".replace("\\", "/");
+    public static final String IMAGE_SAVE_DIRECTORY = "src/main/webapp/assets/images";
+    public static final String  IMAGE_SAVE_SERVER  = "target/c0423i1-module-3-1.0-SNAPSHOT/assets/images";
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Get the uploaded file from the request
@@ -94,6 +94,3 @@ public class UploadImageController extends HttpServlet {
         return dotIndex == -1 ? "" : fileName.substring(dotIndex);
     }
 }
-
-
-
