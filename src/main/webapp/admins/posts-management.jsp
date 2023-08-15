@@ -14,11 +14,16 @@
     <!-- ========== All CSS files linkup ========= -->
     <link href="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
-          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../assets/css/lineicons.css" rel="stylesheet" type="text/css"/>
@@ -27,6 +32,37 @@
     <link rel="stylesheet" href="../assets/css/fullcalendar.css"/>
     <link rel="stylesheet" href="../assets/css/fullcalendar.css"/>
     <link rel="stylesheet" href="../assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/toastmaker/dist/toastmaker.min.css">
+    <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        .status-link {
+            display: inline-block;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .status-link:hover {
+            background-color: #e5e5e5;
+            border-color: #adadad;
+        }
+
+        .table-header {
+            border: 1px solid #ddd;
+        }
+
+        /* Căn giữa nội dung các cột trong thead */
+        .table-header th {
+            text-align: center;
+        }
+
+
+    </style>
 </head>
 
 <body>
@@ -39,51 +75,38 @@
 <!-- ======== sidebar-nav start =========== -->
 <aside class="sidebar-nav-wrapper">
     <div class="navbar-logo">
-        <a href="index.jsp">
-            <img src="../assets/images/logo/logo.svg" alt="logo"/>
+        <a href="${pageContext.request.contextPath}/admins/users-management">
+            <img src="../assets/images/logo/fb_logo.svg" style="width: 100%; height: 100%" alt="logo"/>
         </a>
     </div>
 
     <nav class="sidebar-nav">
-
         <ul>
+            <li class="nav-item nav-item-has-children"></li>
+
             <li class="nav-item nav-item-has-children">
                 <div style="text-align: left; margin-left: 10px;">
-            <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-palette"></i>
-            </span>
-                    <span class="text" style="line-height: 10px;">DASHBOARD</span>
+                    <a href="/admins/users-management">
+                        <span class="icon" style="padding: 10px; font-size: 17px;">
+                            <i class="fa fa-paste"></i>
+                        </span>
+                        <span class="text" style="line-height: 10px;">USER</span>
+                    </a>
                 </div>
             </li>
 
             <li class="nav-item nav-item-has-children slidebar-active">
                 <div style="text-align: left; margin-left: 10px;">
-            <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-profile"></i>
-            </span>
-                    <span class="text" style="line-height: 10px;">USER</span>
+                    <a href="/admins/posts-management">
+                        <span class="icon" style="padding: 10px; font-size: 17px;">
+                            <i class="fa fa-paste"></i>
+                        </span>
+                        <span class="text" style="line-height: 10px;">POST</span>
+                    </a>
                 </div>
             </li>
 
-            <li class="nav-item nav-item-has-children">
-                <div style="text-align: left; margin-left: 10px;">
-            <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-paste"></i>
-            </span>
-                    <span class="text" style="line-height: 10px;">POST</span>
-                </div>
-            </li>
-
-            <li class="nav-item nav-item-has-children">
-                <div style="text-align: left; margin-left: 10px;">
-            <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-pager"></i>
-            </span>
-                    <span class="text" style="line-height: 10px;">PAGE</span>
-                </div>
-            </li>
-
-
+            <li class="nav-item nav-item-has-children"></li>
         </ul>
     </nav>
 </aside>
@@ -304,57 +327,61 @@
     </form>
 
     <!-- ========== section start ========== -->
-    <h1>Post</h1>
-    <div class="row">
-        <div class="col-2">
-            <button onclick="onShowPopup()" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                Create
-            </button>
-            <%--        <a class="btn btn-primary" href="${pageContext.request.contextPath}/users?action=create"> Create</a>--%>
-        </div>
+    <div style="width: 90%; margin: auto; padding: 20px 0">
+        <h1 style="padding-bottom: 20px">POST MANAGEMENT</h1>
+        <div class="row">
+            <div class="col-2">
+                <button onclick="onShowPopup()" type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    Create
+                </button>
+                <%--        <a class="btn btn-primary" href="${pageContext.request.contextPath}/users?action=create"> Create</a>--%>
+            </div>
+            <div class="col-4">
 
-        <div class="col-6" style="display: flex">
-            <form action="${pageContext.request.contextPath}/admins/posts-management" class="row" id="search-input">
-                <div class="col-8">
-                    <input type="search" name="search" value="${pageable.search}" class="form-control">
-                </div>
-                <div class="col-2">
-                    <select id="limit" name="limit" class="form-control" onchange="changeLimit(this.value)">
-                        <c:if test="${pageable.limit == 5 }">
-                            <option value="5" selected>5</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                        </c:if>
-                        <c:if test="${pageable.limit == 10 }">
-                            <option value="5">5</option>
-                            <option value="10" selected>10</option>
-                            <option value="20">20</option>
-                        </c:if>
-                        <c:if test="${pageable.limit == 20 }">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="20" selected>20</option>
-                        </c:if>
+            </div>
+            <div class="col-6" style="display: flex;justify-content: space-around">
+                <form action="/admins/posts-management" class="row" id="search-input">
+                    <div class="col-8">
+                        <input type="search" name="search" value="${pageable.search}" class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <select id="limit" name="limit" class="form-control" onchange="changeLimit(this.value)">
+                            <c:if test="${pageable.limit == 5 }">
+                                <option value="5" selected>5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                            </c:if>
+                            <c:if test="${pageable.limit == 10 }">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                            </c:if>
+                            <c:if test="${pageable.limit == 20 }">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20" selected>20</option>
+                            </c:if>
 
 
-                    </select>
-                </div>
+                        </select>
+                    </div>
 
-                <div class="col-2">
-                    <button class="btn btn-primary">
-                        Search
-                    </button>
-                </div>
-            </form>
+                    <div class="col-2">
+                        <button class="btn btn-primary">
+                            Search
+                        </button>
+                    </div>
+                </form>
 
+            </div>
         </div>
     </div>
 
     <table class="table table-striped table-hover">
         <thead>
         <tr>
-            <th>
+            <th style="text-align: center">
                 <a
                         <c:if test="${pageable.sortField == 'id' && pageable.sortType == 'DESC'}">
                             href="${pageContext.request.contextPath}/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=id&page=${pageable.page}"
@@ -367,7 +394,7 @@
                     No.
                 </a>
             </th>
-            <th>
+            <th style="text-align: center">
                 <a
                         <c:if test="${pageable.sortField == 'pr.name' && pageable.sortType == 'DESC'}">
                             href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=pr.name&page=${pageable.page}"
@@ -380,7 +407,7 @@
                     Username
                 </a>
             </th>
-            <th>
+            <th style="text-align: center">
                 <a
                         <c:if test="${pageable.sortField == 'location' && pageable.sortType == 'DESC'}">
                             href="${pageContext.request.contextPath}/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=location&page=${pageable.page}"
@@ -393,7 +420,7 @@
                     Location
                 </a>
             </th>
-            <th>
+            <th style="text-align: center">
                 <a
                         <c:if test="${pageable.sortField == 'post_limit' && pageable.sortType == 'DESC'}">
                             href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=post_limit&page=${pageable.page}"
@@ -407,31 +434,22 @@
                     Limit
                 </a>
             </th>
-            <th>
+            <th style="text-align: center">
 
-                                <a
-                                        <c:if test="${pageable.sortField == 'ct.data' && pageable.sortType == 'DESC'}">
-                                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=ct.data&page=${pageable.page}"
-                                        </c:if>
+                <a
+                        <c:if test="${pageable.sortField == 'ct.data' && pageable.sortType == 'DESC'}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=ASC&sortField=ct.data&page=${pageable.page}"
+                        </c:if>
 
-                                        <c:if test="${!(pageable.sortField == 'ct.data' && pageable.sortType == 'DESC')}">
-                                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=ct.data&page=${pageable.page}"
-                                        </c:if>
-                                >
-                                   Content
-                                </a>
-            </th>
-            <th>
-                Like Number
-            </th>
-            <th>
-                Comment Number
+                        <c:if test="${!(pageable.sortField == 'ct.data' && pageable.sortType == 'DESC')}">
+                            href="/admins/posts-management?search=${pageable.search}&sortType=DESC&sortField=ct.data&page=${pageable.page}"
+                        </c:if>
+                >
+                    Content
+                </a>
             </th>
 
-            <th>
-                Share Number
-            </th>
-            <th>
+            <th style="text-align: center">
                 Options
             </th>
         </tr>
@@ -453,14 +471,7 @@
                 </td>
                 <td>
                         ${post.content.data}
-                </td>
-                <td>
 
-                </td>
-                <td>
-
-                </td>
-                <td>
 
                 </td>
                 <td>
@@ -728,6 +739,7 @@
         });
 
     }
+
     function resetDataEdit() {
         inputs = [
             {
@@ -740,7 +752,7 @@
                 require: true,
                 classDiv: 'col-6',
                 id: "post-email",
-                value:  ''
+                value: ''
             },
             {
                 label: "Location",
