@@ -66,15 +66,15 @@ public class HomeController extends HttpServlet {
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        User user = getValidUser(req, resp);
-        Profile profile = getValidProfile(req, resp);
-        if (errors.size() == 0) {
-            UserService.getUserService().create(user);
-            var userDB = userDAO.getUserByEmail(user.getEmail());
-            profile.setUser(userDB);
-            ProfileService.getProfileService().create(profile);
-            resp.sendRedirect("/admins/users-management?message=Created");
-        }
+//        User user = getValidUser(req, resp);
+//        Profile profile = getValidProfile(req, resp);
+//        if (errors.size() == 0) {
+//            UserService.getUserService().create(user);
+//            var userDB = userDAO.getUserByEmail(user.getEmail());
+//            profile.setUser(userDB);
+//            ProfileService.getProfileService().create(profile);
+//            resp.sendRedirect("/admins/users-management?message=Created");
+//        }
     }
 
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -105,6 +105,7 @@ public class HomeController extends HttpServlet {
         req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("postLimitJSON", AppUtil.mapper.writeValueAsString(ELimit.values()));
         req.setAttribute("postsJSON", AppUtil.mapper.writeValueAsString(matchesPost));
+        req.setAttribute("profileJSON", AppUtil.mapper.writeValueAsString(profile));
         req.getRequestDispatcher(AppConstant.USERS_PAGE).forward(req, resp);
 
         // Handle or log the exception
