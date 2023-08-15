@@ -59,6 +59,10 @@ public class PostService {
     public Integer insertAndGetId(Post post) {
         return postDAO.insertAndGetId(post);
     }
+
+    public List<Post> getSelfPost(PageableRequest request) {
+      return  postDAO.findSelfPost(request);
+    }
 }
 
 

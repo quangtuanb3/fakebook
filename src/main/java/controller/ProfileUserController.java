@@ -3,6 +3,7 @@ package controller;
 import DAO.UserDAO;
 import Model.Enum.EGender;
 import Model.Enum.ELimit;
+import Model.Post;
 import Model.Profile;
 import Model.User;
 import Utils.AppConstant;
@@ -24,11 +25,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
+import static Utils.AppUtil.formatPostTime;
+import static Utils.AppUtil.mapper;
 import static controller.UploadImageController.IMAGE_SAVE_DIRECTORY;
 import static controller.UploadImageController.IMAGE_SAVE_SERVER;
 
@@ -54,7 +54,7 @@ public class ProfileUserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter(AppConstant.ACTION);
+
         showList(req, resp);
     }
 
@@ -89,12 +89,29 @@ public class ProfileUserController extends HttpServlet {
         var session = req.getSession();
         User user = (User) session.getAttribute("user");
         Profile profile = ProfileService.getProfileService().findProfileByEmail(user.getEmail());
-        request.setProfile(profile);
+        String profilePram = req.getParameter("profileId");
+
+        Profile searchProfile = new Profile();
+        if (profilePram == null) {
+            searchProfile = profile;
+        } else {
+            Integer profileId = Integer.parseInt(profilePram);
+            searchProfile = ProfileService.getProfileService().findById(profileId);
+        }
+        request.setProfile(searchProfile);
+
+        List<Post> matchesPost = PostService.getPostService().getSelfPost(request);
+        for (Post post : matchesPost) {
+            post.setFormattedTime(formatPostTime(post.getTime().toString()));
+        }
         req.setAttribute("pageable", request);
-        req.setAttribute("profile", profile);
-        req.setAttribute("profileJSON", new ObjectMapper().writeValueAsString(profile));
+        req.setAttribute("selfProfile", profile);
+        req.setAttribute("searchProfile", searchProfile);
+        req.setAttribute("selfProfileJSON", new ObjectMapper().writeValueAsString(profile));
+        req.setAttribute("searchProfileJSON", new ObjectMapper().writeValueAsString(searchProfile));
         req.setAttribute("gendersJSON", new ObjectMapper().writeValueAsString(EGender.values()));
-        req.setAttribute("matchesPosts", PostService.getPostService().getMatchesPost(request)); // gửi qua list users để jsp vẻ lên trang web
+        req.setAttribute("matchesPosts",matchesPost ); // gửi qua list users để jsp vẻ lên trang web
+        req.setAttribute("matchesPostsJSON",mapper.writeValueAsString(matchesPost) ); // gửi qua list users để jsp vẻ lên trang web
         req.setAttribute("postLimitJSON", AppUtil.mapper.writeValueAsString(ELimit.values()));
         req.getRequestDispatcher(AppConstant.USER_PROFILE_PAGE).forward(req, resp);
 
