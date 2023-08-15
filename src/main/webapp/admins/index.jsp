@@ -42,15 +42,6 @@
  
       <ul>
         <li class="nav-item nav-item-has-children slidebar-active" >
-          <div style="text-align: left; margin-left: 10px;" >
-            <a href="./index.jsp">
-               <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-palette"></i>
-            </span>
-              <span class="text" style="line-height: 10px;">DASHBOARD</span>
-            </a>
-
-          </div>
         </li>
 
         <li class="nav-item nav-item-has-children" >
@@ -78,15 +69,7 @@
         </li>
 
         <li class="nav-item nav-item-has-children" >
-          <div style="text-align: left; margin-left: 10px;" >
-            <a>
-                 <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-pager"></i>
-            </span>
-              <span class="text" style="line-height: 10px;">PAGE</span>
-            </a>
 
-          </div>
         </li>
        
 

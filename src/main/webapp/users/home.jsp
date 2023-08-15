@@ -83,7 +83,7 @@
         </div>
         <div class="settings-links">
             <img src="../images/logout.png" alt="" class="settings-icon">
-            <a href="#">Logout <img src="../images/arrow.png" alt=""></a>
+            <a href = "/auths?action=logout">Logout <img src="../images/arrow.png" alt=""></a>
         </div>
 
     </div>

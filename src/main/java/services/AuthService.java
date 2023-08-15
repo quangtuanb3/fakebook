@@ -35,7 +35,7 @@ public class AuthService {
                 session.setAttribute("user", userDB);
                 if(userDB.getRole().equals(ERole.USER)){
                     return AppConstant.USERS_DIRECT_PAGE;
-                } else if(userDB.getRole().equals(ERole.ADMIN)) return AppConstant.ADMINS_PAGE;
+                } else if(userDB.getRole().equals(ERole.ADMIN)) return AppConstant.ADMIN_USERS_MANAGEMENT_PAGE;
             } else throw new RuntimeException(lockMsg);
         } else {
             throw new RuntimeException(incorrectMsg);

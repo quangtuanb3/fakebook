@@ -60,6 +60,8 @@
         .table-header th {
             text-align: center;
         }
+
+
     </style>
 </head>
 
@@ -79,45 +81,32 @@
     </div>
 
     <nav class="sidebar-nav">
-
         <ul>
-            <li class="nav-item nav-item-has-children">
-                <div style="text-align: left; margin-left: 10px;">
-            <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-palette"></i>
-            </span>
-                    <span class="text" style="line-height: 10px;">DASHBOARD</span>
-                </div>
-            </li>
+            <li class="nav-item nav-item-has-children"></li>
 
             <li class="nav-item nav-item-has-children slidebar-active">
                 <div style="text-align: left; margin-left: 10px;">
-            <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-profile"></i>
-            </span>
-                    <span class="text" style="line-height: 10px;">USER</span>
+                    <a href="/admins/users-management">
+                        <span class="icon" style="padding: 10px; font-size: 17px;">
+                            <i class="fa fa-paste"></i>
+                        </span>
+                        <span class="text" style="line-height: 10px;">USER</span>
+                    </a>
                 </div>
             </li>
 
-            <li class="nav-item nav-item-has-children">
+            <li class="nav-item nav-item-has-children ">
                 <div style="text-align: left; margin-left: 10px;">
-            <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-paste"></i>
-            </span>
-                    <span class="text" style="line-height: 10px;">POST</span>
+                    <a href="/admins/posts-management">
+                        <span class="icon" style="padding: 10px; font-size: 17px;">
+                            <i class="fa fa-paste"></i>
+                        </span>
+                        <span class="text" style="line-height: 10px;">POST</span>
+                    </a>
                 </div>
             </li>
 
-            <li class="nav-item nav-item-has-children">
-                <div style="text-align: left; margin-left: 10px;">
-            <span class="icon" style="padding: 10px; font-size: 17px;">
-              <i class="fa fa-pager"></i>
-            </span>
-                    <span class="text" style="line-height: 10px;">PAGE</span>
-                </div>
-            </li>
-
-
+            <li class="nav-item nav-item-has-children"></li>
         </ul>
     </nav>
 </aside>
@@ -619,7 +608,6 @@
     };
 
 
-
     function displayImagePreview(imageUrl, index) {
         const previewImage = document.getElementById(`previewImage` + index);
         previewImage.src = imageUrl;
@@ -753,11 +741,11 @@
             {
                 label: "Email",
                 name: "email",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                disable: profile.profile?.email,
+                message: "Email must have minimun is 6 charaters and maximun is 20 charaters",
+                disable: profile.user?.email,
                 require: true,
                 classDiv: 'col-6',
-                value: profile.profile?.email || ''
+                value: profile.user?.email || ''
             },
         ];
         const formBody = document.getElementById('formBody'); // DOM formBody theo id

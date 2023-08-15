@@ -150,7 +150,7 @@ public class UserDAO extends DatabaseConnection {
     private User getUserByResultSet(ResultSet rs) throws SQLException {
         Integer id = rs.getInt("id");
         String email = rs.getString("email");
-        String password = rs.getString("email");
+        String password = rs.getString("password");
         String status = rs.getString("status");
         String role = rs.getString("role");
         return new User(id, email, password, EStatus.valueOf(status), ERole.valueOf(role));

@@ -40,6 +40,7 @@ public class ProfileManagerController extends HttpServlet {
         validators.put("phone", new RunnableWithRegex("0[0-9]{9}", "phone", errors));
         validators.put("name", new RunnableWithRegex("^[A-Za-z ]{6,20}", "name", errors));
         validators.put("gender", new RunnableWithRegex("^(MALE|FEMALE|OTHER)$", "gender", errors));
+        validators.put("dob", new RunnableWithRegex("^(19[5-9][0-9]|2000)$", "dob", errors));
     }
 
     @Override

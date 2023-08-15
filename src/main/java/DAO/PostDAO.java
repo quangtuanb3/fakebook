@@ -238,6 +238,7 @@ public class PostDAO extends DatabaseConnection {
     private Post getUserPostByResultSet(ResultSet rs) throws SQLException {
         Integer id = rs.getInt("id");
         Integer profileId = rs.getInt("profile.id");
+
         Timestamp timestamp = rs.getTimestamp("time");
         String location = rs.getString("location");
         String contentData = rs.getString("content.data");

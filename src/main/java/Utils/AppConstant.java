@@ -13,6 +13,7 @@ public class AppConstant {
 
     public static String DELETE= "delete";
     public static String USERS_MANAGEMENT_PAGE= "/users-management.jsp";
+    public static String ADMIN_USERS_MANAGEMENT_PAGE= "/admins/users-management";
 
     public static String ID_NOT_FOUND = "Id of %s not found";
 

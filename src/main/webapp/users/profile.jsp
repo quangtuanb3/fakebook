@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Facebook</title>
-    <script src="https://kit.fontawesome.com/ef7e2b893b.js" crossorigin="anonymous"></script>
     <link href="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -64,12 +63,14 @@
 
 <body>
     <nav class="navbar">
-        <div class="nav-left"><img class="logo" src="../images/logo.png" alt="">
-            <ul class="navlogo">
-                <li><img src="../images/notification.png"></li>
-                <li><img src="../images/inbox.png"></li>
-                <li><img src="../images/video.png"></li>
-            </ul>
+        <div class="nav-left">
+            <%--        <img class="logo" src="../images/logo.png" alt="">--%>
+            <h2 style="color: white;font-size: 1.7rem; padding-right: 30px">Facebook</h2>
+            <div class="search-box">
+                <img src="../images/search.png" alt="">
+                <input type="text" placeholder="Search">
+            </div>
+
         </div>
         <div class="nav-right">
             <div class="search-box">
@@ -136,7 +137,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div id="form1" class="row">
+                        <div id="formBody" class="row">
                         </div>
                         <div>
                             <label for="file">
@@ -524,9 +525,8 @@
     const profile = ${profileJSON};
 
     const genders = ${gendersJSON};
-    //console.log(profiles, genders)
     let inputs = [];
-    const form = document.getElementById('form1');
+    const form = document.getElementById('formBody');
     const tileModal = document.getElementById("exampleModalLabel");
     const imagePreview = document.getElementById("preview-image");
 
@@ -560,14 +560,7 @@
                 classDiv: 'col-6',
                 value: profile.phone || ''
             },
-            // {
-            //     label: "Avatar",
-            //     name: "avatar",
-            //     type: "file",
-            //     require: true,
-            //     classDiv: 'col-6',
-            //     value: profile.avatar || ''
-            // },
+
             {
                 name: 'id',
                 value: profile.id,
@@ -578,10 +571,8 @@
                 label: "DOB",
                 name: "dob",
                 type: "date",
-                message: "Date from 1950-01-01 to 2000-01-01",
+                message: "Invalid Date ",
                 require: true,
-                min: '1950-01-01',
-                max: '2000-01-01',
                 value: profile.dob || '',
                 classDiv: 'col-6'
             },
@@ -610,16 +601,27 @@
             //     value: profile.cover || ''
             // },
             {
-                label: "Cover",
-                name: "cover",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                disable: profile.cover,
+                label: "Avatar",
+                name: "avatar",
+                message: "file avatar error",
+                disable: profile.avatar,
+                type: 'hidden',
                 require: true,
                 classDiv: 'col-6',
-                value: profile.cover || ''
+                value: profile.avatar || ''
             },
+            // {
+            //     label: "Cover",
+            //     name: "cover",
+            //     message: "file cover error",
+            //     disable: profile.cover,
+            //     type: 'hidden',
+            //     require: true,
+            //     classDiv: 'col-6',
+            //     value: profile.cover || ''
+            // },
         ];
-        const formBody = document.getElementById('form1'); // DOM formBody theo id
+        const formBody = document.getElementById('formBody'); // DOM formBody theo id
         formBody.innerHTML = '';
         // loop qua inputs
         inputs.forEach((input, index) => {

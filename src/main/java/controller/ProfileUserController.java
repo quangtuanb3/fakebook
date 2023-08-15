@@ -8,6 +8,7 @@ import Model.User;
 import Utils.AppConstant;
 import Utils.AppUtil;
 import Utils.RunnableCustom;
+import Utils.RunnableWithRegex;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import services.PostService;
 import services.ProfileService;
@@ -45,7 +46,10 @@ public class ProfileUserController extends HttpServlet {
     @Override
     public void init() {
         validators = new HashMap<>();
-
+        validators.put("phone", new RunnableWithRegex("0[0-9]{9}", "phone", errors));
+        validators.put("name", new RunnableWithRegex("^[A-Za-z ]{6,20}", "name", errors));
+        validators.put("gender", new RunnableWithRegex("^(MALE|FEMALE|OTHER)$", "gender", errors));
+        validators.put("dob", new RunnableWithRegex("^(19[5-9][0-9]|2000)$", "dob", errors));
     }
 
     @Override
