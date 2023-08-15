@@ -63,12 +63,14 @@
 
 <body>
     <nav class="navbar">
-        <div class="nav-left"><img class="logo" src="../images/logo.png" alt="">
-            <ul class="navlogo">
-                <li><img src="../images/notification.png"></li>
-                <li><img src="../images/inbox.png"></li>
-                <li><img src="../images/video.png"></li>
-            </ul>
+        <div class="nav-left">
+            <%--        <img class="logo" src="../images/logo.png" alt="">--%>
+            <h2 style="color: white;font-size: 1.7rem; padding-right: 30px">Facebook</h2>
+            <div class="search-box">
+                <img src="../images/search.png" alt="">
+                <input type="text" placeholder="Search">
+            </div>
+
         </div>
         <div class="nav-right">
             <div class="search-box">
