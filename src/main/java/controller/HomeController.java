@@ -1,19 +1,15 @@
 package controller;
 
 import DAO.UserDAO;
+import Model.*;
 import Model.Enum.EGender;
 import Model.Enum.ELimit;
-import Model.Post;
-import Model.Profile;
-import Model.User;
 import Utils.AppConstant;
 import Utils.AppUtil;
 import Utils.RunnableCustom;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysql.cj.Session;
-import services.PostService;
-import services.ProfileService;
-import services.UserService;
+import services.*;
 import services.dto.Enum.ESortType;
 import services.dto.PageableRequest;
 
@@ -23,7 +19,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
+
+import static Utils.AppUtil.formatPostTime;
 
 @WebServlet(urlPatterns = "/users/home", name = "profileController")
 public class HomeController extends HttpServlet {
@@ -54,7 +53,11 @@ public class HomeController extends HttpServlet {
         String action = req.getParameter(AppConstant.ACTION); // lấy action
         if (Objects.equals(action, AppConstant.CREATE)) {
             //kiểm tra xem action = create thi call create
-            create(req, resp);
+            try {
+                create(req, resp);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             return;
         }
         if (Objects.equals(action, AppConstant.EDIT)) {
@@ -65,16 +68,29 @@ public class HomeController extends HttpServlet {
         showList(req, resp);
     }
 
-    private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//        User user = getValidUser(req, resp);
-//        Profile profile = getValidProfile(req, resp);
-//        if (errors.size() == 0) {
-//            UserService.getUserService().create(user);
-//            var userDB = userDAO.getUserByEmail(user.getEmail());
-//            profile.setUser(userDB);
-//            ProfileService.getProfileService().create(profile);
-//            resp.sendRedirect("/admins/users-management?message=Created");
-//        }
+    private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, SQLException {
+        var session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        Profile profile = ProfileService.getProfileService().findProfileByEmail(user.getEmail());
+        String contentData = req.getParameter("content.data") ;
+        String location = req.getParameter("location");
+        ELimit limit = ELimit.valueOf(req.getParameter("limit"));
+        String fileUploadEle = req.getParameter("media.data");
+        Content content = new Content(contentData);
+        Media media = new Media("IMAGE",fileUploadEle );
+
+        if (errors.size() == 0) {
+            Integer contentId = ContentService.getContentService().insertAndGetId(content);
+            content.setId(contentId);
+            Post post = new Post(location, limit ,content);
+            post.setProfile(profile);
+            Integer postId = PostService.getPostService().insertAndGetId(post);
+            post.setId(postId);
+
+            media.setPost(post);
+            MediaService.getMediaService().insertMedia(media);
+            resp.sendRedirect("/users/home?message=Created");
+        }
     }
 
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -94,13 +110,16 @@ public class HomeController extends HttpServlet {
                 Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "page", "1").toString()),
                 Integer.parseInt(AppUtil.getParameterWithDefaultValue(req, "limit", "10").toString())
         ); //tao doi tuong pageable voi parametter search
-        var session =  req.getSession();
+        var session = req.getSession();
         User user = (User) session.getAttribute("user");
         Profile profile = ProfileService.getProfileService().findProfileByEmail(user.getEmail());
         request.setProfile(profile);
         List<Post> matchesPost = PostService.getPostService().getMatchesPost(request);
+        for (Post post : matchesPost) {
+            post.setFormattedTime(formatPostTime(post.getTime().toString()));
+        }
         req.setAttribute("pageable", request);
-        req.setAttribute("profile",profile);
+        req.setAttribute("profile", profile);
         req.setAttribute("matchesPosts", matchesPost); // gửi qua list users để jsp vẻ lên trang web
         req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("postLimitJSON", AppUtil.mapper.writeValueAsString(ELimit.values()));

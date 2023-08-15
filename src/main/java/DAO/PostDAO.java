@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PostDAO extends DatabaseConnection {
+    private final String GET_LAST_INDEX = "SELECT LAST_INSERT_ID() as id;";
     //    private final String SELECT_ALL_POSTS = "SELECT p.*,c.name `category.name`, c.id as `category.id`  FROM `Teachers` t LEFT JOIN " +
 //            "`categories` c on t.category_id = c.id  WHERE t.`name` like '%s' OR t.`hobby` LIKE '%s' OR t.`gender` LIKE '%s' Order BY %s %s LIMIT %s OFFSET %s";
     private final String SELECT_ALL_POSTS = "SELECT p.*,u.email `user.email`, pr.name `profile.name`,pr.id as `profile.id`,ct.id `content.id`,ct.data `content.data` FROM `posts` p LEFT JOIN `profiles` pr ON p.profile_id = pr.id left JOIN `contents` ct ON p.content_id = ct.id left join `users` u on pr.user_id = u.id " +
@@ -45,7 +46,7 @@ public class PostDAO extends DatabaseConnection {
                         OR (f.accepter_id = %s AND f.status = 'ACCEPTED')
                         OR (f.requester_id = %s AND f.status = 'ACCEPTED')
                     GROUP BY p.id
-                    ORDER BY p.id) as temp
+                    ORDER BY p.id DESC) as temp
                     JOIN `profiles` pro\s
                     ON temp.`profile.id` = pro.id
                     Left JOIN `media` m\s
@@ -255,5 +256,33 @@ public class PostDAO extends DatabaseConnection {
         post.setTime(timestamp);
         post.setMedia(media);
         return post;
+    }
+
+    public Integer insertAndGetId(Post post) {
+        int post_id = -1;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(INSERT_POSTS)) {
+            System.out.println(preparedStatement);
+            preparedStatement.setInt(1, post.getProfile().getId());
+            preparedStatement.setString(2, post.getLocation());
+            preparedStatement.setString(3, post.getPostLimit().toString());
+            preparedStatement.setInt(4, post.getContent().getId());
+            preparedStatement.executeUpdate();
+            try (
+                    PreparedStatement preparedStatement2 = connection
+                            .prepareStatement(GET_LAST_INDEX)) {
+                System.out.println(preparedStatement);
+                ResultSet rs = preparedStatement2.executeQuery();
+                while (rs.next()) {
+                    post_id = rs.getInt("id");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return post_id;
     }
 }

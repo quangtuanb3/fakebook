@@ -1,8 +1,8 @@
 package Model;
+
 import Model.Enum.EMedia;
 
 public class Media {
-    public static Integer currentId = 0;
     private Integer id;
     String data;
     String title;
@@ -29,13 +29,11 @@ public class Media {
         this.type = mediaType;
     }
 
-    public static Integer getCurrentId() {
-        return currentId;
+    public Media(String type, String imgSrc) {
+        this.type = EMedia.valueOf(type);
+        this.data = imgSrc;
     }
 
-    public static void setCurrentId(Integer currentId) {
-        Media.currentId = currentId;
-    }
 
     public Integer getId() {
         return id;

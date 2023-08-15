@@ -55,6 +55,10 @@ public class PostService {
         postDAO.deleteById(postId);
 
     }
+
+    public Integer insertAndGetId(Post post) {
+        return postDAO.insertAndGetId(post);
+    }
 }
 
 
