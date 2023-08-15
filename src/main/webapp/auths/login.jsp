@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <div id="formBodyOfRegister" class="row row-custom">
+                        <div id="formBody" class="row row-custom">
                         </div>
                     </div>
                     <div class="modal-footer d-flex" style="justify-content: center">
@@ -160,7 +160,12 @@
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https:/cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+<style>
+    .error{
+        font-size: 12px;
+        margin-top: -10px;
+    }
+</style>
 <script>
     const message = document.getElementById('message_toastr');
     const btnToast = document.getElementById('liveToastBtn');
@@ -188,7 +193,7 @@
                 label: "Name",
                 name: "name",
                 pattern: "^[A-Za-z ]{6,20}",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
+                message: "Name between is 6-20 characters",
                 require: true,
                 classDiv: 'col-6',
                 value: ''
@@ -196,7 +201,7 @@
             {
                 label: "Email",
                 name: "email",
-                pattern: "",
+                pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
                 message: "Invalid Email",
                 require: true,
                 classDiv: 'col-6',
@@ -210,7 +215,7 @@
             {
                 label: "Date of birth",
                 name: "dob",
-                message: "Date of birth between 1970-01-01 to 2000-12-31",
+                message: "Date between 1970-01-01 to 2023-05-23",
                 require: true,
                 type: 'date',
                 min: '1970-01-01',
@@ -223,8 +228,8 @@
                 label: "Password",
                 name: "password",
                 type: "password",
-                pattern: "",
-                message: "Hobie must have minimun is 6 charaters and maximun is 20 charaters",
+                pattern: "^.{6,20}$",
+                message: "Password between 6-20 charaters",
                 require: true,
                 classDiv: 'col-6',
                 value: ''
@@ -246,8 +251,8 @@
                 classDiv: 'col-12'
             }
         ];
-        const formBody = document.getElementById('formBodyOfRegister');
-        formBody.innerHTML = ''; // Clear the existing form content
+        const formBody = document.getElementById('formBody');
+        formBody.innerHTML = '';
 
         inputs.forEach((input, index) => {
             if (input.type === 'select') {

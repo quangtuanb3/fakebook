@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<%--    <link href="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"--%>
-<%--          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">--%>
+    <%--    <link href="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"--%>
+    <%--          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">--%>
 
     <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -116,7 +116,7 @@
     <div class="content-area">
         <div class="story-gallery">
             <div class="story story1">
-                <img src="../images/upload.png" alt="">
+                <img src="${profile.avatar}" alt="">
                 <p>Post Story</p>
             </div>
             <div class="story story2">
@@ -145,8 +145,10 @@
                     <small>Public <i class="fas fa-caret-down"></i></small>
                 </div>
             </div>
+<%--            em da viet them 1 dong hay tim --%>
             <div class="post-upload-textarea" id="openPopupBtn">
-                    <textarea name="postContent" onclick="openPostPopup()" placeholder="What's on your mind, Alex?" id="post-text-area" cols="30"
+                    <textarea name="postContent" onclick="openPostPopup()" placeholder="What's on your mind, Alex?"
+                              id="post-text-area" cols="30"
                               rows="3" readonly></textarea>
                 <div class="add-post-links">
                     <span onclick="openPostPopup()"><img src="../images/live-video.png" alt="">Live Video</span>
@@ -157,9 +159,10 @@
         </div>
         <%--        create status here --%>
         <div id="post-container">
-            <form id="postForm" method="post" enctype="multipart/form-data">
-                <div class="popup-overlay" id="popup-overlay">
-                    <div class="popup">
+
+            <div class="popup-overlay" id="popup-overlay">
+                <div class="popup">
+                    <form id="postForm" method="post">
                         <div class="popup-header">
                             <h2 style="text-align: center" id="modalTitle">Create Post</h2>
                             <button class="close-popup-button" type="button" onclick="closePostPopup()">Close</button>
@@ -177,7 +180,7 @@
                                 <!-- Privacy settings -->
                                 <div class="privacy-settings">
                                     <span class="privacy-label">Privacy:</span>
-                                    <select id="privacy-select">
+                                    <select id="privacy-select" name="limit">
                                         <option name="limit" value="PUBLIC">Public</option>
                                         <option name="limit" value="FRIEND">Friends</option>
                                         <option name="limit" value="PRIVATE">Private</option>
@@ -187,7 +190,7 @@
                         </div>
 
                         <div class="post-content" style="display: block">
-                            <textarea id="post-text" placeholder="What's on your mind?"></textarea>
+                            <textarea id="post-text" name="content.data" placeholder="What's on your mind?"></textarea>
                             <div class="post-actions">
                                 <button class="action-button" type="button" onclick="showUploadFile()">
                                     <i class="icon fas fa-image"></i>
@@ -204,15 +207,19 @@
                             </div>
                             <div class="file-preview" id="file-preview" style="width: 100%;display: none">
                                 <label for="post-media" class="upload-media-button">
-                                    <input type="file" id="post-media" accept="image/*,video/*" style="display: none;" onchange="previewImage(event)">
-                                    <img src="/images/file-upload-scripts.webp" style="max-width: 350px;max-height: 240px" id="fileUploadPreview" >
+                                    <input type="file" id="post-media" accept="image/*,video/*" style="display: none;"
+                                           onchange="previewImage(event)">
+                                    <img src="/images/file-upload-scripts.webp"
+                                         style="max-width: 350px;max-height: 240px" id="fileUploadPreview">
+                                    <input name="media.data" type="hidden" id="fileUploadEle"/>
                                 </label>
                             </div>
                             <button id="post-button" type="submit">Post</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+
         </div>
         <!-- Modal -->
 
@@ -223,7 +230,7 @@
                         <img src="${post.profile.avatar}" alt="">
                         <div>
                             <p> ${post.profile.name}</p>
-                            <small>${post.time}</small>
+                            <small>${post.formattedTime}</small>
                         </div>
                     </div>
                     <div>
@@ -236,7 +243,8 @@
                             <a href="#">${hashtag} </a>
                         </c:forEach>
                     </p>
-                    <img <c:if test="${post.media}!=null">src="${post.media.data}" alt=""</c:if> >
+                    <img
+                            <c:if test="${post.media !=null}">src="${post.media.data}" alt=""</c:if> >
 
                 </div>
                 <div class="post-reaction">
@@ -469,7 +477,7 @@
                     // Handle the response from the server (assuming the server returns the image URL)
                     // Change this based on the actual response format
                     // Call a function to display the image preview
-                    document.getElementById('post-media').value = data?.imageUrl || '';
+                    document.getElementById('fileUploadEle').value = data?.imageUrl || '';
 
                 })
                 .catch((error) => {
@@ -478,11 +486,26 @@
                 });
         }
     }
+
 </script>
 <script>
-   const imgDiv = document.getElementById("file-preview");
+    const imgDiv = document.getElementById("file-preview");
+
     function showUploadFile() {
         imgDiv.style.display = imgDiv.style.display === "none" ? "block" : "none";
+    }
+
+    function formatPostTime(timeString, ele) {
+        const dateObject = new Date(timeString);
+        document.getElementById(ele).innerHTML = new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
+            timeZone: "UTC"
+        }).format(dateObject);
     }
 </script>
 </body>

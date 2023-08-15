@@ -6,21 +6,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class AppUtil {
     public static final ObjectMapper mapper;
+
     static {
         mapper = new ObjectMapper();
     }
+
     public static Object getObject(HttpServletRequest request, Class clazz) {
         // tạo object bằng contructor không tham số.
         Object object;
         try {
             object = clazz.getDeclaredConstructor().newInstance();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
@@ -29,7 +34,7 @@ public class AppUtil {
         while (paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
 
-            if(AppConstant.ACTION.equals(paramName)){
+            if (AppConstant.ACTION.equals(paramName)) {
                 continue;
             }
 
@@ -39,7 +44,6 @@ public class AppUtil {
                 String paramValue = mapper.writeValueAsString(request.getParameter(paramName));
 
 
-
                 // lấy value ra
 
                 Field field = clazz.getDeclaredField(paramName);
@@ -47,7 +51,7 @@ public class AppUtil {
                 field.setAccessible(true); // Set accessible, as the fields may be private
 
 
-                var value = mapper.readValue(paramValue,fieldType);
+                var value = mapper.readValue(paramValue, fieldType);
                 field.set(object, value);
                 //set cho tung field
                 // Add more type conversions as needed for other field types (e.g., boolean, double, etc.)
@@ -61,12 +65,13 @@ public class AppUtil {
         }
         return object;
     }
-    public static Object getObjectWithValidation(HttpServletRequest request, Class clazz, Map<String, RunnableCustom> validators){
+
+    public static Object getObjectWithValidation(HttpServletRequest request, Class clazz, Map<String, RunnableCustom> validators) {
         // tạo object bằng contructor không tham số.
         Object object;
         try {
             object = clazz.newInstance();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
@@ -74,7 +79,7 @@ public class AppUtil {
         java.util.Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
-            if(AppConstant.ACTION.equals(paramName)){
+            if (AppConstant.ACTION.equals(paramName)) {
                 continue;
             }
 
@@ -83,7 +88,7 @@ public class AppUtil {
             try {
                 // lấy value ra
                 String paramValue = mapper.writeValueAsString(request.getParameter(paramName));
-                if(paramName.contains("_")){
+                if (paramName.contains("_")) {
                     //handle cho việc object lồng object.
                     String[] fields = paramName.split("_");
                     Field field = clazz.getDeclaredField(fields[0]);
@@ -93,12 +98,12 @@ public class AppUtil {
                     field.set(object, objectChild);
                     Field fieldChild = fieldType.getDeclaredField(fields[1]); // field object con
                     fieldChild.setAccessible(true);
-                    var value = mapper.readValue(paramValue,fieldChild.getType());
+                    var value = mapper.readValue(paramValue, fieldChild.getType());
                     fieldChild.set(objectChild, value);
                     continue;
                 }
                 RunnableCustom validator = validators.get(paramName);
-                if(validator != null){
+                if (validator != null) {
                     validator.setValue(request.getParameter(paramName));
                     validator.run();
                 }
@@ -106,7 +111,7 @@ public class AppUtil {
                 field.setAccessible(true); // Set accessible, as the fields may be private
                 Class<?> fieldType = field.getType();
 
-                var value = mapper.readValue(paramValue,fieldType);
+                var value = mapper.readValue(paramValue, fieldType);
                 field.set(object, value);
                 //set cho tung field
                 // Add more type conversions as needed for other field types (e.g., boolean, double, etc.)
@@ -121,16 +126,16 @@ public class AppUtil {
         return object;
     }
 
-    public static Object getParameterWithDefaultValue(HttpServletRequest request, String name, Object valueDefault){
+    public static Object getParameterWithDefaultValue(HttpServletRequest request, String name, Object valueDefault) {
         String value = request.getParameter(name);
-        if(value == null)return valueDefault;
+        if (value == null) return valueDefault;
         return value;
     }
 
     public static String buildInsertSql(String tableName, Object object) {
         List<Object> arrayValue = new ArrayList<>();
         StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " (");
-        try{
+        try {
             Object value = null;
             Field[] fields = object.getClass().getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
@@ -145,19 +150,18 @@ public class AppUtil {
 
                 var sqlAppendField = new StringBuilder(camelCaseToSnakeCase(fieldName));
 
-                if(!field.getType().isEnum() && field.getType().getName().contains("Model")){
+                if (!field.getType().isEnum() && field.getType().getName().contains("Model")) {
                     sqlAppendField = new StringBuilder(camelCaseToSnakeCase(fieldName) + "_id");
                     var objectChild = field.get(object);
-                    var fieldId =objectChild.getClass().getDeclaredField("id");
+                    var fieldId = objectChild.getClass().getDeclaredField("id");
                     fieldId.setAccessible(true);
                     value = fieldId.get(objectChild);
                 }
                 arrayValue.add(value);
                 sql.append(sqlAppendField);
-                if (i < fields.length - 1) {
-                    sql.append(",");
-                }
+                sql.append(",");
             }
+            sql = new StringBuilder(sql.substring(0, sql.length() - 1));
             sql.append(") VALUES (");
             for (int i = 0; i < arrayValue.size(); i++) {
                 sql.append("'").append(arrayValue.get(i)).append("'");
@@ -166,12 +170,13 @@ public class AppUtil {
                 }
             }
             sql.append(")");
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         return sql.toString();
     }
+
     public static String buildUpdateSql(String tableName, Object object) {
         StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
         Object id = 0L;
@@ -182,7 +187,7 @@ public class AppUtil {
                 field.setAccessible(true);
                 String fieldName = field.getName();
                 Object value = field.get(object);
-                if(fieldName.equals("id")){
+                if (fieldName.equals("id")) {
                     id = value;
                 }
                 if (fieldName.equals("serialVersionUID")
@@ -191,7 +196,7 @@ public class AppUtil {
                         || value == null) {
                     continue;
                 }
-                if(!field.getType().isEnum() && field.getType().getName().contains("Model")){
+                if (!field.getType().isEnum() && field.getType().getName().contains("Model")) {
 
                     Field fld = object.getClass().getDeclaredField(fieldName);
                     fld.setAccessible(true);
@@ -207,14 +212,15 @@ public class AppUtil {
 
                 sql.append(",");
             }
-            sql.deleteCharAt(sql.length() -1);
+            sql.deleteCharAt(sql.length() - 1);
             sql.append(" WHERE (id = '").append(id).append("')");
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         return sql.toString();
     }
+
     private static boolean isExcluded(String fieldName, String[] excludedFields) {
         for (String excludedField : excludedFields) {
             if (excludedField.equals(fieldName)) {
@@ -223,9 +229,11 @@ public class AppUtil {
         }
         return false;
     }
+
     public static String camelCaseToSnakeCase(String camelCase) {
         return camelCase.replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase();
     }
+
     public static <T> T getObjectFromResultSet(ResultSet rs, Class<T> clazz) {
         T object;
         try {
@@ -244,14 +252,14 @@ public class AppUtil {
 
                 field.setAccessible(true);
                 Class<?> fieldType = field.getType();
-                if(!fieldType.isEnum() && fieldType.getPackage().getName().contains("Model")){
+                if (!fieldType.isEnum() && fieldType.getPackage().getName().contains("Model")) {
                     var objectChild = fieldType.getDeclaredConstructor().newInstance();
-                    for (var fieldChild: fieldType.getDeclaredFields()) {
+                    for (var fieldChild : fieldType.getDeclaredFields()) {
                         String fieldChildName = fieldChild.getName();
                         fieldChild.setAccessible(true);
                         String paramValue = mapper
                                 .writeValueAsString(rs.getObject
-                                        (camelCaseToSnakeCase(fieldName)+ "." +camelCaseToSnakeCase(fieldChildName)));
+                                        (camelCaseToSnakeCase(fieldName) + "." + camelCaseToSnakeCase(fieldChildName)));
                         Object value = mapper.readValue(paramValue, fieldChild.getType());
                         fieldChild.set(objectChild, value);
                     }
@@ -267,6 +275,33 @@ public class AppUtil {
             }
         }
         return object;
+    }
+
+    public static String formatPostTime(String timeString) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        LocalDateTime dateTime = LocalDateTime.parse(timeString, inputFormatter);
+
+        LocalDateTime now = LocalDateTime.now();
+        long minutesDifference = ChronoUnit.MINUTES.between(dateTime, now);
+
+        if (minutesDifference < 60) {
+            // If within 1 hour, show minutes
+            return minutesDifference + " minutes ago";
+        } else if (minutesDifference < 1440) {
+            // If within 24 hours, show hours
+            long hoursDifference = minutesDifference / 60;
+            return hoursDifference + " hours ago";
+        } else {
+            // Otherwise, show full date and time
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy, h:mm:ss a");
+            return outputFormatter.format(dateTime);
+        }
+    }
+
+    public static void main(String[] args) {
+        String inputTimeString = "2023-08-15 11:01:22.0";
+        String formattedTime = formatPostTime(inputTimeString);
+        System.out.println(formattedTime); // Example output: "45 minutes ago" or "August 15, 2023, 11:01:22 AM"
     }
 
 }

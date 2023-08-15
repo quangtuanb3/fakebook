@@ -42,7 +42,7 @@ function formInput(props, index) {
         props.options.forEach(option => {
             const checked = props.value === option.value ? 'checked' : '';
             radioButtons += `
-                <input type="radio" class="btn-check" name="${props.name}" id="${props.name}${option.value}" value="${option.value}" autocomplete="off" ${checked}>
+                <input type="radio" class="btn-check input-custom" name="${props.name}" id="${props.name}${option.value}" value="${option.value}" autocomplete="off" ${checked}>
                 <label class="btn btn-outline-primary" style="margin: 0 15px;padding:5px 35px; border-radius: 5px" for="${props.name}${option.value}">${option.name}</label>
             `;
         });
@@ -64,6 +64,8 @@ function formInput(props, index) {
             type="${props.type || 'text'}"
             name="${props.name}"
             onblur="onFocus(${index})"
+            ${min}
+            ${max}
             ${pattern}
             ${disable}
             ${min}

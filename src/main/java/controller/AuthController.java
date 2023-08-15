@@ -5,9 +5,9 @@ import Model.Enum.EGender;
 import Model.Profile;
 import Model.User;
 import Utils.AppUtil;
+import Utils.RunnableCustom;
+import Utils.RunnableWithRegex;
 import services.AuthService;
-import services.ProfileService;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +17,7 @@ import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -25,6 +26,19 @@ import static Utils.AppUtil.getObjectWithValidation;
 @WebServlet(urlPatterns = "/auths", name = "authController")
 public class AuthController extends HttpServlet {
     private final AuthService authService = new AuthService();
+    private Map<String, RunnableCustom> validators;
+
+    private final Map<String, String> errors = new HashMap<>();
+
+    @Override
+    public void init() {
+        validators = new HashMap<>();
+        validators.put("dob", new RunnableWithRegex("^(1970-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|20[01][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|2023-(0[1-5])-([01][0-9]|2[0-3]))$", "dob", errors));
+        validators.put("name", new RunnableWithRegex("^[A-Za-z ]{6,20}", "name", errors));
+        validators.put("gender", new RunnableWithRegex("^(MALE|FEMALE|OTHER)$", "gender", errors));
+        validators.put("email", new RunnableWithRegex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n", "email", errors));
+        validators.put("password", new RunnableWithRegex("^.{6,20}$", "password", errors));
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -57,8 +71,10 @@ public class AuthController extends HttpServlet {
     }
 
     private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = getUserWithValidationUser(req);
-        Profile profile = getObjectWithValidationPass(req);
+        User user = (User) AppUtil.getObjectWithValidation(req, User.class, validators);
+        Profile profile = (Profile) AppUtil.getObjectWithValidation(req, Profile.class, validators);
+        assert user != null;
+        assert profile != null;
         authService.register(user, profile);
         req.setAttribute("message", "Register successfully");
         req.getRequestDispatcher("auths/login.jsp").forward(req, resp);

@@ -15,8 +15,7 @@ public class Post {
     Timestamp time;
     String location;
     Share share;
-    //shara,
-    // number
+    String formattedTime;
     private ELimit postLimit;
     LikeNumber likeNumber;
     List<Profile> tags;
@@ -171,6 +170,14 @@ public class Post {
 
     public void setShareNumber(Integer shareNumber) {
         this.shareNumber = shareNumber;
+    }
+
+    public String getFormattedTime() {
+        return formattedTime;
+    }
+
+    public void setFormattedTime(String formattedTime) {
+        this.formattedTime = formattedTime;
     }
 }
 
