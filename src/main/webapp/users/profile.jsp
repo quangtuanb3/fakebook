@@ -135,7 +135,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div id="form1" class="row">
+                        <div id="formBody" class="row">
                         </div>
                         <div>
                             <label for="file">
@@ -523,9 +523,8 @@
     const profile = ${profileJSON};
 
     const genders = ${gendersJSON};
-    //console.log(profiles, genders)
     let inputs = [];
-    const form = document.getElementById('form1');
+    const form = document.getElementById('formBody');
     const tileModal = document.getElementById("exampleModalLabel");
     const imagePreview = document.getElementById("preview-image");
 
@@ -559,14 +558,7 @@
                 classDiv: 'col-6',
                 value: profile.phone || ''
             },
-            // {
-            //     label: "Avatar",
-            //     name: "avatar",
-            //     type: "file",
-            //     require: true,
-            //     classDiv: 'col-6',
-            //     value: profile.avatar || ''
-            // },
+
             {
                 name: 'id',
                 value: profile.id,
@@ -577,10 +569,8 @@
                 label: "DOB",
                 name: "dob",
                 type: "date",
-                message: "Date from 1950-01-01 to 2000-01-01",
+                message: "Invalid Date ",
                 require: true,
-                min: '1950-01-01',
-                max: '2000-01-01',
                 value: profile.dob || '',
                 classDiv: 'col-6'
             },
@@ -609,16 +599,27 @@
             //     value: profile.cover || ''
             // },
             {
-                label: "Cover",
-                name: "cover",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                disable: profile.cover,
+                label: "Avatar",
+                name: "avatar",
+                message: "file avatar error",
+                disable: profile.avatar,
+                type: 'hidden',
                 require: true,
                 classDiv: 'col-6',
-                value: profile.cover || ''
+                value: profile.avatar || ''
             },
+            // {
+            //     label: "Cover",
+            //     name: "cover",
+            //     message: "file cover error",
+            //     disable: profile.cover,
+            //     type: 'hidden',
+            //     require: true,
+            //     classDiv: 'col-6',
+            //     value: profile.cover || ''
+            // },
         ];
-        const formBody = document.getElementById('form1'); // DOM formBody theo id
+        const formBody = document.getElementById('formBody'); // DOM formBody theo id
         formBody.innerHTML = '';
         // loop qua inputs
         inputs.forEach((input, index) => {
