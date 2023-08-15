@@ -21,6 +21,32 @@ import java.util.List;
 import java.util.Optional;
 
 public class PostDAO extends DatabaseConnection {
+    private static final String SELECT_ALL_SELF_POSTS =
+            """
+                    select temp.*, pro.name as `profile.name`, pro.avatar  as `profile.avatar`, m.type as `media.type`, m.data as `media.data`, m.id as `media.id` from
+                    (SELECT
+                        p.id,
+                        MAX(p.time) AS time,
+                        MAX(p.location) AS location,
+                         MAX(c.id) AS `content.id`,
+                        MAX(c.data) AS `content.data`,
+                        MAX(p.post_limit) AS `post_limit`,
+                        MAX(p.profile_id) AS `profile.id`
+                    FROM posts p
+                    JOIN friends f ON p.profile_id = f.accepter_id OR p.profile_id = f.requester_id
+                    JOIN contents c ON c.id = p.content_id
+                    WHERE p.profile_id = %s
+                    GROUP BY p.id
+                    ORDER BY p.id DESC) as temp
+                    JOIN `profiles` pro
+                    ON temp.`profile.id` = pro.id
+                    Left JOIN `media` m
+                    ON m.post_id = temp.id
+                    Where
+                    temp.`content.data` LIKE "%%"
+                    OR pro.`name` LIKE "%%"
+                    OR temp.`location` LIKE "%%"
+                    """;
     private final String GET_LAST_INDEX = "SELECT LAST_INSERT_ID() as id;";
     //    private final String SELECT_ALL_POSTS = "SELECT p.*,c.name `category.name`, c.id as `category.id`  FROM `Teachers` t LEFT JOIN " +
 //            "`categories` c on t.category_id = c.id  WHERE t.`name` like '%s' OR t.`hobby` LIKE '%s' OR t.`gender` LIKE '%s' Order BY %s %s LIMIT %s OFFSET %s";
@@ -234,7 +260,40 @@ public class PostDAO extends DatabaseConnection {
         }
         return posts;
     }
+    public List<Post> findSelfPost(PageableRequest request) {
+        List<Post> posts = new ArrayList<>();
+        String search = request.getSearch();
+        Integer profileId = request.getProfile().getId();
+        if (request.getSortField() == null) {
+            request.setSortField("id");
+        }
+        if (request.getSortType() == null) {
+            request.setSortType(ESortType.DESC);
+        }
+        if (search == null) {
+            search = "%%";
+        } else {
+            search = "%" + search + "%";
+        }
+        var offset = 0;
+        int limit = 100;
+        try (Connection connection = getConnection();
+             // Step 2: truyền câu lênh mình muốn chạy nằm ở trong này (SELECT_USERS)
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(String.format(SELECT_ALL_SELF_POSTS, profileId))) {
 
+            System.out.println(preparedStatement);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            //
+            while (rs.next()) {
+                posts.add(getUserPostByResultSet(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return posts;
+    }
     private Post getUserPostByResultSet(ResultSet rs) throws SQLException {
         Integer id = rs.getInt("id");
         Integer profileId = rs.getInt("profile.id");

@@ -159,7 +159,6 @@
         </div>
         <%--        create status here --%>
         <div id="post-container">
-
             <div class="popup-overlay" id="popup-overlay">
                 <div class="popup">
                     <form id="postForm" method="post">
