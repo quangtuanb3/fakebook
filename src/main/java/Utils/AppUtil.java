@@ -284,7 +284,10 @@ public class AppUtil {
         LocalDateTime now = LocalDateTime.now();
         long minutesDifference = ChronoUnit.MINUTES.between(dateTime, now);
 
-        if (minutesDifference < 60) {
+        if (minutesDifference < 5) {
+            // If within 5 minutes, show "just now"
+            return "just now";
+        } else if (minutesDifference < 60) {
             // If within 1 hour, show minutes
             return minutesDifference + " minutes ago";
         } else if (minutesDifference < 1440) {

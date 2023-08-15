@@ -20,7 +20,7 @@
           integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="icon" href="../images/fb_icon.png">
-    <title>Fakebook</title>
+    <title>Facebook</title>
 
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/ef7e2b893b.js" crossorigin="anonymous"></script>
@@ -373,70 +373,6 @@
         // resetData();
         imgDiv.style.display = "none";
     }
-
-    function resetData() {
-        data =
-            `
-               <div class="popup-overlay" id="popup-overlay">
-                <div class="popup">
-                    <div class="popup-header">
-                        <h2 style="text-align: center" id="modalTitle">Create Post</h2>
-                        <button class="close-popup-button" onclick="closePostPopup()">Close</button>
-                    </div>
-                        <div class="user-info">
-                            <div class="profile-picture" style="background-color: white;">
-                                <img src="${profile.avatar}"
-                                     style="background-color: white; width: 45px; border-radius: 50%; margin-right: 10px">
-                                <!-- Add the user's profile picture here -->
-                            </div>
-
-                            <div class="user-details">
-                                <!-- Add the user's name here -->
-                                <span class="username">${profile.name}</span>
-                                <!-- Privacy settings -->
-                                <div class="privacy-settings">
-                                    <span class="privacy-label">Privacy:</span>
-                                    <select id="privacy-select">
-                                        <option name="limit" value="PUBLIC">Public</option>
-                                        <option name="limit" value="FRIEND">Friends</option>
-                                        <option name="limit" value="PRIVATE">Private</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="post-content" style="display: block">
-                            <textarea id="post-text" placeholder="What's on your mind?"></textarea>
-                            <div class="post-actions">
-                                <button class="action-button" onclick="showUploadFile()">
-                                    <i class="icon fas fa-image"></i>
-                                </button>
-                                <label for="location">
-                                    <button class="action-button">
-                                        <i class="icon fas fa-map-marker-alt"></i>
-                                        <input id="location" name="location"
-                                               style="background-color: #f4f4f4;border: none;padding: 0px 5px"
-                                               placeholder="Where are you now?">
-                                    </button>
-                                </label>
-
-                            </div>
-                            <div class="file-preview" id="file-preview" style="width: 100%;display: none">
-                                <label for="post-media" class="upload-media-button">
-                                    <input type="file" id="post-media" accept="image/*,video/*" style="display: none;">
-                                    <img src="/images/file-upload-scripts.webp" style="max-width: 350px" id="fileUploadPreview">
-                                </label>
-                            </div>
-                            <button id="post-button" type="submit">Post</button>
-                        </div>
-                </div>
-            </div>
-            `
-        form.innerHTML = '';
-        form.innerHTML = data;
-    }
-
-
     function centerPopup() {
         const popup = document.querySelector(".popup");
         popup.style.left = `${window.innerWidth / 2 - popup.offsetWidth / 2}px`;
@@ -446,7 +382,6 @@
     window.addEventListener("resize", centerPopup);
 
     function closePostPopup() {
-        resetData();
         document.getElementById("popup-overlay").style.display = "none";
     }
 

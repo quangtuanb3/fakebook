@@ -28,6 +28,7 @@ import java.util.*;
 @WebServlet(urlPatterns = "/admins/users-management", name = "profileManagerController")
 public class ProfileManagerController extends HttpServlet {
     private final String PAGE = "/admins";
+    String defaultAvatar = "/images/defaullt-avatar.jpg";
 
     private Map<String, RunnableCustom> validators;
 
@@ -40,7 +41,7 @@ public class ProfileManagerController extends HttpServlet {
         validators.put("phone", new RunnableWithRegex("0[0-9]{9}", "phone", errors));
         validators.put("name", new RunnableWithRegex("^[A-Za-z ]{6,20}", "name", errors));
         validators.put("gender", new RunnableWithRegex("^(MALE|FEMALE|OTHER)$", "gender", errors));
-        validators.put("dob", new RunnableWithRegex("^(19[5-9][0-9]|2000)$", "dob", errors));
+//        validators.put("dob", new RunnableWithRegex("^(19[5-9][0-9]|2000)$", "dob", errors));
     }
 
     @Override
@@ -81,6 +82,7 @@ public class ProfileManagerController extends HttpServlet {
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         User user = getValidUser(req, resp);
         Profile profile = getValidProfile(req, resp);
+        profile.setAvatar(defaultAvatar);
         if (errors.size() == 0) {
             UserService.getUserService().create(user);
            var userDB = userDAO.getUserByEmail(user.getEmail());

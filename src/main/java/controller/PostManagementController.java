@@ -87,11 +87,12 @@ public class PostManagementController extends HttpServlet {
 
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, SQLException {
         Post post = getValidPost(req, resp); // lấy ra user và + xử lý cho việc validation của các field trong class User.
-        if (errors.size() == 0) { //không xảy lỗi (errors size == 0) thì mình mới tạo user.
+        User user = new User(req.getParameter("email"));
+        boolean existedEmail = UserService.getUserService().existByEmail(user.getEmail());
+        if (errors.size() == 0 && existedEmail) { //không xảy lỗi (errors size == 0) thì mình mới tạo user.
             PostService.getPostService().create(post);
             resp.sendRedirect("/admins/posts-management?message=Created");
         }
-
     }
 
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, SQLException {
@@ -169,7 +170,6 @@ public class PostManagementController extends HttpServlet {
         Post post = (Post) AppUtil.getObjectWithValidation(req, Post.class, validators); //
         User user = new User(req.getParameter("email"));
         boolean existedEmail = UserService.getUserService().existByEmail(user.getEmail());
-
         if (errors.size() > 0 || !existedEmail) {
             PageableRequest request = new PageableRequest(
                     req.getParameter("search"),
@@ -183,11 +183,10 @@ public class PostManagementController extends HttpServlet {
             req.setAttribute("posts", PostService.getPostService().getPostList(request)); // gửi qua list users để jsp vẻ lên trang web
             req.setAttribute("postsJSON", new ObjectMapper().writeValueAsString(PostService.getPostService().getPostList(request)));
             req.setAttribute("postLimitJSON", new ObjectMapper().writeValueAsString(ELimit.values()));
-//            req.setAttribute("categoriesJSON", new ObjectMapper().writeValueAsString(CategoryService.getCategories()));
-            req.setAttribute("message", "Something was wrong");
+            req.setAttribute("message", "Email not found");
             req.setAttribute("contentsJSON", new ObjectMapper().writeValueAsString(ContentService.getContents()));
-            req.getRequestDispatcher(PAGE + POST_MANAGEMENT_PAGE)
-                    .forward(req, resp);
+            req.getRequestDispatcher(PAGE+POST_MANAGEMENT_PAGE).forward(req, resp);
+            return post;
         } else {
             Content content = new Content(req.getParameter("data"));
             Integer content_id = ContentService.getContentService().insertAndGetId(content);
