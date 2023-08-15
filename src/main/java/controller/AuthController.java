@@ -85,8 +85,7 @@ public class AuthController extends HttpServlet {
 //        Integer id =Integer.valueOf(req.getParameter("id"));
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        User user = new User(email, password);
-        return user;
+        return new User(email, password);
     }
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

@@ -192,6 +192,7 @@ private final String FIND_PROFILE_BY_EMAIL =
         profile.setId(rs.getInt("id"));
         profile.setAvatar(rs.getString("avatar"));
         profile.setCover(rs.getString("cover"));
+        profile.setPhone(rs.getString("phone"));
         profile.setName(rs.getString("name"));
         profile.setDob(rs.getDate("dob"));
         profile.setGender(EGender.valueOf(rs.getString("gender")));

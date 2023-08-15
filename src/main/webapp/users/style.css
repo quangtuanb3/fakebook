@@ -109,6 +109,16 @@ ul.navlogo li img {
     border-radius: 100%;
     background: #41db51
 }
+.error {
+    color: red;
+    display: none;
+}
+.input-custom:invalid[focused="true"]~span {
+    display: block;
+}
+.input-custom:invalid[focused="true"] {
+    border-color: red !important;
+}
 
 .container {
     display: flex;

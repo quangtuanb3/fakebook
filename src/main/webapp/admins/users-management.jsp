@@ -741,11 +741,11 @@
             {
                 label: "Email",
                 name: "email",
-                message: "Name must have minimun is 6 charaters and maximun is 20 charaters",
-                disable: profile.profile?.email,
+                message: "Email must have minimun is 6 charaters and maximun is 20 charaters",
+                disable: profile.user?.email,
                 require: true,
                 classDiv: 'col-6',
-                value: profile.profile?.email || ''
+                value: profile.user?.email || ''
             },
         ];
         const formBody = document.getElementById('formBody'); // DOM formBody theo id
