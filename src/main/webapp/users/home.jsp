@@ -204,8 +204,8 @@
                             </div>
                             <div class="file-preview" id="file-preview" style="width: 100%;display: none">
                                 <label for="post-media" class="upload-media-button">
-                                    <input type="file" id="post-media" accept="image/*,video/*" style="display: none;">
-                                    <img src="/images/file-upload-scripts.webp" style="max-width: 350px" id="fileUploadPreview" onchange="previewImage(event)">
+                                    <input type="file" id="post-media" accept="image/*,video/*" style="display: none;" onchange="previewImage(event)">
+                                    <img src="/images/file-upload-scripts.webp" style="max-width: 350px;max-height: 240px" id="fileUploadPreview" >
                                 </label>
                             </div>
                             <button id="post-button" type="submit">Post</button>
@@ -455,7 +455,7 @@
         if (file) {
             // Create a new FormData object and append the selected file
             const formData = new FormData();
-            formData.append("media.data", file);
+            formData.append("avatar", file);
             formData.append("fileType", "image");
             console.log(formData.getAll('media.data'))
             console.log(formData.getAll('fileType'))
