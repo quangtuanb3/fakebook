@@ -11,7 +11,7 @@ function formInput(props, index) {
                 class="input-custom form-control"
                 type="file"
                 name="${props.name}"
-                 id="${props.id ? props.id : ''}"
+                // id="${props.id ? props.id : ''}"
                 onchange="onFileChange(event, ${index})"
                 ${props.require ? 'required' : ''}
             />
@@ -36,7 +36,6 @@ function formInput(props, index) {
     if (props.max) {
         max = 'max="' + props.max + '"';
     }
-
     if (props.type === 'radio-group') {
         let radioButtons = '';
         props.options.forEach(option => {
@@ -68,8 +67,6 @@ function formInput(props, index) {
             ${max}
             ${pattern}
             ${disable}
-            ${min}
-            ${max}
             value="${props.value}"
             ${props.require ? 'required' : ''} /></br>
             <span class="error">${props.message}</span>
@@ -94,7 +91,6 @@ function formSelect(props, index) {
     if(props.disable){
         disable = 'disabled';
     }
-
     return `<div class="${props.classDiv}">
                 <label>${props.label}</label>
                     <select class="input-custom form-control"

@@ -238,7 +238,7 @@
             {
                 label: "Gender",
                 name: "gender",
-                type: "radio-group", // New type for radio button groups
+                type: "radio-group",
                 message: "Please choose Gender",
                 options: genders?.map(e => {
                     return {
@@ -259,8 +259,8 @@
                 formBody.innerHTML += formSelect(input, index);
             } else {
                 // For avatar input, set the default value to the image path (props.value) if available
-                const avatarValue = input.type === 'file' ? '' : input.value;
-                formBody.innerHTML += formInput({...input, value: avatarValue}, index);
+                const inputValue = input.type === 'radio-group' ? input.value : (input.type === 'file' ? '' : input.value);
+                formBody.innerHTML += formInput({...input, value: inputValue}, index);
             }
         });
     }

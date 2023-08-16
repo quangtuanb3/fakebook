@@ -25,4 +25,6 @@ public class AppConstant {
     public static String USER_PROFILE_PAGE = "/users/profile.jsp";
     public static String USERS_DIRECT_PAGE = "/users/home";
     public static String ADMINS_PAGE = "/admins/";
+    public static String DEFAULT_AVATAR = "/images/defaullt-avatar.jpg";
+    public static String DEFAULT_COVER = "/images/codegym.png";
 }

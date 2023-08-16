@@ -19,6 +19,8 @@ public class AuthService {
         UserService.getUserService().create(user);
         User userDB = UserDAO.getUserDAO().getUserByEmail(user.getEmail());
         profile.setUser(userDB);
+        profile.setAvatar(AppConstant.DEFAULT_AVATAR);
+        profile.setCover(AppConstant.DEFAULT_COVER);
         ProfileService.getProfileService().create(profile);
     }
 
