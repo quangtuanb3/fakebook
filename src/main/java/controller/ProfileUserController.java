@@ -49,7 +49,6 @@ public class ProfileUserController extends HttpServlet {
         validators.put("phone", new RunnableWithRegex("0[0-9]{9}", "phone", errors));
         validators.put("name", new RunnableWithRegex("^[A-Za-z ]{6,20}", "name", errors));
         validators.put("gender", new RunnableWithRegex("^(MALE|FEMALE|OTHER)$", "gender", errors));
-        validators.put("dob", new RunnableWithRegex("^(19[5-9][0-9]|2000)$", "dob", errors));
     }
 
     @Override
@@ -137,7 +136,7 @@ public class ProfileUserController extends HttpServlet {
             req.setAttribute("profilesJSON", new ObjectMapper().writeValueAsString(ProfileService.getProfileService().getProfileList(request)));
             req.setAttribute("gendersJSON", new ObjectMapper().writeValueAsString(EGender.values()));
             req.setAttribute("message", "Something was wrong");
-            req.getRequestDispatcher(PAGE + AppConstant.USERS_MANAGEMENT_PAGE)
+            req.getRequestDispatcher( AppConstant.USER_PROFILE_PAGE)
                     .forward(req, resp);
         }
         return profile;

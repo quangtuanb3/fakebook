@@ -69,8 +69,8 @@ public class PostDAO extends DatabaseConnection {
                     JOIN friends f ON p.profile_id = f.accepter_id OR p.profile_id = f.requester_id
                     JOIN contents c ON c.id = p.content_id
                     WHERE p.profile_id = %s
-                        OR (f.accepter_id = %s AND f.status = 'ACCEPTED')
-                        OR (f.requester_id = %s AND f.status = 'ACCEPTED')
+                        OR (f.accepter_id = %s AND f.status = 'ACCEPTED' AND p.post_limit <> 'PRIVATE')
+                        OR (f.requester_id = %s AND f.status = 'ACCEPTED' AND p.post_limit <> 'PRIVATE')
                     GROUP BY p.id
                     ORDER BY p.id DESC) as temp
                     JOIN `profiles` pro\s

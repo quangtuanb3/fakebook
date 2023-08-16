@@ -117,7 +117,7 @@
 
             <div class="settings-links">
                 <img src="../images/logout.png" alt="" class="settings-icon">
-                <a href="#">Logout <img src="../images/arrow.png" alt=""></a>
+                <a href="/auths?action=logout">Logout <img src="../images/arrow.png" alt=""></a>
             </div>
 
         </div>
@@ -125,7 +125,7 @@
 
     <!-- profile-page-------------------------- -->
 
-        <form method="post" id="form" accept-charset=""  content="multi">
+        <form method="post" id="form">
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -135,6 +135,7 @@
                         </div>
                         <div class="modal-body">
                             <div id="formBody" class="row">
+
                             </div>
                             <div>
                                 <label for="file">
@@ -278,7 +279,6 @@
             <!-- main-content------- -->
 
             <div class="content-area profile-content-area">
-<%--                >>>>>>>>--%>
                 <c:if test="${selfProfile.id == searchProfile.id}">
                     <div class="write-post-container">
                         <div class="user-profile">
@@ -428,7 +428,7 @@
 <script src="../assets/js/jvectormap.min.js"></script>
 <script src="../assets/js/world-merc.js"></script>
 <script src="../assets/js/polyfill.js"></script>
-<script src="../assets/js/main.js"></script>
+<%--<script src="../assets/js/main.js"></script>--%>
 <script src="https:/cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
@@ -437,7 +437,7 @@
     const profile = ${selfProfileJSON};
     const genders = ${gendersJSON};
     let inputs = [];
-    const form = document.getElementById('formBody');
+    const form = document.getElementById('form');
     const tileModal = document.getElementById("exampleModalLabel");
     const imagePreview = document.getElementById("preview-image");
 
@@ -511,16 +511,6 @@
             //     classDiv: 'col-6',
             //     value: profile.cover || ''
             // },
-            {
-                label: "Avatar",
-                name: "avatar",
-                message: "file avatar error",
-                disable: profile.avatar,
-                type: 'hidden',
-                require: true,
-                classDiv: 'col-6',
-                value: profile.avatar || ''
-            },
             // {
             //     label: "Cover",
             //     name: "cover",
@@ -544,6 +534,7 @@
                 formBody.innerHTML += formInput({...input, value: avatarValue}, index);
             }
         });
+        document.getElementById('avatar').src = profile.avatar;
 
     }
     function previewImage(evt){
