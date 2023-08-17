@@ -260,6 +260,7 @@ public class PostDAO extends DatabaseConnection {
         }
         return posts;
     }
+
     public List<Post> findSelfPost(PageableRequest request) {
         List<Post> posts = new ArrayList<>();
         String search = request.getSearch();
@@ -294,6 +295,7 @@ public class PostDAO extends DatabaseConnection {
         }
         return posts;
     }
+
     private Post getUserPostByResultSet(ResultSet rs) throws SQLException {
         Integer id = rs.getInt("id");
         Integer profileId = rs.getInt("profile.id");

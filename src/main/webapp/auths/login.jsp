@@ -215,11 +215,11 @@
             {
                 label: "Date of birth",
                 name: "dob",
-                message: "Date between 1970-01-01 to 2023-05-23",
+                message: "Date between 1970-01-01 to 2023-08-17",
                 require: true,
                 type: 'date',
                 min: '1970-01-01',
-                max: '2000-12-31',
+                max: '2023-08-17',
                 classDiv: 'col-6',
                 id: '',
                 value: '',
@@ -229,7 +229,7 @@
                 name: "password",
                 type: "password",
                 pattern: "^.{6,20}$",
-                message: "Password between 6-20 charaters",
+                message: "Password between 6-20 characters",
                 require: true,
                 classDiv: 'col-6',
                 value: ''

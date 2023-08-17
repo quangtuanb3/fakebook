@@ -9,7 +9,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UploadService {
-    public static final List<String> allowedImageTypes = Arrays.asList("jpg", "jpeg", "png", "gif", "bmp", "webp", "svg");
+    public static final List<String> allowedImageTypes = Arrays.asList(
+            "jpg", "jpeg", "png", "gif", "bmp", "webp", "svg", "avif",
+            "tiff", "ico", "raw", "psd", "ai", "eps", "apng", "jp2", "heif", "hdr", "dng", "svgz", "cdr"
+    );
+
     public static final List<String> allowedVideoTypes = Arrays.asList("mp4", "avi", "mkv", "mov", "wmv", "flv", "webm", "m4v", "mpeg", "mpg", "3gp");
 
     public void upload(File file, String savePath, String saveServerPath, List<String> allowedFileTypes) throws IOException {
