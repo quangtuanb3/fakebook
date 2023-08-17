@@ -82,7 +82,8 @@ public class ProfileManagerController extends HttpServlet {
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         User user = getValidUser(req, resp);
         Profile profile = getValidProfile(req, resp);
-        profile.setAvatar(defaultAvatar);
+        profile.setAvatar(AppConstant.DEFAULT_AVATAR);
+        profile.setCover(AppConstant.DEFAULT_COVER);
         if (errors.size() == 0) {
             UserService.getUserService().create(user);
            var userDB = userDAO.getUserByEmail(user.getEmail());

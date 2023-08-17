@@ -8,6 +8,8 @@ import Utils.AppUtil;
 import Utils.RunnableCustom;
 import Utils.RunnableWithRegex;
 import services.AuthService;
+import services.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +35,6 @@ public class AuthController extends HttpServlet {
     @Override
     public void init() {
         validators = new HashMap<>();
-        validators.put("dob", new RunnableWithRegex("^(1970-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|20[01][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])|2023-(0[1-5])-([01][0-9]|2[0-3]))$", "dob", errors));
         validators.put("name", new RunnableWithRegex("^[A-Za-z ]{6,20}", "name", errors));
         validators.put("gender", new RunnableWithRegex("^(MALE|FEMALE|OTHER)$", "gender", errors));
         validators.put("email", new RunnableWithRegex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n", "email", errors));
@@ -72,8 +73,13 @@ public class AuthController extends HttpServlet {
 
     private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) AppUtil.getObjectWithValidation(req, User.class, validators);
+        boolean isExistedEmail = UserService.getUserService().existByEmail(user.getEmail());
+        if (isExistedEmail) {
+            req.setAttribute("message", "Email has been used");
+            req.getRequestDispatcher("auths/login.jsp").forward(req, resp);
+            return;
+        }
         Profile profile = (Profile) AppUtil.getObjectWithValidation(req, Profile.class, validators);
-        assert user != null;
         assert profile != null;
         authService.register(user, profile);
         req.setAttribute("message", "Register successfully");
@@ -87,14 +93,14 @@ public class AuthController extends HttpServlet {
         Date dob = Date.valueOf(req.getParameter("dob"));
         EGender gender = EGender.valueOf(req.getParameter("gender"));
         String cover = req.getParameter("cover");
-      Profile profile = new Profile();
-      profile.setName(name);
-      profile.setPhone(phone);
-      profile.setName(avatar);
-      profile.setDob(dob);
-      profile.setGender(gender);
-      profile.setCover(cover);
-      return profile;
+        Profile profile = new Profile();
+        profile.setName(name);
+        profile.setPhone(phone);
+        profile.setName(avatar);
+        profile.setDob(dob);
+        profile.setGender(gender);
+        profile.setCover(cover);
+        return profile;
     }
 
     private User getUserWithValidationUser(HttpServletRequest req) {

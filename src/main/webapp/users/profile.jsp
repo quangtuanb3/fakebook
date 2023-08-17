@@ -12,7 +12,7 @@
     <title>Facebook</title>
     <link href="https:/cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <link rel="icon" href="../images/fb_icon.png">
     <link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -62,350 +62,359 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="nav-left">
-            <%--        <img class="logo" src="../images/logo.png" alt="">--%>
+<nav class="navbar">
+    <div class="nav-left">
+        <%--        <img class="logo" src="../images/logo.png" alt="">--%>
+        <a href="/users/home" style="text-decoration: none">
             <h2 style="color: white;font-size: 1.7rem; padding-right: 30px">Facebook</h2>
+        </a>
 
-        </div>
-        <div class="nav-right">
-            <div class="search-box">
-                <img src="../images/search.png" alt="">
-                <input type="text" placeholder="Search">
-            </div>
-            <div class="profile-image online" onclick="UserSettingToggle()">
-                <img src="${selfProfile.avatar}" alt="">
-            </div>
 
+    </div>
+    <div class="nav-right">
+        <div class="search-box">
+            <img src="../images/search.png" alt="">
+            <input type="text" placeholder="Search">
         </div>
-        <div class="user-settings">
-            <div class="profile-darkButton">
-                <div class="user-profile">
-                    <img src="${selfProfile.avatar}" alt="">
-                    <div>
-                        <p> ${selfProfile.name}</p>
-                        <a href="#">See your profile</a>
-                    </div>
-                </div>
-                <div id="dark-button" onclick="darkModeON()">
-                    <span></span>
-                </div>
-            </div>
-            <hr>
+        <div class="profile-image online" onclick="UserSettingToggle()">
+            <img src="${selfProfile.avatar}" alt="" style="max-height: 45px;max-width: 45px">
+        </div>
+
+    </div>
+    <div class="user-settings">
+        <div class="profile-darkButton">
             <div class="user-profile">
-                <img src="../images/feedback.png" alt="">
+                <img src="${selfProfile.avatar}" alt="avatar" style="max-width: 45px; max-height: 45px">
                 <div>
-                    <p> Give Feedback</p>
-                    <a href="#">Help us to improve</a>
+                    <p> ${selfProfile.name}</p>
+                    <a href="#">See your profile</a>
                 </div>
             </div>
-            <hr>
-            <div class="settings-links">
-                <img src="../images/setting.png" alt="" class="settings-icon">
-                <a href="#">Settings & Privary <img src="../images/arrow.png" alt=""></a>
-            </div>
-
-            <div class="settings-links">
-                <img src="../images/help.png" alt="" class="settings-icon">
-                <a href="#">Help & Support <img src="../images/arrow.png" alt=""></a>
-            </div>
-
-            <div class="settings-links">
-                <img src="../images/Display.png" alt="" class="settings-icon">
-                <a href="#">Display & Accessibility <img src="../images/arrow.png" alt=""></a>
-            </div>
-
-            <div class="settings-links">
-                <img src="../images/logout.png" alt="" class="settings-icon">
-                <a href="/auths?action=logout">Logout <img src="../images/arrow.png" alt=""></a>
-            </div>
-
-        </div>
-    </nav>
-
-    <!-- profile-page-------------------------- -->
-
-        <form method="post" id="form">
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div id="formBody" class="row">
-
-                            </div>
-                            <div>
-                                <label for="file">
-                                    <img src="../images/defaullt-avatar.jpg" alt="default" id="preview-image" style="width: 120px; height: 120px; object-fit: contain"/>
-                                    <input id="file" type="file" class="d-none" onchange="previewImage(event)" />
-                                    <input name="avatar" type="hidden" id="avatar" />
-                                </label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-
-
-    <div class="profile-container">
-        <img src="${searchProfile.cover}" class="coverImage" alt="" style="max-height: 400px">
-        <div class="dashboard">
-            <div class="left-dashboard">
-                <img src="${searchProfile.avatar}" class="dashboard-img" alt="">
-                <div class="left-dashboard-info">
-                    <button <c:if test="${selfProfile.id == searchProfile.id}">onclick="onShowProfileUser()"  </c:if> type="button" class="btn" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                        <h3>${searchProfile.name}</h3>
-                    </button>
-                </div>
-            </div>
-            <div class="right-dashboard-info">
-                <div class="right-dashboard-info-top">
-                    <c:if test="${selfProfile.id != searchProfile.id}">
-                        <button type="button"><i class="fas fa-user-plus"></i> Friends</button>
-                        <button type="button"><i class="far fa-envelope"></i> messages</button>
-                    </c:if>
-                </div>
-                <div class="right-div-single-logo"> <a href="#"> <i class="fas fa-ellipsis-h"></i></a></div>
+            <div id="dark-button" onclick="darkModeON()">
+                <span></span>
             </div>
         </div>
-
-
-        <div class="container content-profile-container">
-            <div class="left-sidebar profile-left-sidebar">
-                <div class="left-profile-sidebar-top">
-                    <div class="intro-bio">
-                        <h4>intro</h4>
-                        <p>Belive in yourself and you do unbelievable things <i class="far fa-smile-beam"></i></p>
-                        <hr>
-                    </div>
-                    <div class="background-details">
-                        <a href="#"><i class="fas fa-briefcase"></i>
-                            <p>Freelancer on Fiverr</p>
-                        </a>
-                        <a href="#"><i class="fas fa-graduation-cap"></i>
-                            <p>Studied bsc at Choumuhoni Collage</p>
-                        </a>
-                        <a href="#"><i class="fas fa-user-graduate"></i>
-                            <p>Went to Technical School & Collage</p>
-                        </a>
-                        <a href="#"><i class="fas fa-home"></i>
-                            <p>Lives in Noakhali, Chittagong</p>
-                        </a>
-                        <a href="#"><i class="fas fa-map-marker-alt"></i>
-                            <p>From Chittagong, Bangladesh</p>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="left-profile-sidebar-top gallery">
-                    <div class="heading-link profile-heading-link">
-                        <h4>Photos</h4>
-                        <a href="">All Photos</a>
-                    </div>
-
-                    <div class="gallery-photos">
-                        <div class="gallery-photos-rowFirst">
-                            <img src="../images/photo1.png" alt="">
-                            <img src="../images/photo2.png" alt="">
-                            <img src="../images/photo3.png" alt="">
-                    
-                            <img src="../images/photo4.png" alt="">
-                            <img src="../images/photo5.png" alt="">
-                            <img src="../images/photo6.png" alt="">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="left-profile-sidebar-top gallery">
-                    <div class="heading-link profile-heading-link">
-                        <h4>Friends</h4>
-                        <a href="">All Friends</a>
-                    </div>
-
-                    <div class="gallery-photos">
-                        <div class="gallery-photos-rowFirst">
-                            <div class="first-friend">
-                                <img src="../images/member-1.png" alt="">
-                                <p>Nathan M</p>
-                            </div>
-                            <div class="second-friend">
-                                <img src="../images/member-2.png" alt="">
-                                <p>Joseph N</p>
-                            </div>
-                            <div class="third-friend">
-                                <img src="../images/member-3.png" alt="">
-                                <p>Blondie K</p>
-                            </div>
-                            <div class="forth-friend">
-                                <img src="../images/member-4.png" alt="">
-                                <p>Jonathon J</p>
-                            </div>
-                            <div class="fifth-friend">
-                                <img src="../images/member-5.png" alt="">
-                                <p>Mark K</p>
-                            </div>
-                            <div class="sixth-friend">
-                                <img src="../images/member-6.png" alt="">
-                                <p>Emilia M</p>
-                            </div>
-                            <div class="seventh-friend">
-                                <img src="../images/member-7.png" alt="">
-                                <p>Max P</p>
-                            </div>
-                            <div class="eighth-friend">
-                                <img src="../images/member-8.png" alt="">
-                                <p>Layla M</p>
-                            </div>
-                            <div class="ninth-friend">
-                                <img src="../images/member-9.png" alt="">
-                                <p>Edward M</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+        <hr>
+        <div class="user-profile">
+            <img src="../images/feedback.png" alt="">
+            <div>
+                <p> Give Feedback</p>
+                <a href="#">Help us to improve</a>
             </div>
+        </div>
+        <hr>
+        <div class="settings-links">
+            <img src="../images/setting.png" alt="" class="settings-icon">
+            <a href="#">Settings & Privary <img src="../images/arrow.png" alt=""></a>
+        </div>
 
-            <!-- main-content------- -->
+        <div class="settings-links">
+            <img src="../images/help.png" alt="" class="settings-icon">
+            <a href="#">Help & Support <img src="../images/arrow.png" alt=""></a>
+        </div>
 
-            <div class="content-area profile-content-area">
-                <c:if test="${selfProfile.id == searchProfile.id}">
-                    <div class="write-post-container">
-                        <div class="user-profile">
-                            <img src="${selfProfile.avatar}" alt="">
-                            <div>
-                                <p> ${selfProfile.name}</p>
-                                <small>Public <i class="fas fa-caret-down"></i></small>
-                            </div>
-                        </div>
-                            <%--            em da viet them 1 dong hay tim --%>
-                        <div class="post-upload-textarea" id="openPopupBtn">
-                    <textarea name="postContent" onclick="openPostPopup()" placeholder="What's on your mind, Alex?"
-                              id="post-text-area" cols="30"
-                              rows="3" readonly></textarea>
-                            <div class="add-post-links">
-                                <span onclick="openPostPopup()"><img src="../images/live-video.png" alt="">Live Video</span>
-                                <span onclick="openPostPopup()"><img src="../images/photo.png" alt="">Photo/Video</span>
-                                <span onclick="openPostPopup()"><img src="../images/feeling.png" alt="">Feeling Activity</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="post-container">
-                        <div class="popup-overlay" id="popup-overlay">
-                            <div class="popup">
-                                <form id="postForm" method="post">
-                                    <div class="popup-header">
-                                        <h2 style="text-align: center" id="modalTitle">Create Post</h2>
-                                        <button class="close-popup-button" type="button" onclick="closePostPopup()">Close</button>
-                                    </div>
-                                    <div class="user-info">
-                                        <div class="profile-picture" style="background-color: white;">
-                                            <img src="${selfProfile.avatar}"
-                                                 style="background-color: white; width: 45px; border-radius: 50%; margin-right: 10px">
-                                            <!-- Add the user's profile picture here -->
-                                        </div>
+        <div class="settings-links">
+            <img src="../images/Display.png" alt="" class="settings-icon">
+            <a href="#">Display & Accessibility <img src="../images/arrow.png" alt=""></a>
+        </div>
 
-                                        <div class="user-details">
-                                            <!-- Add the user's name here -->
-                                            <span class="username">${selfProfile.name}</span>
-                                            <!-- Privacy settings -->
-                                            <div class="privacy-settings">
-                                                <span class="privacy-label">Privacy:</span>
-                                                <select id="privacy-select" name="limit">
-                                                    <option name="limit" value="PUBLIC">Public</option>
-                                                    <option name="limit" value="FRIEND">Friends</option>
-                                                    <option name="limit" value="PRIVATE">Private</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+        <div class="settings-links">
+            <img src="../images/logout.png" alt="" class="settings-icon">
+            <a href="/auths?action=logout">Logout <img src="../images/arrow.png" alt=""></a>
+        </div>
 
-                                    <div class="post-content" style="display: block">
-                                        <textarea id="post-text" name="content.data" placeholder="What's on your mind?"></textarea>
-                                        <div class="post-actions">
-                                            <button class="action-button" type="button" onclick="showUploadFile()">
-                                                <i class="icon fas fa-image"></i>
-                                            </button>
-                                            <label for="location">
-                                                <button class="action-button" type="button">
-                                                    <i class="icon fas fa-map-marker-alt"></i>
-                                                    <input id="location" name="location"
-                                                           style="background-color: #f4f4f4;border: none;padding: 0px 5px"
-                                                           placeholder="Where are you now?">
-                                                </button>
-                                            </label>
+    </div>
+</nav>
 
-                                        </div>
-                                        <div class="file-preview" id="file-preview" style="width: 100%;display: none">
-                                            <label for="post-media" class="upload-media-button">
-                                                <input type="file" id="post-media" accept="image/*,video/*" style="display: none;"
-                                                       onchange="previewImage2(event)">
-                                                <img src="/images/file-upload-scripts.webp"
-                                                     style="max-width: 350px;max-height: 240px" id="fileUploadPreview">
-                                                <input name="media.data" type="hidden" id="fileUploadEle"/>
-                                            </label>
-                                        </div>
-                                        <button id="post-button" type="submit">Post</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+<!-- profile-page-------------------------- -->
+
+<form method="post" id="form">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="formBody" class="row">
 
                     </div>
-                </c:if>
-
-                <c:forEach items="${matchesPosts}" var="post" varStatus="loop">
-                    <div class="status-field-container write-post-container">
-                        <div class="user-profile-box">
-                            <div class="user-profile">
-                                <img src="${post.profile.avatar}" alt="">
-                                <div>
-                                    <p> ${post.profile.name}</p>
-                                    <small>${post.formattedTime}</small>
-                                </div>
-                            </div>
-                            <div>
-                                <a href="#"><i class="fas fa-ellipsis-v"></i></a>
-                            </div>
-                        </div>
-                        <div class="status-field">
-                            <p>${post.content.data}
-                                <c:forEach items="${post.hashTag}" var="hashtag">
-                                    <a href="#">${hashtag} </a>
-                                </c:forEach>
-                            </p>
-                            <img
-                                    <c:if test="${post.media !=null}">src="${post.media.data}" alt=""</c:if> >
-
-                        </div>
-                        <div class="post-reaction">
-                            <div class="activity-icons">
-                                <div><img src="../images/like-blue.png" alt="">120</div>
-                                <div><img src="../images/comments.png" alt="">52</div>
-                                <div><img src="../images/share.png" alt="">35</div>
-                            </div>
-
-                        </div>
+                    <div>
+                        <label for="file">
+                            <img src="../images/defaullt-avatar.jpg" alt="default" id="preview-image"
+                                 style="max-height: 100px; max-width: 100px; border-radius: 50%; object-fit: contain"/>
+                            <input id="file" type="file" class="d-none" onchange="previewImage(event)"/>
+                            <input name="avatar" type="hidden" id="avatar"/>
+                        </label>
                     </div>
-                </c:forEach>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
-    <footer id="footer">
-        <p>&copy; Copyright 2021 - Socialbook All Rights Reserved</p>
-    </footer>
+</form>
 
-    <script src="function.js"></script>
+
+<div class="profile-container">
+    <img src="${searchProfile.cover}" class="coverImage" alt="" style="max-height: 400px">
+    <div class="dashboard">
+        <div class="left-dashboard">
+            <img src="${searchProfile.avatar}" class="dashboard-img" alt="" style="max-height: 100px; max-width: 100px">
+            <div class="left-dashboard-info">
+                <button
+                        <c:if test="${selfProfile.id == searchProfile.id}">onclick="onShowProfileUser()"  </c:if>
+                        type="button" class="btn" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    <h3>${searchProfile.name}</h3>
+                </button>
+            </div>
+        </div>
+        <div class="right-dashboard-info">
+            <div class="right-dashboard-info-top">
+                <c:if test="${selfProfile.id != searchProfile.id}">
+                    <button type="button"><i class="fas fa-user-plus"></i> Friends</button>
+                    <button type="button"><i class="far fa-envelope"></i> messages</button>
+                </c:if>
+            </div>
+            <div class="right-div-single-logo"><a href="#"> <i class="fas fa-ellipsis-h"></i></a></div>
+        </div>
+    </div>
+
+
+    <div class="container content-profile-container">
+        <div class="left-sidebar profile-left-sidebar">
+            <div class="left-profile-sidebar-top">
+                <div class="intro-bio">
+                    <h4>intro</h4>
+                    <p>Belive in yourself and you do unbelievable things <i class="far fa-smile-beam"></i></p>
+                    <hr>
+                </div>
+                <div class="background-details">
+                    <a href="#"><i class="fas fa-briefcase"></i>
+                        <p>Freelancer on Fiverr</p>
+                    </a>
+                    <a href="#"><i class="fas fa-graduation-cap"></i>
+                        <p>Studied bsc at Choumuhoni Collage</p>
+                    </a>
+                    <a href="#"><i class="fas fa-user-graduate"></i>
+                        <p>Went to Technical School & Collage</p>
+                    </a>
+                    <a href="#"><i class="fas fa-home"></i>
+                        <p>Lives in Noakhali, Chittagong</p>
+                    </a>
+                    <a href="#"><i class="fas fa-map-marker-alt"></i>
+                        <p>From Chittagong, Bangladesh</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="left-profile-sidebar-top gallery">
+                <div class="heading-link profile-heading-link">
+                    <h4>Photos</h4>
+                    <a href="">All Photos</a>
+                </div>
+
+                <div class="gallery-photos">
+                    <div class="gallery-photos-rowFirst">
+                        <img src="../images/photo1.png" alt="">
+                        <img src="../images/photo2.png" alt="">
+                        <img src="../images/photo3.png" alt="">
+
+                        <img src="../images/photo4.png" alt="">
+                        <img src="../images/photo5.png" alt="">
+                        <img src="../images/photo6.png" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="left-profile-sidebar-top gallery">
+                <div class="heading-link profile-heading-link">
+                    <h4>Friends</h4>
+                    <a href="">All Friends</a>
+                </div>
+
+                <div class="gallery-photos">
+                    <div class="gallery-photos-rowFirst">
+                        <div class="first-friend">
+                            <img src="../images/member-1.png" alt="">
+                            <p>Nathan M</p>
+                        </div>
+                        <div class="second-friend">
+                            <img src="../images/member-2.png" alt="">
+                            <p>Joseph N</p>
+                        </div>
+                        <div class="third-friend">
+                            <img src="../images/member-3.png" alt="">
+                            <p>Blondie K</p>
+                        </div>
+                        <div class="forth-friend">
+                            <img src="../images/member-4.png" alt="">
+                            <p>Jonathon J</p>
+                        </div>
+                        <div class="fifth-friend">
+                            <img src="../images/member-5.png" alt="">
+                            <p>Mark K</p>
+                        </div>
+                        <div class="sixth-friend">
+                            <img src="../images/member-6.png" alt="">
+                            <p>Emilia M</p>
+                        </div>
+                        <div class="seventh-friend">
+                            <img src="../images/member-7.png" alt="">
+                            <p>Max P</p>
+                        </div>
+                        <div class="eighth-friend">
+                            <img src="../images/member-8.png" alt="">
+                            <p>Layla M</p>
+                        </div>
+                        <div class="ninth-friend">
+                            <img src="../images/member-9.png" alt="">
+                            <p>Edward M</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- main-content------- -->
+
+        <div class="content-area profile-content-area">
+            <c:if test="${selfProfile.id == searchProfile.id}">
+                <div class="write-post-container">
+                    <div class="user-profile">
+                        <img src="${selfProfile.avatar}" alt="" style="max-height: 45px;max-width: 45px">
+                        <div>
+                            <p> ${selfProfile.name}</p>
+                            <small>Public <i class="fas fa-caret-down"></i></small>
+                        </div>
+                    </div>
+                        <%--            em da viet them 1 dong hay tim --%>
+                    <div class="post-upload-textarea" id="openPopupBtn">
+                    <textarea name="postContent" onclick="openPostPopup()" placeholder="What's on your mind, Alex?"
+                              id="post-text-area" cols="30"
+                              rows="3" readonly></textarea>
+                        <div class="add-post-links">
+                            <span onclick="openPostPopup()"><img src="../images/live-video.png" alt="">Live Video</span>
+                            <span onclick="openPostPopup()"><img src="../images/photo.png" alt="">Photo/Video</span>
+                            <span onclick="openPostPopup()"><img src="../images/feeling.png"
+                                                                 alt="">Feeling Activity</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="post-container">
+                    <div class="popup-overlay" id="popup-overlay">
+                        <div class="popup">
+                            <form id="postForm" method="post">
+                                <div class="popup-header">
+                                    <h2 style="text-align: center" id="modalTitle">Create Post</h2>
+                                    <button class="close-popup-button" type="button" onclick="closePostPopup()">Close
+                                    </button>
+                                </div>
+                                <div class="user-info">
+                                    <div class="profile-picture" style="background-color: white;">
+                                        <img src="${selfProfile.avatar} "
+                                             style="background-color: white; max-width: 45px; max-height: 45px;border-radius: 50%; margin-right: 10px">
+                                        <!-- Add the user's profile picture here -->
+                                    </div>
+
+                                    <div class="user-details">
+                                        <!-- Add the user's name here -->
+                                        <span class="username">${selfProfile.name}</span>
+                                        <!-- Privacy settings -->
+                                        <div class="privacy-settings">
+                                            <span class="privacy-label">Privacy:</span>
+                                            <select id="privacy-select" name="limit">
+                                                <option name="limit" value="PUBLIC">Public</option>
+                                                <option name="limit" value="FRIEND">Friends</option>
+                                                <option name="limit" value="PRIVATE">Private</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="post-content" style="display: block">
+                                    <textarea id="post-text" name="content.data"
+                                              placeholder="What's on your mind?"></textarea>
+                                    <div class="post-actions">
+                                        <button class="action-button" type="button" onclick="showUploadFile()">
+                                            <i class="icon fas fa-image"></i>
+                                        </button>
+                                        <label for="location">
+                                            <button class="action-button" type="button">
+                                                <i class="icon fas fa-map-marker-alt"></i>
+                                                <input id="location" name="location"
+                                                       style="background-color: #f4f4f4;border: none;padding: 0px 5px"
+                                                       placeholder="Where are you now?">
+                                            </button>
+                                        </label>
+
+                                    </div>
+                                    <div class="file-preview" id="file-preview" style="width: 100%;display: none">
+                                        <label for="post-media" class="upload-media-button">
+                                            <input type="file" id="post-media" accept="image/*,video/*"
+                                                   style="display: none;"
+                                                   onchange="previewImage2(event)">
+                                            <img src="/images/file-upload-scripts.webp"
+                                                 style="object-fit: contain" id="fileUploadPreview">
+                                            <input name="media.data" type="hidden" id="fileUploadEle"/>
+                                        </label>
+                                    </div>
+                                    <button id="post-button" type="submit">Post</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </c:if>
+
+            <c:forEach items="${matchesPosts}" var="post" varStatus="loop">
+                <div class="status-field-container write-post-container">
+                    <div class="user-profile-box">
+                        <div class="user-profile">
+                            <img src="${post.profile.avatar}" alt="" style="max-width: 45px;max-height: 45px">
+                            <div>
+                                <p> ${post.profile.name}</p>
+                                <small>${post.formattedTime}</small>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                        </div>
+                    </div>
+                    <div class="status-field">
+                        <p>${post.content.data}
+                            <c:forEach items="${post.hashTag}" var="hashtag">
+                                <a href="#">${hashtag} </a>
+                            </c:forEach>
+                        </p>
+                        <img
+                                <c:if test="${post.media !=null}">src="${post.media.data}" alt="" style="object-fit: contain"</c:if> >
+
+                    </div>
+                    <div class="post-reaction">
+                        <div class="activity-icons">
+                            <div><img src="../images/like-blue.png" alt="">120</div>
+                            <div><img src="../images/comments.png" alt="">52</div>
+                            <div><img src="../images/share.png" alt="">35</div>
+                        </div>
+
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <p>&copy; Copyright 2021 - Socialbook All Rights Reserved</p>
+</footer>
+
+<script src="function.js"></script>
 </body>
 <script src="../base.js"></script>
 <script src="https:/cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -446,11 +455,12 @@
         let title = "Edit";
         tileModal.innerHTML = title + " User";
         form.setAttribute('action', '/users/profile?action=' + action);
-        if(profile.avatar){
+        if (profile.avatar) {
             imagePreview.src = profile.avatar;
         }
         resetData();
     }
+
     function resetData() {
         inputs = [
             {
@@ -537,10 +547,11 @@
         document.getElementById('avatar').src = profile.avatar;
 
     }
-    function previewImage(evt){
-        const img =  document.getElementById('preview-image')
+
+    function previewImage(evt) {
+        const img = document.getElementById('preview-image')
         const reader = new FileReader();
-        reader.onload = function(){
+        reader.onload = function () {
 
             img.src = reader.result;
         };
@@ -561,7 +572,7 @@
                 .then((response) => response.json())
                 .then((data) => {
                     // Handle the response from the server (assuming the server returns the image URL)
-                     // Change this based on the actual response format
+                    // Change this based on the actual response format
                     // Call a function to display the image preview
                     document.getElementById('avatar').value = data?.imageUrl || '';
 

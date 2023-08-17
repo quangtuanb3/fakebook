@@ -80,7 +80,7 @@
         </div>
         <div class="settings-links">
             <img src="../images/logout.png" alt="" class="settings-icon">
-            <a href = "/auths?action=logout">Logout <img src="../images/arrow.png" alt=""></a>
+            <a href="/auths?action=logout">Logout <img src="../images/arrow.png" alt=""></a>
         </div>
 
     </div>
@@ -136,13 +136,13 @@
 
         <div class="write-post-container">
             <div class="user-profile">
-                <img src="${profile.avatar}" alt="">
+                <img src="${profile.avatar}" alt="avatar" style="max-height: 45px; max-width: 45px">
                 <div>
                     <p> ${profile.name}</p>
                     <small>Public <i class="fas fa-caret-down"></i></small>
                 </div>
             </div>
-<%--            em da viet them 1 dong hay tim --%>
+            <%--            em da viet them 1 dong hay tim --%>
             <div class="post-upload-textarea" id="openPopupBtn">
                     <textarea name="postContent" onclick="openPostPopup()" placeholder="What's on your mind, Alex?"
                               id="post-text-area" cols="30"
@@ -166,7 +166,7 @@
                         <div class="user-info">
                             <div class="profile-picture" style="background-color: white;">
                                 <img src="${profile.avatar}"
-                                     style="background-color: white; width: 45px; border-radius: 50%; margin-right: 10px">
+                                     style="background-color: white; max-width: 45px; max-height: 45px; border-radius: 50%; margin-right: 10px">
                                 <!-- Add the user's profile picture here -->
                             </div>
 
@@ -240,7 +240,7 @@
                         </c:forEach>
                     </p>
                     <img
-                            <c:if test="${post.media !=null}">src="${post.media.data}" alt=""</c:if> >
+                            <c:if test="${post.media !=null}">src="${post.media.data}" alt="" style="object-fit: contain" </c:if> >
 
                 </div>
                 <div class="post-reaction">
@@ -370,6 +370,7 @@
         // resetData();
         imgDiv.style.display = "none";
     }
+
     function centerPopup() {
         const popup = document.querySelector(".popup");
         popup.style.left = `${window.innerWidth / 2 - popup.offsetWidth / 2}px`;
